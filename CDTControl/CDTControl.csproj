@@ -114,7 +114,7 @@
       <HintPath>C:\Program Files (x86)\DevExpress 2011.1\Components\Sources\DevExpress.DLL\DevExpress.XtraTreeList.v11.1.dll</HintPath>
     </Reference>
     <Reference Include="Fomula">
-      <HintPath>..\CDT\bin\Debug\Fomula.dll</HintPath>
+      <HintPath>..\..\..\SGDPOS\CDT\bin\Debug\Fomula.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
       <SpecificVersion>False</SpecificVersion>

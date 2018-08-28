@@ -117,7 +117,7 @@ namespace CDTSystem
         {
             string sql = "Update " + tableName + " set ";
             string where="";
-            string note;
+            string note="";
             foreach (DataRow dr in MapStruct.Rows)
             {
                 int Type = int.Parse(dr["Type"].ToString());
@@ -129,6 +129,8 @@ namespace CDTSystem
                 }
                 if (dr["fieldName"].ToString() != string.Empty && dr["ColName"] != DBNull.Value && dr["ColName"].ToString() != string.Empty)
                 {
+                    if (RowData[dr["ColName"].ToString()].ToString() == "" && note == "")
+                        continue;
                     note = getnote(dr["Type"].ToString());
                     sql += dr["fieldName"].ToString() + " = " + ((Type == 1 || Type == 2) ? "N" + note : note) + RowData[dr["ColName"].ToString()].ToString() + note + ",";
                 }
@@ -169,6 +171,8 @@ namespace CDTSystem
                     string note = getnote(dr["Type"].ToString());
                     if (dr["ColName"] != DBNull.Value && dr["ColName"].ToString() != string.Empty)
                     {
+                        if (RowData[dr["ColName"].ToString()].ToString() == "" && note == "") 
+                            continue;
                         sql += dr["fieldName"].ToString() + ",";
                         values += (note == "'" ? "N" + note : note) + RowData[dr["ColName"].ToString()].ToString() + note + ",";
                     }

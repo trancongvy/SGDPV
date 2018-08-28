@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CusNissan</RootNamespace>
     <AssemblyName>CusNissan</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -31,6 +31,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -54,6 +55,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\DevExpress 2011.1\Components\Sources\DevExpress.DLL\DevExpress.Data.v11.1.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.Printing.v11.1.Core, Version=11.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Utils.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\DevExpress 2011.1\Components\Sources\DevExpress.DLL\DevExpress.Utils.v11.1.dll</HintPath>
@@ -99,28 +101,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CDTControl\CDTControl.csproj">
-      <Project>{8EEECDAC-1392-4262-A698-B5BE74ADCF72}</Project>
-      <Name>CDTControl</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CDTDatabase\CDTDatabase.csproj">
-      <Project>{9BBDB6C7-70F8-4805-BB51-445551E282C5}</Project>
-      <Name>CDTDatabase</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CDTLib\CDTLib.csproj">
-      <Project>{CF282973-8899-4C28-8286-71155CBE9C3A}</Project>
-      <Name>CDTLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DevControls\DevControls.csproj">
-      <Project>{4983AC7A-6DF3-4F84-951F-5589B56C4AC5}</Project>
-      <Name>DevControls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FormFactory\FormFactory.csproj">
-      <Project>{1A72F659-C361-4FD3-ABE8-EF03B6F33A78}</Project>
-      <Name>FormFactory</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="fCRManage.resx">
       <SubType>Designer</SubType>
       <DependentUpon>fCRManage.cs</DependentUpon>
@@ -133,6 +113,7 @@
       <SubType>Designer</SubType>
       <DependentUpon>fImExcel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -145,6 +126,28 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CDTControl\CDTControl.csproj">
+      <Project>{8eeecdac-1392-4262-a698-b5be74adcf72}</Project>
+      <Name>CDTControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CDTDatabase\CDTDatabase.csproj">
+      <Project>{9bbdb6c7-70f8-4805-bb51-445551e282c5}</Project>
+      <Name>CDTDatabase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CDTLib\CDTLib.csproj">
+      <Project>{cf282973-8899-4c28-8286-71155cbe9c3a}</Project>
+      <Name>CDTLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CDTSystem\CDTSystem.csproj">
+      <Project>{15e11060-c873-4207-a081-c5d2db94c203}</Project>
+      <Name>CDTSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataFactory\DataFactory.csproj">
+      <Project>{91c9ebb2-abaa-4abe-a659-69e2208bf10e}</Project>
+      <Name>DataFactory</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
