@@ -1,6 +1,6 @@
 namespace DevControls
 {
-    partial class CDTGridColumn
+    partial class CDTBandGridColumn
     {
         /// <summary> 
         /// Required designer variable.

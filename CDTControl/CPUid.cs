@@ -45,17 +45,22 @@ namespace CDTControl.CDTControl
 
         private void GetCPUid()
         {
-            ManagementClass MC = new ManagementClass("Win32_Processor");
-            ManagementObjectCollection MOC = MC.GetInstances();
-            foreach (ManagementObject mo in MOC)
+            _cPUidStr = "sdjfhsajkdfbasjdfhasjfbasjdfbsjkfhasjdfhsdjkfhsdjfhsadjfhwuirhwijfnasjkfhqusfhasdjfashdfhasdjfhasf";
+            try
             {
-                if (mo.Properties["ProcessorId"].Value.ToString() != "")
+                ManagementClass MC = new ManagementClass("Win32_Processor");
+                ManagementObjectCollection MOC = MC.GetInstances();
+                foreach (ManagementObject mo in MOC)
                 {
-                    _cPUidStr = mo.Properties["ProcessorId"].Value.ToString();
-                    break;
+                    if (mo.Properties["ProcessorId"].Value.ToString() != "")
+                    {
+                        _cPUidStr = mo.Properties["ProcessorId"].Value.ToString();
+                        break;
+                    }
                 }
             }
-            
+            catch { }
+
 
         }
 

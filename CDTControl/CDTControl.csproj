@@ -139,6 +139,7 @@
     <Compile Include="ExportExcel.cs" />
     <Compile Include="ImportExcel.cs" />
     <Compile Include="Log.cs" />
+    <Compile Include="MailControl.cs" />
     <Compile Include="PostBl.cs" />
     <Compile Include="Printing.cs" />
     <Compile Include="SysConfig.cs" />

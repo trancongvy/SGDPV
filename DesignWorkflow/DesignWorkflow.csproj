@@ -91,6 +91,12 @@
     <Compile Include="Ev.designer.cs">
       <DependentUpon>Ev.cs</DependentUpon>
     </Compile>
+    <Compile Include="fActionMailContent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fActionMailContent.Designer.cs">
+      <DependentUpon>fActionMailContent.cs</DependentUpon>
+    </Compile>
     <Compile Include="fActionCommand.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,6 +122,10 @@
   <ItemGroup>
     <EmbeddedResource Include="Ev.resx">
       <DependentUpon>Ev.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fActionMailContent.resx">
+      <DependentUpon>fActionMailContent.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="fActionCommand.resx">

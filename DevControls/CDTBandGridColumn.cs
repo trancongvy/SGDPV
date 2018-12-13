@@ -10,9 +10,9 @@ using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.BandedGrid;
 namespace DevControls
 {
-    public partial class CDTGridColumn : DevExpress.XtraGrid.Columns.GridColumn
+    public partial class CDTBandGridColumn : BandedGridColumn
     {
-        public CDTGridColumn()
+        public CDTBandGridColumn()
         {
             InitializeComponent();
         }

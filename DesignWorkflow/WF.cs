@@ -51,6 +51,7 @@ namespace Designflow
                 drWF = wf.Rows[0];
                 sql = "select * from sysTask where WFID='" + drWF["ID"].ToString() + "'";
                 DataTable tbTask = _dataSt.GetDataTable(sql);
+                lTask.Clear();
                 foreach (DataRow dr in tbTask.Rows)
                 {
                     Task ntask = new Task(dr);
@@ -60,6 +61,7 @@ namespace Designflow
                 }
                 sql = "select * from sysAction where WFID='" + drWF["ID"].ToString() + "'";
                 DataTable tbAction = _dataSt.GetDataTable(sql);
+                lAction.Clear();
                 foreach (DataRow dr in tbAction.Rows)
                 {
                     Action A = new Action(dr);
@@ -154,9 +156,10 @@ namespace Designflow
                         _dataSt.UpdateByNonQuery(sql);
                         foreach (DataRow drSecu in t.tbSecu.Rows)
                         {
-                            sql = "insert into  sysUserTask (sysUserID, TaskID, CView, CEdit, CDelete) values (";
-                            sql += drSecu["sysUserID"].ToString() + ",'" + drSecu["TaskID"].ToString() + "','" + drSecu["CView"].ToString().Replace("'","''") +
-                                "','" + drSecu["CEdit"].ToString().Replace("'", "''") + "','" + drSecu["CDelete"].ToString().Replace("'", "''") + "')";
+                            string Getmail = Getmail = (bool.Parse(drSecu["GetMail"].ToString())) ? "1" : "0";
+                            sql = "insert into  sysUserTask (sysUserID, TaskID, CView, CEdit, CDelete, getMail) values (";
+                            sql += drSecu["sysUserID"].ToString() + ",'" + drSecu["TaskID"].ToString() + "','" + drSecu["CView"].ToString().Replace("'", "''") +
+                                "','" + drSecu["CEdit"].ToString().Replace("'", "''") + "','" + drSecu["CDelete"].ToString().Replace("'", "''") + "'," + Getmail + ")";
                             _dataSt.UpdateByNonQuery(sql);
                         }
                     }
@@ -166,9 +169,10 @@ namespace Designflow
                         _dataSt.UpdateByNonQuery(sql);
                         foreach (DataRow drSecu in t.tbSecuGroup.Rows)
                         {
-                            sql = "insert into  sysUserGrTask (sysUserGroupID, TaskID, CView, CEdit, CDelete) values (";
+                            string Getmail = Getmail = (bool.Parse(drSecu["GetMail"].ToString())) ? "1" : "0";
+                            sql = "insert into  sysUserGrTask (sysUserGroupID, TaskID, CView, CEdit, CDelete, GetMail) values (";
                             sql += drSecu["sysUserGroupID"].ToString() + ",'" + drSecu["TaskID"].ToString() + "','" + drSecu["CView"].ToString().Replace("'", "''") +
-                                "','" + drSecu["CEdit"].ToString().Replace("'", "''") + "','" + drSecu["CDelete"].ToString().Replace("'", "''") + "')";
+                                "','" + drSecu["CEdit"].ToString().Replace("'", "''") + "','" + drSecu["CDelete"].ToString().Replace("'", "''") + "'," + Getmail + ")";
                             _dataSt.UpdateByNonQuery(sql);
                         }
                     }
@@ -187,9 +191,16 @@ namespace Designflow
                     if (A.ShowCond == null) A.ShowCond = "";
                     if (A.Confirm == null) A.Confirm = "";
                     if (A.Message == null) A.Message = "";
-                    sql = "insert into sysAction(ID,systableID, AutoDo, condition,ShowCond, Command, commandName,Confirm, Message,BTId, ETId, P,WFID, isRefresh,AfterUpdate) Values ('";
+                    string SendMail = A.SendMail ? "1" : "0";
+                    string SendMailKH = A.SendMailKH ? "1" : "0";
+                    if (A.MailContent == null) A.MailContent = "";
+                    if (A.MailContentKH == null) A.MailContentKH = "";
+
+                    sql = "insert into sysAction(ID,systableID, AutoDo, condition,ShowCond, Command, commandName,Confirm, Message,BTId, ETId, P,WFID," +
+                        "isRefresh,AfterUpdate, SendMail, SendMailKH, MailContent, MailContentKH ) Values ('";
                     sql += A.Id.ToString() + "'," + tableID + "," + Autodo + ",'" + A.Condition.Replace("'", "''") + "','" + A.ShowCond.Replace("'", "''") + "',N'" + A.Command.Replace("'", "''");
-                    sql += "',N'" + A.Name + "',N'" + A.Confirm + "',N'" + A.Message +"','"   + A.BT.id.ToString() + "','" + A.ET.id.ToString() + "','" + A.GetPString() + "','" + ID + "'," + isRefresh + ",N'" + A.AfterUpdateCommand.Replace("'","''") + "')";
+                    sql += "',N'" + A.Name + "',N'" + A.Confirm + "',N'" + A.Message +"','"   + A.BT.id.ToString() + "','" + A.ET.id.ToString() + "','" + A.GetPString() + "','" + ID +
+                        "'," + isRefresh + ",N'" + A.AfterUpdateCommand.Replace("'","''") + "'," + SendMail + "," +SendMailKH + ",N'" + A.MailContent.Replace("'", "''") + "',N'" + A.MailContentKH.Replace("'", "''") + "')";
                     _dataSt.UpdateByNonQuery(sql);
                     sql = "update sysAction set icon=@icon where ID='" + A.Id.ToString() + "'";
 

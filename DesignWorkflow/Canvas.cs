@@ -129,6 +129,10 @@ namespace Designflow
         public Image Icon;
         public string Command;
         public string AfterUpdateCommand;
+        public string MailContentKH="";
+        public string MailContent="";
+        public bool SendMail=false;
+        public bool SendMailKH=false;
         public bool AutoDo;
         public string ShowCond;
         public bool isRefresh;
@@ -157,8 +161,19 @@ namespace Designflow
             if (dr["AfterUpdate"] != DBNull.Value)
                 AfterUpdateCommand = dr["AfterUpdate"].ToString();
             isRefresh = bool.Parse(dr["isRefresh"].ToString());
+
+            if (dr["SendMail"] != DBNull.Value)
+                SendMail = bool.Parse( dr["SendMail"].ToString());
+            if (dr["SendMailKH"] != DBNull.Value)
+                SendMailKH = bool.Parse(dr["SendMailKH"].ToString());
+            if (dr["MailContent"] != DBNull.Value)
+                MailContent = dr["MailContent"].ToString();
+            if (dr["MailContentKH"] != DBNull.Value)
+                MailContentKH = dr["MailContentKH"].ToString();
+
             if (dr["ShowCond"] != DBNull.Value)
                 ShowCond = dr["ShowCond"].ToString();
+
             string[] lpoint = dr["P"].ToString().Split(" ".ToCharArray());
             foreach (string lpoint_i in lpoint)
             {
