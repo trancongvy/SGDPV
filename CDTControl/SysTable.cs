@@ -40,9 +40,14 @@ namespace CDTControl
             string sql = "update sysField set  TabIndex=" + inx.ToString() + " where sysfieldID=" + dr["sysFieldID"].ToString();
             _dbStruct.UpdateByNonQuery(sql);
         }
+        public void UpdateRowHeight(string TableName, int Height)
+        {
+            string sql = "update sysTable set  RowHeight=" + Height.ToString() + " where TableName='" + TableName +"'";
+            _dbStruct.UpdateByNonQuery(sql);
+        }
         public void UpdateColVisible(DataRow dr, int v)
         {
-            string sql = "update sysField set Visible=" + v.ToString() + " where sysfieldID=" + dr["sysFieldID"].ToString();
+            string sql = "update sysField set Visible='" + v.ToString() + "' where (Visible='0' or Visible='1') and sysfieldID=" + dr["sysFieldID"].ToString();
             _dbStruct.UpdateByNonQuery(sql);
         }
     }

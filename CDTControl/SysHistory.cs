@@ -55,6 +55,28 @@ namespace CDTControl
             }
             return o;
         }
+        public object InsertHistory(string sysMenuID, string action, string pkValue, string content, string sysTableID, DateTime Btime, DateTime Etime)
+        {
+            object o;
+            try
+            {
+                string sysUserID = Config.GetValue("sysUserID").ToString();
+                string syspackageID = Config.GetValue("sysPackageID").ToString();
+                string sql = "insert into sysHistory(hDateTime, sysUserID, sysPackageID, sysMenuID, Action, PkValue, OldContent, sysTableID,ComputerName, BTime, Etime, Duration) " +
+                    " values(getdate()," + sysUserID + "," + syspackageID + "," + sysMenuID + ",N'" + action + "',N'" + pkValue + "',N'" + content + "'," + (sysTableID==""? "0":sysTableID) + ",'" + Config.GetValue("ComputerName") + "','"  + Btime.ToLongDateString() +"','" + Etime.ToLongDateString() + "'," + (Etime-Btime).TotalMilliseconds.ToString() + ")";
+                _dbStruct.BeginMultiTrans();
+                _dbStruct.UpdateByNonQuery(sql);
+                o = _dbStruct.GetValue("select @@identity");
+                _dbStruct.EndMultiTrans();
+
+            }
+            finally
+            {
+                if (_dbStruct.Connection.State != ConnectionState.Closed)
+                    _dbStruct.Connection.Close();
+            }
+            return o;
+        }
         public void InsertHistoryDt(string sysHistoryID, string sysFieldID, string NewValue, string OldValue)
         {
             try

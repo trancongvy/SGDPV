@@ -156,6 +156,7 @@ namespace Designflow
                         _dataSt.UpdateByNonQuery(sql);
                         foreach (DataRow drSecu in t.tbSecu.Rows)
                         {
+                            if (drSecu["GetMail"] == DBNull.Value) drSecu["GetMail"] = 0;
                             string Getmail = Getmail = (bool.Parse(drSecu["GetMail"].ToString())) ? "1" : "0";
                             sql = "insert into  sysUserTask (sysUserID, TaskID, CView, CEdit, CDelete, getMail) values (";
                             sql += drSecu["sysUserID"].ToString() + ",'" + drSecu["TaskID"].ToString() + "','" + drSecu["CView"].ToString().Replace("'", "''") +
@@ -169,6 +170,7 @@ namespace Designflow
                         _dataSt.UpdateByNonQuery(sql);
                         foreach (DataRow drSecu in t.tbSecuGroup.Rows)
                         {
+                            if (drSecu["GetMail"] == DBNull.Value) drSecu["GetMail"] = 0;
                             string Getmail = Getmail = (bool.Parse(drSecu["GetMail"].ToString())) ? "1" : "0";
                             sql = "insert into  sysUserGrTask (sysUserGroupID, TaskID, CView, CEdit, CDelete, GetMail) values (";
                             sql += drSecu["sysUserGroupID"].ToString() + ",'" + drSecu["TaskID"].ToString() + "','" + drSecu["CView"].ToString().Replace("'", "''") +

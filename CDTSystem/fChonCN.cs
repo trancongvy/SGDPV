@@ -9,6 +9,7 @@ using DevExpress.XtraEditors;
 using CDTDatabase;
 using CDTLib;
 using DataFactory;
+using CDTControl;
 namespace CDTSystem
 {
     public partial class fChonCN : DevExpress.XtraEditors.XtraForm
@@ -34,7 +35,17 @@ namespace CDTSystem
 
         private void fChonCN_Load(object sender, EventArgs e)
         {
+            DevLocalizer.Translate(this);
+            gridLookUpEdit1.KeyDown += GridLookUpEdit1_KeyDown;
+        }
 
+        private void GridLookUpEdit1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Down && !(sender as GridLookUpEdit).IsPopupOpen)
+            {
+                (sender as GridLookUpEdit).ShowPopup();
+                e.Handled = true;
+            }
         }
 
         private void simpleButton1_Click(object sender, EventArgs e)

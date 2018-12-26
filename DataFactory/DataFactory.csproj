@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CDTData.cs" />
+    <Compile Include="CDTTable.cs" />
     <Compile Include="DataDetail.cs" />
     <Compile Include="DataFactory.cs" />
     <Compile Include="DataMasterDetail.cs" />
