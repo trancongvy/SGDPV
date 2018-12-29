@@ -38,6 +38,7 @@ namespace CDTControl
         public bool SendMail(string email, string Content, string  SubText)
         {
 
+            if (email.Trim() == "") return false;
             SmtpClient client = new SmtpClient();
             client.Port = Port; //587;//25;//465;//
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
@@ -48,7 +49,14 @@ namespace CDTControl
             client.Credentials = new NetworkCredential(FromMail, Password);
             client.EnableSsl = true;//false;//
             MailAddress from = new MailAddress(FromMail, Nguoigui);
-            MailAddress to = new MailAddress(email);
+            MailAddress to;
+            try
+            {
+                to = new MailAddress(email);
+            }
+            catch  {
+                return false; }
+            if (to == null) return false;
             MailMessage mail = new MailMessage(from, to);
             string htmlbody = Content;
             List<LinkedResource> Ress = new List<LinkedResource>();
