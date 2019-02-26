@@ -77,6 +77,10 @@
       <Project>{CF282973-8899-4C28-8286-71155CBE9C3A}</Project>
       <Name>CDTLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ErrorManager\ErrorManager.csproj">
+      <Project>{87726715-C19D-44AD-9CA0-90097D40EB39}</Project>
+      <Name>ErrorManager</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

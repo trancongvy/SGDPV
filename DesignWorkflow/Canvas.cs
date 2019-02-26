@@ -138,6 +138,7 @@ namespace Designflow
         public bool isRefresh;
         public string Confirm = "";
         public string Message = "";
+        public bool DoconfigData = true;
         public Action()
         {
             Name = "New Action";
@@ -173,7 +174,9 @@ namespace Designflow
 
             if (dr["ShowCond"] != DBNull.Value)
                 ShowCond = dr["ShowCond"].ToString();
-
+            if (dr["DoConfigData"]!= DBNull.Value){
+                DoconfigData = bool.Parse(dr["DoConfigData"].ToString());
+            }
             string[] lpoint = dr["P"].ToString().Split(" ".ToCharArray());
             foreach (string lpoint_i in lpoint)
             {

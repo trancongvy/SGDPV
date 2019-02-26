@@ -187,6 +187,7 @@ namespace Designflow
                 {
                     string Autodo = A.AutoDo ? "1" : "0";
                     string isRefresh = A.isRefresh ? "1" : "0";
+                    string DoConfigData = A.DoconfigData ? "1" : "0";
                     if (A.Command == null) A.Command = "";
                     if (A.AfterUpdateCommand == null) A.AfterUpdateCommand = "";
                     if (A.Condition== null) A.Condition = "";
@@ -199,10 +200,10 @@ namespace Designflow
                     if (A.MailContentKH == null) A.MailContentKH = "";
 
                     sql = "insert into sysAction(ID,systableID, AutoDo, condition,ShowCond, Command, commandName,Confirm, Message,BTId, ETId, P,WFID," +
-                        "isRefresh,AfterUpdate, SendMail, SendMailKH, MailContent, MailContentKH ) Values ('";
+                        "isRefresh,AfterUpdate, SendMail, SendMailKH, MailContent, MailContentKH,DoConfigData ) Values ('";
                     sql += A.Id.ToString() + "'," + tableID + "," + Autodo + ",'" + A.Condition.Replace("'", "''") + "','" + A.ShowCond.Replace("'", "''") + "',N'" + A.Command.Replace("'", "''");
                     sql += "',N'" + A.Name + "',N'" + A.Confirm + "',N'" + A.Message +"','"   + A.BT.id.ToString() + "','" + A.ET.id.ToString() + "','" + A.GetPString() + "','" + ID +
-                        "'," + isRefresh + ",N'" + A.AfterUpdateCommand.Replace("'","''") + "'," + SendMail + "," +SendMailKH + ",N'" + A.MailContent.Replace("'", "''") + "',N'" + A.MailContentKH.Replace("'", "''") + "')";
+                        "'," + isRefresh + ",N'" + A.AfterUpdateCommand.Replace("'","''") + "'," + SendMail + "," +SendMailKH + ",N'" + A.MailContent.Replace("'", "''") + "',N'" + A.MailContentKH.Replace("'", "''") + "'," + DoConfigData +")";
                     _dataSt.UpdateByNonQuery(sql);
                     sql = "update sysAction set icon=@icon where ID='" + A.Id.ToString() + "'";
 
