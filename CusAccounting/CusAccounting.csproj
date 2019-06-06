@@ -51,9 +51,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CBSControls, Version=1.0.3771.19215, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="CBSControls, Version=1.0.6563.35893, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\CBS Controls\bin\Debug\CBSControls.dll</HintPath>
+      <HintPath>..\..\..\SGDEMT\CBS Controls\bin\Debug\CBSControls.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Charts.v11.1.Core, Version=11.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
