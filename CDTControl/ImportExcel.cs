@@ -92,8 +92,9 @@ namespace CDTControl
                             Db.Rows.Add(dr);
                         
                     }
+                    break;
                 }
-                break;
+                
 
             }
             workbook.Close(false, false, false);
