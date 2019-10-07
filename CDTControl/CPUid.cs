@@ -42,7 +42,7 @@ namespace CDTControl.CDTControl
         private string _cPUStr1 = string.Empty;
 
         private string _cPUStr2 = string.Empty;
-
+        public string MaMay = "";
         private void GetCPUid()
         {
             _cPUidStr = "sdjfhsajkdfbasjdfhasjfbasjdfbsjkfhasjdfhsdjkfhsdjfhsadjfhwuirhwijfnasjkfhqusfhasdjfashdfhasdjfhasf";
@@ -55,6 +55,7 @@ namespace CDTControl.CDTControl
                     if (mo.Properties["ProcessorId"].Value.ToString() != "")
                     {
                         _cPUidStr = mo.Properties["ProcessorId"].Value.ToString();
+                        MaMay = _cPUidStr;
                         break;
                     }
                 }

@@ -34,8 +34,12 @@ namespace CDTSystem
             object customer = Config.GetValue("CompanyName");
             if (customer != null)
                 textEditCustomer.Text = customer.ToString();
+            object fbID = Config.GetValue("fbID");
+            if (fbID != null)
+                tfbID.Text = fbID.ToString();
             if (Config.GetValue("Language").ToString() == "1")
                 DevLocalizer.Translate(this);
+
         }
 
         private void About_KeyDown(object sender, KeyEventArgs e)

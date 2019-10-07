@@ -56,6 +56,7 @@ namespace DevControls
                     System.IO.FileStream fs = new System.IO.FileStream(sFdg.FileName, FileMode.Create, FileAccess.Write);
                     fs.Write(data, 0, data.Length);
                     fs.Close();
+                    System.Diagnostics.Process.Start(sFdg.FileName);
                 }
                 catch 
                 { }
