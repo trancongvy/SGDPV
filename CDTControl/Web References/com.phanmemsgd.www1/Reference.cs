@@ -13,7 +13,7 @@
 // 
 #pragma warning disable 1591
 
-namespace CDTControl.com.phanmemsgd.www {
+namespace CDTControl.com.phanmemsgd.www1 {
     using System;
     using System.Web.Services;
     using System.Diagnostics;
@@ -39,7 +39,7 @@ namespace CDTControl.com.phanmemsgd.www {
         
         /// <remarks/>
         public Service() {
-            this.Url = global::CDTControl.Properties.Settings.Default.CDTControl_com_phanmemsgd_www_Service;
+            this.Url = global::CDTControl.Properties.Settings.Default.CDTControl_com_phanmemsgd_www1_Service;
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;

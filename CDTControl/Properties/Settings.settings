@@ -5,5 +5,8 @@
     <Setting Name="CDTControl_com_sgdsoft_Service" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://sgdsoft.com/Service.asmx</Value>
     </Setting>
+    <Setting Name="CDTControl_com_phanmemsgd_www1_Service" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://www.phanmemsgd.com/service.asmx</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

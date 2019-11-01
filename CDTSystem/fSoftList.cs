@@ -57,11 +57,7 @@ namespace CDTSystem
             if(Productname!=string.Empty) this.DialogResult = DialogResult.OK;
         }
 
-        private void btCreate_Click(object sender, EventArgs e)
-        {
-            Productname = "CBABPM05";
-            this.DialogResult = DialogResult.OK;
-        }
+
 
         private void simpleButton1_Click(object sender, EventArgs e)
         {
@@ -87,6 +83,7 @@ namespace CDTSystem
                 key.SetValue("isDemo", "0", RegistryValueKind.DWord);
                 key.SetValue("Language", "0", RegistryValueKind.DWord);
                 key.SetValue("Package", "7", RegistryValueKind.String);
+                key.SetValue("isOnline", "0", RegistryValueKind.DWord);
                 key.SetValue("Password", "20-2C-B9-62-AC-59-07-5B-96-4B-07-15-2D-23-4B-70", RegistryValueKind.ExpandString);
                 key.SetValue("RegisterNumber", "", RegistryValueKind.String);
                 key.SetValue("SavePassword", "True", RegistryValueKind.String);
@@ -99,6 +96,11 @@ namespace CDTSystem
                 key.SetValue("SoftType", "0", RegistryValueKind.DWord);
             }
             
+        }
+
+        private void simpleButton2_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
         }
     }
 }
