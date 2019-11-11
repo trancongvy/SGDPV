@@ -5,6 +5,8 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using CDTLib;
 using System.Net.Mail;
+using System.Net;
+
 namespace ErrorManager
 {
 	//****************************************************************************
@@ -91,18 +93,18 @@ namespace ErrorManager
             // 
             // BtnChiTiet
             // 
-            this.BtnChiTiet.Location = new System.Drawing.Point(112, 84);
+            this.BtnChiTiet.Location = new System.Drawing.Point(224, 155);
             this.BtnChiTiet.Name = "BtnChiTiet";
-            this.BtnChiTiet.Size = new System.Drawing.Size(80, 24);
+            this.BtnChiTiet.Size = new System.Drawing.Size(160, 44);
             this.BtnChiTiet.TabIndex = 1;
             this.BtnChiTiet.Text = "&Chi tiết >>";
             this.BtnChiTiet.Click += new System.EventHandler(this.BtnChiTiet_Click);
             // 
             // BtnThoat
             // 
-            this.BtnThoat.Location = new System.Drawing.Point(198, 84);
+            this.BtnThoat.Location = new System.Drawing.Point(396, 155);
             this.BtnThoat.Name = "BtnThoat";
-            this.BtnThoat.Size = new System.Drawing.Size(80, 24);
+            this.BtnThoat.Size = new System.Drawing.Size(160, 44);
             this.BtnThoat.TabIndex = 0;
             this.BtnThoat.Text = "&Tiếp tục";
             this.BtnThoat.Click += new System.EventHandler(this.BtnThoat_Click);
@@ -110,9 +112,9 @@ namespace ErrorManager
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(8, 8);
+            this.pictureBox1.Location = new System.Drawing.Point(16, 15);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 100);
+            this.pictureBox1.Size = new System.Drawing.Size(200, 184);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
@@ -120,9 +122,9 @@ namespace ErrorManager
             // LblMoTaLoi
             // 
             this.LblMoTaLoi.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblMoTaLoi.Location = new System.Drawing.Point(120, 9);
+            this.LblMoTaLoi.Location = new System.Drawing.Point(240, 17);
             this.LblMoTaLoi.Name = "LblMoTaLoi";
-            this.LblMoTaLoi.Size = new System.Drawing.Size(326, 42);
+            this.LblMoTaLoi.Size = new System.Drawing.Size(652, 77);
             this.LblMoTaLoi.TabIndex = 3;
             this.LblMoTaLoi.Text = "label1";
             this.LblMoTaLoi.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -130,28 +132,28 @@ namespace ErrorManager
             // richTextBoxChiTietLoi
             // 
             this.richTextBoxChiTietLoi.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.richTextBoxChiTietLoi.Location = new System.Drawing.Point(0, 13);
+            this.richTextBoxChiTietLoi.Location = new System.Drawing.Point(0, 7);
             this.richTextBoxChiTietLoi.Name = "richTextBoxChiTietLoi";
             this.richTextBoxChiTietLoi.ReadOnly = true;
-            this.richTextBoxChiTietLoi.Size = new System.Drawing.Size(458, 109);
+            this.richTextBoxChiTietLoi.Size = new System.Drawing.Size(929, 201);
             this.richTextBoxChiTietLoi.TabIndex = 5;
             this.richTextBoxChiTietLoi.Text = "";
             this.richTextBoxChiTietLoi.Visible = false;
             // 
             // BtnRestart
             // 
-            this.BtnRestart.Location = new System.Drawing.Point(284, 84);
+            this.BtnRestart.Location = new System.Drawing.Point(568, 155);
             this.BtnRestart.Name = "BtnRestart";
-            this.BtnRestart.Size = new System.Drawing.Size(80, 24);
+            this.BtnRestart.Size = new System.Drawing.Size(160, 44);
             this.BtnRestart.TabIndex = 6;
             this.BtnRestart.Text = "&Khởi động lại";
             this.BtnRestart.Click += new System.EventHandler(this.BtnRestart_Click);
             // 
             // BtnExit
             // 
-            this.BtnExit.Location = new System.Drawing.Point(370, 84);
+            this.BtnExit.Location = new System.Drawing.Point(740, 155);
             this.BtnExit.Name = "BtnExit";
-            this.BtnExit.Size = new System.Drawing.Size(80, 24);
+            this.BtnExit.Size = new System.Drawing.Size(160, 44);
             this.BtnExit.TabIndex = 7;
             this.BtnExit.Text = "T&hoát";
             this.BtnExit.Click += new System.EventHandler(this.BtnExit_Click);
@@ -159,19 +161,17 @@ namespace ErrorManager
             // checkBoxEmail
             // 
             this.checkBoxEmail.AutoSize = true;
-            this.checkBoxEmail.Checked = true;
-            this.checkBoxEmail.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxEmail.Location = new System.Drawing.Point(370, 61);
+            this.checkBoxEmail.Location = new System.Drawing.Point(740, 113);
             this.checkBoxEmail.Name = "checkBoxEmail";
-            this.checkBoxEmail.Size = new System.Drawing.Size(69, 17);
+            this.checkBoxEmail.Size = new System.Drawing.Size(134, 29);
             this.checkBoxEmail.TabIndex = 8;
             this.checkBoxEmail.Text = "Gởi email";
             this.checkBoxEmail.UseVisualStyleBackColor = true;
             // 
             // FrmErrorMessage
             // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(458, 122);
+            this.AutoScaleBaseSize = new System.Drawing.Size(10, 24);
+            this.ClientSize = new System.Drawing.Size(929, 208);
             this.ControlBox = false;
             this.Controls.Add(this.checkBoxEmail);
             this.Controls.Add(this.BtnExit);
@@ -261,12 +261,15 @@ namespace ErrorManager
                 string productName = CDTLib.Config.GetValue("ProductName").ToString();
                 string companyName = Microsoft.Win32.Registry.GetValue(H_KEY, "CompanyName", string.Empty).ToString();
 
-                MailMessage mail = new MailMessage("SendErr@sgdsoft.com", "Error@sgdsoft.com");
+                MailMessage mail = new MailMessage("senderrsgd@gmail.com", "errsgdmess@gmail.com");
                 SmtpClient client = new SmtpClient();
-                client.Port = 25;
+                client.UseDefaultCredentials = true;
+                client.Host = "smtp.gmail.com";
+                client.Port = 587;
+                client.EnableSsl = true;
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                client.UseDefaultCredentials = false;
-                client.Host = "smtp.sgdsoft.com";
+                client.Credentials = new NetworkCredential("senderrsgd@gmail.com", "Abc123@$");
+                client.Timeout = 20000;
                 mail.Subject = "Error of " + productName + " from " + companyName;
                 mail.Body = moTaLoi + "\n Người dùng" + Config.GetValue("UserName").ToString() + "\n Tên máy: " + Config.GetValue("ComputerName").ToString() + "\n" + chiTietLoi;
                 if (mail.Body.Contains("Cannot insert duplicate")) return;
@@ -275,7 +278,7 @@ namespace ErrorManager
 
 
             }
-            catch
+            catch (Exception ex)
             {
             }
         }

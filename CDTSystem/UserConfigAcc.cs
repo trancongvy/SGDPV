@@ -246,5 +246,11 @@ namespace CDTSystem
                 store.Close();
             }
         }
+
+        private void simpleButton1_Click(object sender, EventArgs e)
+        {
+            UserConfig fCon = new UserConfig();
+            fCon.ShowDialog();
+        }
     }
 }

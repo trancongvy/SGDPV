@@ -257,6 +257,10 @@
       <Project>{3f09b425-5bfd-4c5f-a76f-6f9afdc84b83}</Project>
       <Name>CusNissan</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CusPOS\CusPOS.csproj">
+      <Project>{058428fe-fa9f-4ecc-8ccf-012944d30806}</Project>
+      <Name>CusPOS</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataFactory\DataFactory.csproj">
       <Project>{91C9EBB2-ABAA-4ABE-A659-69E2208BF10E}</Project>
       <Name>DataFactory</Name>
