@@ -74,6 +74,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\DevExpress 2011.1\Components\Sources\DevExpress.DLL\DevExpress.XtraLayout.v11.1.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.XtraTreeList.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Design" />

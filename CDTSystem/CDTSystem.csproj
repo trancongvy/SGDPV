@@ -162,6 +162,12 @@
     <Compile Include="fbLogin.Designer.cs">
       <DependentUpon>fbLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="fChonCa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fChonCa.Designer.cs">
+      <DependentUpon>fChonCa.cs</DependentUpon>
+    </Compile>
     <Compile Include="fChonCN.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -179,6 +185,12 @@
     </Compile>
     <Compile Include="fImExcel.Designer.cs">
       <DependentUpon>fImExcel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fImExcelMT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fImExcelMT.designer.cs">
+      <DependentUpon>fImExcelMT.cs</DependentUpon>
     </Compile>
     <Compile Include="fPQchucnang.cs">
       <SubType>Form</SubType>
@@ -276,6 +288,10 @@
     <EmbeddedResource Include="fbLogin.resx">
       <DependentUpon>fbLogin.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="fChonCa.resx">
+      <DependentUpon>fChonCa.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="fChonCN.resx">
       <SubType>Designer</SubType>
       <DependentUpon>fChonCN.cs</DependentUpon>
@@ -287,6 +303,9 @@
     <EmbeddedResource Include="fImExcel.resx">
       <DependentUpon>fImExcel.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fImExcelMT.resx">
+      <DependentUpon>fImExcelMT.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fPQchucnang.resx">
       <SubType>Designer</SubType>

@@ -44,6 +44,7 @@ namespace CDTSystem
                         LayoutControlItem it = new LayoutControlItem(this.layoutControl1, tb);
                         it.TextVisible = false;
                         tb.Click += Tb_Click;
+                        tb.MouseUp += Tb_MouseUp;
                     }
                 }
                 catch { }
@@ -51,10 +52,25 @@ namespace CDTSystem
             }
         }
 
+        private void Tb_MouseUp(object sender, MouseEventArgs e)
+        {
+            if(e.Button==MouseButtons.Right && ModifierKeys == Keys.Control)
+            {
+                if (MessageBox.Show("Xóa đường gói phần mềm này?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    RegistryKey HKey = Registry.CurrentUser.OpenSubKey(@"Software\SGD\",true);
+                    HKey.DeleteSubKeyTree((sender as SimpleButton).ToolTip, false);
+                    LayoutControlItem it = layoutControl1.GetItemByControl((sender as SimpleButton));
+                    if (it != null) it.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+                }
+            }
+        }
+
         private void Tb_Click(object sender, EventArgs e)
         {
             Productname = (sender as SimpleButton).ToolTip;
             if(Productname!=string.Empty) this.DialogResult = DialogResult.OK;
+            
         }
 
 

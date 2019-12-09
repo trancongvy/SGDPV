@@ -65,6 +65,7 @@
     <Reference Include="DevExpress.XtraPrinting.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraReports.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraReports.v11.1.Extensions, Version=11.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraTreeList.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -89,6 +90,12 @@
     </Compile>
     <Compile Include="fPOS.Designer.cs">
       <DependentUpon>fPOS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fPOSKM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fPOSKM.Designer.cs">
+      <DependentUpon>fPOSKM.cs</DependentUpon>
     </Compile>
     <Compile Include="fThanhtoan.cs">
       <SubType>Form</SubType>
@@ -115,6 +122,9 @@
     <EmbeddedResource Include="fPOS.resx">
       <SubType>Designer</SubType>
       <DependentUpon>fPOS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fPOSKM.resx">
+      <DependentUpon>fPOSKM.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fThanhtoan.resx">
       <SubType>Designer</SubType>
@@ -150,10 +160,6 @@
     <ProjectReference Include="..\DataFactory\DataFactory.csproj">
       <Project>{91c9ebb2-abaa-4abe-a659-69e2208bf10e}</Project>
       <Name>DataFactory</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\publicCDT\publicCDT.csproj">
-      <Project>{2bf8a753-e0f0-43ce-b883-d15013b744d3}</Project>
-      <Name>publicCDT</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

@@ -429,10 +429,6 @@
       <Project>{AFA2F1D0-B84B-406A-99D3-9ADA58DBFFCD}</Project>
       <Name>Plugins</Name>
     </ProjectReference>
-    <ProjectReference Include="..\publicCDT\publicCDT.csproj">
-      <Project>{2bf8a753-e0f0-43ce-b883-d15013b744d3}</Project>
-      <Name>publicCDT</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ichat-blank.png" />

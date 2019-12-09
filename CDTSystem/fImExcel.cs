@@ -203,7 +203,13 @@ namespace CDTSystem
             List<string> cols= IEx.GetCol(lSheet.EditValue.ToString());
             if (cols == null) return;
             RiCom.Items.AddRange(cols.ToArray());
-            
+            foreach (DataRow dr in MapStruct.Rows)
+            {
+                if (cols.Exists(x => x.ToString().ToUpper() == dr["FieldName"].ToString().ToUpper()))
+                    dr["ColName"] = dr["FieldName"].ToString();
+                
+            }
+
         }
         DataTable dmField;
         private void gTable_EditValueChanged(object sender, EventArgs e)
@@ -214,17 +220,19 @@ namespace CDTSystem
             MapStruct.Columns.Add("FieldName", typeof(string));
             MapStruct.Columns.Add("Type", typeof(int));
             MapStruct.Columns.Add("ColName", typeof(string));
+            MapStruct.Columns.Add("LabelName", typeof(string));
             //DataColumn cdef=new DataColumn("DefaultValue", typeof(string));
             //MapStruct.Columns.Add(cdef);
             MapStruct.Columns.Add("DefaultValue", typeof(string));
-            MapStruct.Columns.Add("AllowNull", typeof(string));
+            MapStruct.Columns.Add("AllowNull", typeof(bool));
             foreach (DataRow rF in dmField.Rows)
             {
                 DataRow dr = MapStruct.NewRow();
                 dr["FieldName"] = rF["FieldName"];
                 dr["Type"] = rF["Type"];
                 dr["DefaultValue"] = rF["DefaultValue"];
-                dr["AllowNull"] = rF["AllowNull"].ToString();
+                dr["AllowNull"] = rF["AllowNull"].ToString() == "0" ? false : true;
+                dr["LabelName"] = rF["LabelName"].ToString();
                 MapStruct.Rows.Add(dr);
             }                
             

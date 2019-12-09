@@ -31,6 +31,7 @@ namespace CDTControl
             }
             else
             {
+                //SynMenuforUser();
                 Config.NewKeyValue("Admin", false);
                 string sql = "select t.*,r.*,m.*,ut.* from sysMenu m left join sysTable t on m.sysTableID = t.sysTableID left join sysReport r on  m.sysReportID = r.sysReportID " +
                     " left join  sysUserMenu um on m.sysMenuID = um.sysMenuID left join sysUserTable ut on t.sysTableID=ut.sysTableID and um.sysUserPackageID=ut.sysUserPackageID" +
@@ -51,6 +52,12 @@ namespace CDTControl
                     " where (sysMenuParent is null or sysmenuParent in (select sysmenuid from sysmenu where isVisible=1) ) and " +
                     "  isVisible=1 and   (m.sysPackageID is null or m.sysPackageID = " + sysPackageID +
                     ") order by m.sysPackageID, m.MenuOrder");
+
+            string sql = "select t.*,r.*,m.*,ut.* from sysMenu m left join sysTable t on m.sysTableID = t.sysTableID left join sysReport r on  m.sysReportID = r.sysReportID " +
+                  " left join  sysUserMenu um on m.sysMenuID = um.sysMenuID left join sysUserTable ut on t.sysTableID=ut.sysTableID and um.sysUserPackageID=ut.sysUserPackageID" +
+                   " where (sysMenuParent is null or sysmenuParent in (select sysmenuid from sysmenu where isVisible=1) ) and " +
+                   "  isVisible=1 and   (m.sysPackageID is null or m.sysPackageID = " + sysPackageID +
+                   ") order by m.sysPackageID, m.MenuOrder";
 
             return (dtMenu);
         }

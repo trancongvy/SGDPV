@@ -16,7 +16,9 @@ namespace CDTSystem
     {
         Database db = Database.NewDataDatabase();
         public DataSingle _dbCN;
+
         public string MaCN = string.Empty;
+
         public string TenCN = string.Empty;
         public fChonCN()
         {
@@ -24,6 +26,7 @@ namespace CDTSystem
             _dbCN = new DataSingle("dmChinhanh", Config.GetValue("sysPackageID").ToString());
             _dbCN.GetData();
             gridLookUpEdit1.Properties.DataSource = _dbCN.DsData.Tables[0];
+            if (_dbCN.DsData.Tables[0].Rows.Count == 1) gridLookUpEdit1.EditValue = _dbCN.DsData.Tables[0].Rows[0]["MaCN"].ToString();
         }
 
         private void gridLookUpEdit1_EditValueChanged(object sender, EventArgs e)
@@ -54,6 +57,7 @@ namespace CDTSystem
             {
                 Config.NewKeyValue("MaCN", MaCN);
                 Config.NewKeyValue("TenCN", TenCN);
+
                 this.DialogResult = DialogResult.OK;
             }
             
@@ -63,5 +67,7 @@ namespace CDTSystem
         {
             this.DialogResult = DialogResult.Cancel;
         }
+
+       
     }
 }
