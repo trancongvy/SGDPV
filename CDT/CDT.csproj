@@ -20,6 +20,7 @@
     </SccProvider>
     <ApplicationIcon>logo48.ico</ApplicationIcon>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>

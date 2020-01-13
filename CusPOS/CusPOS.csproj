@@ -79,11 +79,20 @@
     <Compile Include="cBan.Designer.cs">
       <DependentUpon>cBan.cs</DependentUpon>
     </Compile>
+    <Compile Include="cMon.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="fMoban.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="fMoban.Designer.cs">
       <DependentUpon>fMoban.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fMon4Area.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fMon4Area.designer.cs">
+      <DependentUpon>fMon4Area.cs</DependentUpon>
     </Compile>
     <Compile Include="fPOS.cs">
       <SubType>Form</SubType>
@@ -115,9 +124,15 @@
       <SubType>Designer</SubType>
       <DependentUpon>cBan.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="cMon.resx">
+      <DependentUpon>cMon.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="fMoban.resx">
       <SubType>Designer</SubType>
       <DependentUpon>fMoban.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fMon4Area.resx">
+      <DependentUpon>fMon4Area.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fPOS.resx">
       <SubType>Designer</SubType>
@@ -160,6 +175,10 @@
     <ProjectReference Include="..\DataFactory\DataFactory.csproj">
       <Project>{91c9ebb2-abaa-4abe-a659-69e2208bf10e}</Project>
       <Name>DataFactory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FormFactory\FormFactory.csproj">
+      <Project>{1a72f659-c361-4fd3-abe8-ef03b6f33a78}</Project>
+      <Name>FormFactory</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
