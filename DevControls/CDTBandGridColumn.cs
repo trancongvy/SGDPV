@@ -20,6 +20,12 @@ namespace DevControls
         DataRow _masterRow;
         string _refFilter;
         bool _isExCol = false;
+        int _indexvisible = 1;
+        public int IndexVisible
+        {
+            get { return _indexvisible; }
+            set { _indexvisible = value; }
+        }
         public DataRow MasterRow
         {
             get { return _masterRow; }

@@ -53,9 +53,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CBSControls, Version=1.0.6563.35893, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="CBSControls, Version=1.0.7006.20539, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\SGDEMT\CBS Controls\bin\Debug\CBSControls.dll</HintPath>
+      <HintPath>..\CDT\bin\Debug\CBSControls.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Charts.v11.1.Core, Version=11.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -117,6 +117,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\DevExpress 2011.1\Components\Sources\DevExpress.DLL\DevExpress.XtraReports.v11.1.Design.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.XtraReports.v11.1.Extensions, Version=11.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraTreeList.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\DevExpress 2011.1\Components\Sources\DevExpress.DLL\DevExpress.XtraTreeList.v11.1.dll</HintPath>
@@ -138,11 +139,23 @@
     <Compile Include="CoPhanBoCtrinh.designer.cs">
       <DependentUpon>CoPhanBoCtrinh.cs</DependentUpon>
     </Compile>
+    <Compile Include="fBanhang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fBanhang.designer.cs">
+      <DependentUpon>fBanhang.cs</DependentUpon>
+    </Compile>
     <Compile Include="fCoKHSX.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="fCoKHSX.Designer.cs">
       <DependentUpon>fCoKHSX.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fDanhSoCT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fDanhSoCT.Designer.cs">
+      <DependentUpon>fDanhSoCT.cs</DependentUpon>
     </Compile>
     <Compile Include="fImExcelHongDongNaiIn.cs">
       <SubType>Form</SubType>
@@ -195,6 +208,12 @@
     <Compile Include="fTaoPTT.Designer.cs">
       <DependentUpon>fTaoPTT.cs</DependentUpon>
     </Compile>
+    <Compile Include="fThanhtoan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fThanhtoan.designer.cs">
+      <DependentUpon>fThanhtoan.cs</DependentUpon>
+    </Compile>
     <Compile Include="ImportDataFromDat.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -221,9 +240,15 @@
       <DependentUpon>CoPhanBoCtrinh.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="fBanhang.resx">
+      <DependentUpon>fBanhang.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="fCoKHSX.resx">
       <SubType>Designer</SubType>
       <DependentUpon>fCoKHSX.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fDanhSoCT.resx">
+      <DependentUpon>fDanhSoCT.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fImExcelHongDongNaiIn.resx">
       <DependentUpon>fImExcelHongDongNaiIn.cs</DependentUpon>
@@ -256,6 +281,9 @@
     <EmbeddedResource Include="fTaoPTT.resx">
       <SubType>Designer</SubType>
       <DependentUpon>fTaoPTT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fThanhtoan.resx">
+      <DependentUpon>fThanhtoan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">

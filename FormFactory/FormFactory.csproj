@@ -63,9 +63,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CBSControls, Version=1.0.6563.35893, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="CBSControls, Version=1.0.7006.20539, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\SGDEMT\CBS Controls\bin\Debug\CBSControls.dll</HintPath>
+      <HintPath>..\CDT\bin\Debug\CBSControls.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Charts.v11.1.Core, Version=11.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -180,6 +180,18 @@
     <Compile Include="fComment.Designer.cs">
       <DependentUpon>fComment.cs</DependentUpon>
     </Compile>
+    <Compile Include="fDanhso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fDanhso.Designer.cs">
+      <DependentUpon>fDanhso.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fDanhSoCT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fDanhSoCT.Designer.cs">
+      <DependentUpon>fDanhSoCT.cs</DependentUpon>
+    </Compile>
     <Compile Include="fFlowAnalyze.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -272,6 +284,12 @@
     <EmbeddedResource Include="fComment.resx">
       <SubType>Designer</SubType>
       <DependentUpon>fComment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fDanhso.resx">
+      <DependentUpon>fDanhso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fDanhSoCT.resx">
+      <DependentUpon>fDanhSoCT.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fFlowAnalyze.resx">
       <SubType>Designer</SubType>
