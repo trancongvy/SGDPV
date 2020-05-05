@@ -56,10 +56,10 @@ namespace FormFactory
                 case FormType.MasterDetail:
                     DateTime t1 = DateTime.Now;
                     data = DataFactory.DataFactory.Create(DataType.MasterDetail, drTable);
-                    ErrorManager.LogFile.AppendToFile("log.txt", (DateTime.Now - t1).TotalMilliseconds.ToString());
+                   // ErrorManager.LogFile.AppendToFile("log.txt", (DateTime.Now - t1).TotalMilliseconds.ToString());
                     t1 = DateTime.Now;
                     tmp = new FrmMasterDetail(data);
-                    ErrorManager.LogFile.AppendToFile("log.txt", (DateTime.Now - t1).TotalMilliseconds.ToString());
+                   // ErrorManager.LogFile.AppendToFile("log.txt", (DateTime.Now - t1).TotalMilliseconds.ToString());
                     break;
                 case FormType.Single:
                     data = DataFactory.DataFactory.Create(DataType.Single, drTable);
