@@ -15,8 +15,7 @@ namespace AutoUpdate
              string path ;
              if (args.Length == 0)
              {
-                 path = "D:\\SGDPV\\CDT\\CDT\\bin\\Debug\\Confused";
-
+                 path = @"https://www.phanmemsgd.com/Content/Update/"; 
              }
              else
              {

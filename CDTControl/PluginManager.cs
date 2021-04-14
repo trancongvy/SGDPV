@@ -77,6 +77,7 @@ namespace CDTControl
                     {
                         string xmlString = PluginPath + t + ".xml";
                         pluginClass.ListStructInfo = GetStructInfo(xmlString, pluginName);
+                        if (pluginClass.ListStructInfo == null) continue;
                         _lstICustom.Add(pluginClass);
                         _lstStructInfo.AddRange(pluginClass.ListStructInfo);
                     }
@@ -126,37 +127,41 @@ namespace CDTControl
 
         private List<StructInfo> GetStructInfo(string xmlString, string dllName)
         {
-            List<StructInfo> listStructInfo = new List<StructInfo>();
-            XmlDocument xdInformation = new XmlDocument();
-            xdInformation.Load(xmlString);
-            XmlNodeList ListData = xdInformation.GetElementsByTagName("Data");
-            for (int j = 0; j < ListData.Count; j++)
+            try
             {
-                XmlNodeList ValueList = ListData[j].ChildNodes;
-                StructInfo si = new StructInfo();
-                for (int i = 0; i < ValueList.Count; i++)
+                List<StructInfo> listStructInfo = new List<StructInfo>();
+                XmlDocument xdInformation = new XmlDocument();
+                xdInformation.Load(xmlString);
+                XmlNodeList ListData = xdInformation.GetElementsByTagName("Data");
+                for (int j = 0; j < ListData.Count; j++)
                 {
-                    int result;
-                    if (ValueList[i].Name == "MenuID" && Int32.TryParse(ValueList[i].InnerText, out result))
+                    XmlNodeList ValueList = ListData[j].ChildNodes;
+                    StructInfo si = new StructInfo();
+                    for (int i = 0; i < ValueList.Count; i++)
                     {
-                        si.MenuId = result;
-                        continue;
+                        int result;
+                        if (ValueList[i].Name == "MenuID" && Int32.TryParse(ValueList[i].InnerText, out result))
+                        {
+                            si.MenuId = result;
+                            continue;
+                        }
+                        if (ValueList[i].Name == "MenuName")
+                        {
+                            si.MenuName = ValueList[i].InnerText;
+                            continue;
+                        }
+                        int result2;
+                        if (ValueList[i].Name == "MenuIdParent" && Int32.TryParse(ValueList[i].InnerText, out result2))
+                        {
+                            si.MenuIdParent = result2;
+                        }
                     }
-                    if (ValueList[i].Name == "MenuName")
-                    {
-                        si.MenuName = ValueList[i].InnerText;
-                        continue;
-                    }
-                    int result2;
-                    if (ValueList[i].Name == "MenuIdParent" && Int32.TryParse(ValueList[i].InnerText, out result2))
-                    {
-                        si.MenuIdParent = result2;
-                    }
+                    si.DllName = dllName;
+                    listStructInfo.Add(si);
                 }
-                si.DllName = dllName;
-                listStructInfo.Add(si);
+                return listStructInfo;
             }
-            return listStructInfo;
+            catch { return null; }
         }
 
 

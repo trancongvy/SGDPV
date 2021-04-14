@@ -132,10 +132,10 @@ namespace ErrorManager
             // richTextBoxChiTietLoi
             // 
             this.richTextBoxChiTietLoi.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.richTextBoxChiTietLoi.Location = new System.Drawing.Point(0, 7);
+            this.richTextBoxChiTietLoi.Location = new System.Drawing.Point(0, -245);
             this.richTextBoxChiTietLoi.Name = "richTextBoxChiTietLoi";
             this.richTextBoxChiTietLoi.ReadOnly = true;
-            this.richTextBoxChiTietLoi.Size = new System.Drawing.Size(929, 201);
+            this.richTextBoxChiTietLoi.Size = new System.Drawing.Size(1127, 448);
             this.richTextBoxChiTietLoi.TabIndex = 5;
             this.richTextBoxChiTietLoi.Text = "";
             this.richTextBoxChiTietLoi.Visible = false;
@@ -171,7 +171,7 @@ namespace ErrorManager
             // FrmErrorMessage
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(10, 24);
-            this.ClientSize = new System.Drawing.Size(929, 208);
+            this.ClientSize = new System.Drawing.Size(1127, 203);
             this.ControlBox = false;
             this.Controls.Add(this.checkBoxEmail);
             this.Controls.Add(this.BtnExit);
@@ -224,7 +224,7 @@ namespace ErrorManager
             if (_BlnChiTiet)
             {
                 richTextBoxChiTietLoi.Visible = true;
-                this.Height = 260;
+                this.Height = 560;
             }
             else
             {

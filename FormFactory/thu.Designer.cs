@@ -41,11 +41,12 @@ namespace FormFactory
             // 
             // gridControl1
             // 
-            this.gridControl1.EmbeddedNavigator.Name = "";
-            this.gridControl1.Location = new System.Drawing.Point(14, 24);
+            this.gridControl1.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.gridControl1.Location = new System.Drawing.Point(28, 46);
             this.gridControl1.MainView = this.gridView1;
+            this.gridControl1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(400, 327);
+            this.gridControl1.Size = new System.Drawing.Size(800, 629);
             this.gridControl1.TabIndex = 0;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -72,19 +73,21 @@ namespace FormFactory
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Kho abc"),
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Kho CDF"),
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Name")});
-            this.checkedListBoxControl1.Location = new System.Drawing.Point(434, 24);
+            this.checkedListBoxControl1.Location = new System.Drawing.Point(868, 46);
+            this.checkedListBoxControl1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.checkedListBoxControl1.Name = "checkedListBoxControl1";
-            this.checkedListBoxControl1.Size = new System.Drawing.Size(342, 118);
+            this.checkedListBoxControl1.Size = new System.Drawing.Size(684, 227);
             this.checkedListBoxControl1.TabIndex = 1;
             this.checkedListBoxControl1.SelectedIndexChanged += new System.EventHandler(this.checkedListBoxControl1_SelectedIndexChanged);
             // 
             // thu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(788, 405);
+            this.ClientSize = new System.Drawing.Size(1576, 779);
             this.Controls.Add(this.checkedListBoxControl1);
             this.Controls.Add(this.gridControl1);
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "thu";
             this.Text = "thu";
             this.Load += new System.EventHandler(this.thu_Load);

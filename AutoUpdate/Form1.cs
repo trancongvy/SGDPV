@@ -6,8 +6,11 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.IO.Compression;
 using System.Diagnostics;
 using System.Threading;
+using System.Net;
+
 namespace AutoUpdate
 {
     public partial class Form1 : Form
@@ -77,8 +80,50 @@ namespace AutoUpdate
             Thread.Sleep(milliseconds);
             richTextBox1.Text = "Update from: " + _path;
             richTextBox1.Text += "\n to :" + Application.StartupPath;
-            if (!Directory.Exists(_path)) return;
-            UpdatePath(_path, Application.StartupPath);
+            //if (!Directory.Exists(_path)) return;
+            //UpdatePath(_path, Application.StartupPath);
+
+            if (!Directory.Exists(Application.StartupPath + @"\UpdateCode"  ))
+            {
+                Directory.CreateDirectory(Application.StartupPath + @"\UpdateCode");
+                //Download về
+
+            }
+            using (WebClient wc = new WebClient())
+            {
+                wc.DownloadProgressChanged += wc_DownloadProgressChanged;
+                wc.DownloadFileCompleted += Wc_DownloadFileCompleted;
+                label3.Text = "Downloading...";
+                wc.DownloadFileAsync(
+                    new System.Uri(_path +@"BPM.rar"), Application.StartupPath + @"\UpdateCode\BPM.rar"
+                );
+            }
+        }
+
+        private void Wc_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            label3.Text = "Extracting...";
+            progressBar1.Value = 0;
+            string startPath = Application.StartupPath + @"\UpdateCode\";
+            string zipPath = Application.StartupPath + @"\UpdateCode\BPM.rar";
+            string extractPath = Application.StartupPath + @"\UpdateCode\BPM\";
+            int milliseconds = 2000;
+            Thread.Sleep(milliseconds);
+            // System.IO.Compression.ZipFile.CreateFromDirectory(startPath, "BPM.rar");
+
+
+            if (Directory.Exists(extractPath)) Directory.Delete(extractPath,true);
+            System.IO.Compression.ZipFile.ExtractToDirectory(zipPath, extractPath);            
+            //Copy to 
+            Thread.Sleep(milliseconds);
+            UpdateFile(extractPath, Application.StartupPath);
+            UpdateFile(extractPath + @"Plugins\CBABPM\", Application.StartupPath+@"Plugins\CBABPM\");
+            Directory.Delete(extractPath,true);
+        }
+
+        private void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            progressBar1.Value = e.ProgressPercentage;
         }
     }
 

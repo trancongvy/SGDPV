@@ -17,7 +17,7 @@ namespace FormFactory
         public static CDTForm Create(FormType formType, string sysTableID)
         {
             CDTForm tmp = null;
-            CDTData data;
+            CDTData data = null;
             switch (formType)
             {
                 case FormType.Detail:
@@ -38,7 +38,7 @@ namespace FormFactory
 
                         
             }
-
+            //if (tmp != null) tmp.Text += "    " + data.DrTable["TableName"].ToString();
             return tmp;
         }
 
@@ -46,7 +46,7 @@ namespace FormFactory
         public static CDTForm Create(FormType formType, DataRow drTable)
         {
             CDTForm tmp = null;
-            CDTData data;
+            CDTData data ;
             switch (formType)
             {
                 case FormType.Detail:
@@ -66,7 +66,7 @@ namespace FormFactory
                     tmp = new FrmSingle(data);
                     break;
             }
-
+           // if (tmp != null) tmp.Text += "    " + drTable["TableName"].ToString();
             return tmp;
         }
 
@@ -85,7 +85,7 @@ namespace FormFactory
                     tmp = new FrmSingle(data);
                     break;
             }
-
+           // if (tmp != null) tmp.Text += "    " + data.DrTable["TableName"].ToString();
             return tmp;
         }
 

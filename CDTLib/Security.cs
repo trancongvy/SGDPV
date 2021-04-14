@@ -28,7 +28,7 @@ namespace CDTLib
 
         public static string DeCode64(string orginalString)
         {
-            byte[] Dec = Convert.FromBase64String(orginalString);
+            byte[] Dec = Convert.FromBase64String(orginalString); 
             string DecString = ASCIIEncoding.UTF7.GetString(Dec);
             return DecString;
         }

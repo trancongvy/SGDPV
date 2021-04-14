@@ -52,6 +52,7 @@ namespace CDTControl
             GetSQL = sql;
             Database dbData = Database.NewDataDatabase();
             return (dbData.GetDataTable(sql));
+            
         }
         public DataTable GetData(string mtID, string _Script)
         {
@@ -141,6 +142,7 @@ namespace CDTControl
             //sFrom = sFrom.Substring(0, sFrom.Length - 2);
             sWhere +=  _mtTableName + "." + _mtKey + " = '" + _mtID + "'";
             string sql = sSelect + " " + sFrom + " " + sWhere;
+            sql += " order by d_stt";
             return sql;
             
         }

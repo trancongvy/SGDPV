@@ -141,7 +141,6 @@
       <SubType>Designer</SubType>
       <DependentUpon>fUserTask.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CDTDatabase\CDTDatabase.csproj">
