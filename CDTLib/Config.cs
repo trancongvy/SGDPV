@@ -45,4 +45,22 @@ namespace CDTLib
             return (_variables[key]);
         }
     }
+    public partial class UserConnection
+    {
+        public string DatabaseName { get; set; }
+        public string ComputerName { get; set; }
+        public string LicenceKey { get; set; }
+        public string StructDb { get; set; }
+        public Nullable<System.DateTime> TimeEx { get; set; }
+        public int stt { get; set; }
+    }
+    public partial class ComputerConnection
+    {
+        public string DatabaseName { get; set; }
+        public string ComputerName { get; set; }
+        public string CPUID { get; set; }
+        public string StructDB { get; set; }
+        public string LicenceKey { get; set; }
+        public int stt { get; set; }
+    }
 }

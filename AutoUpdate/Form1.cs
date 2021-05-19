@@ -117,7 +117,8 @@ namespace AutoUpdate
             //Copy to 
             Thread.Sleep(milliseconds);
             UpdateFile(extractPath, Application.StartupPath);
-            UpdateFile(extractPath + @"Plugins\CBABPM\", Application.StartupPath+@"Plugins\CBABPM\");
+            UpdateFile(extractPath + @"\Plugins\CBABPM\", Application.StartupPath+@"\Plugins\CBABPM");
+            UpdateFile(extractPath + @"\LoginImage\", Application.StartupPath + @"\LoginImage");
             Directory.Delete(extractPath,true);
         }
 

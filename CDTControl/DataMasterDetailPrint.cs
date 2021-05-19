@@ -15,7 +15,7 @@ namespace CDTControl
 
         Database db = Database.NewStructDatabase();
         string _dtTableName = string.Empty;
-        string _mtTableName = string.Empty;
+        public string _mtTableName = string.Empty;
         string _mtKey = string.Empty;
         string _dtRefKey = string.Empty;
         public string GetSQL = string.Empty;
@@ -59,7 +59,7 @@ namespace CDTControl
             lstTableListRelation.Clear();
             _mtID = mtID;
             string sql = _Script;
-            
+            string sSelect = GetMasterDetailTableInfor();
             Database dbData = Database.NewDataDatabase();
             return (dbData.GetDataTable(sql));
         }
