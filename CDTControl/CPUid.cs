@@ -50,15 +50,17 @@ namespace CDTControl.CDTControl
             {
                 ManagementClass MC = new ManagementClass("Win32_Processor");
                 ManagementObjectCollection MOC = MC.GetInstances();
-                foreach (ManagementObject mo in MOC)
-                {
-                    if (mo.Properties["ProcessorId"].Value.ToString() != "")
-                    {
-                        _cPUidStr = mo.Properties["ProcessorId"].Value.ToString();
-                        MaMay = _cPUidStr;
-                        break;
-                    }
-                }
+                MaMay = Getserial();// _cPUidStr;
+                _cPUidStr = MaMay;
+                //foreach (ManagementObject mo in MOC)
+                //{
+                //    if (mo.Properties["ProcessorId"].Value.ToString() != "")
+                //    {
+                //        _cPUidStr = mo.Properties["ProcessorId"].Value.ToString();
+
+                //        break;
+                //    }
+                //}
             }
             catch { }
 
@@ -83,10 +85,27 @@ namespace CDTControl.CDTControl
             MixString = Security.EnCode64(_cPUStr1) + "CnV" + Security.EnCode64(_cPUStr2);
             MixString = MixString.Replace("=","");
         }
+        private string Getserial()
+        {
+            ManagementObjectSearcher searcher =
+    new ManagementObjectSearcher("SELECT  SerialNumber FROM Win32_BaseBoard");
 
+            ManagementObjectCollection information = searcher.Get();
+            string s = "";
+            foreach (ManagementObject obj in information)
+            {
+                foreach (PropertyData data in obj.Properties)
+                {
+                    return data.Value.ToString();
+                }    
+            }
+
+            searcher.Dispose();
+            return "";
+        }
         public string  GetKeyString()
         {
-            
+            _keyString = "";
             string _MixStringt = MixString.Replace("CnV", "*");
             string[] strArray = _MixStringt.Split('*');
 

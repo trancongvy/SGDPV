@@ -23,11 +23,13 @@ namespace CDTControl.com.phanmemsgd.www1 {
     
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Web.Services.WebServiceBindingAttribute(Name="ServiceSoap", Namespace="https://wwww.phanmemsgd.com/Service")]
     public partial class Service : System.Web.Services.Protocols.SoapHttpClientProtocol {
+        
+        private System.Threading.SendOrPostCallback GetKeyBPMOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetKeyOperationCompleted;
         
@@ -74,6 +76,9 @@ namespace CDTControl.com.phanmemsgd.www1 {
         }
         
         /// <remarks/>
+        public event GetKeyBPMCompletedEventHandler GetKeyBPMCompleted;
+        
+        /// <remarks/>
         public event GetKeyCompletedEventHandler GetKeyCompleted;
         
         /// <remarks/>
@@ -81,6 +86,43 @@ namespace CDTControl.com.phanmemsgd.www1 {
         
         /// <remarks/>
         public event CheckUserLoginCompletedEventHandler CheckUserLoginCompleted;
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("https://wwww.phanmemsgd.com/Service/GetKeyBPM", RequestNamespace="https://wwww.phanmemsgd.com/Service", ResponseNamespace="https://wwww.phanmemsgd.com/Service", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string GetKeyBPM(string companyName, string Product, string Maskcode, string userName, string password) {
+            object[] results = this.Invoke("GetKeyBPM", new object[] {
+                        companyName,
+                        Product,
+                        Maskcode,
+                        userName,
+                        password});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetKeyBPMAsync(string companyName, string Product, string Maskcode, string userName, string password) {
+            this.GetKeyBPMAsync(companyName, Product, Maskcode, userName, password, null);
+        }
+        
+        /// <remarks/>
+        public void GetKeyBPMAsync(string companyName, string Product, string Maskcode, string userName, string password, object userState) {
+            if ((this.GetKeyBPMOperationCompleted == null)) {
+                this.GetKeyBPMOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetKeyBPMOperationCompleted);
+            }
+            this.InvokeAsync("GetKeyBPM", new object[] {
+                        companyName,
+                        Product,
+                        Maskcode,
+                        userName,
+                        password}, this.GetKeyBPMOperationCompleted, userState);
+        }
+        
+        private void OnGetKeyBPMOperationCompleted(object arg) {
+            if ((this.GetKeyBPMCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetKeyBPMCompleted(this, new GetKeyBPMCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("https://wwww.phanmemsgd.com/Service/GetKey", RequestNamespace="https://wwww.phanmemsgd.com/Service", ResponseNamespace="https://wwww.phanmemsgd.com/Service", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -207,11 +249,37 @@ namespace CDTControl.com.phanmemsgd.www1 {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void GetKeyBPMCompletedEventHandler(object sender, GetKeyBPMCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetKeyBPMCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetKeyBPMCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetKeyCompletedEventHandler(object sender, GetKeyCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetKeyCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -233,11 +301,11 @@ namespace CDTControl.com.phanmemsgd.www1 {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetKeyDirectCompletedEventHandler(object sender, GetKeyDirectCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetKeyDirectCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -259,11 +327,11 @@ namespace CDTControl.com.phanmemsgd.www1 {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void CheckUserLoginCompletedEventHandler(object sender, CheckUserLoginCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class CheckUserLoginCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {

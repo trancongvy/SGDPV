@@ -113,6 +113,7 @@
       <SubType>Designer</SubType>
       <DependentUpon>fImExcel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

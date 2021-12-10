@@ -56,7 +56,7 @@ namespace ErrorManager
 			{
 				swrLog.WriteLine(strLine);
 			}
-			swrLog.WriteLine ("-------------------------------");
+			//swrLog.WriteLine ("-------------------------------");
 			swrLog.Flush();
 			swrLog.Close();
         }

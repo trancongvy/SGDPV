@@ -33,9 +33,9 @@ namespace CDTControl
                 if (_pluginPath == "")
                 {
                     if (Config.GetValue("DuongDanPlugins") != null)
-                        _pluginPath = Config.GetValue("DuongDanPlugins").ToString() + "\\" + Config.GetValue("Package").ToString() + "\\";
+                        _pluginPath = Config.GetValue("DuongDanPlugins").ToString() + "\\" + Config.GetValue("DbName").ToString() + "\\";
                     else
-                        _pluginPath = Config.GetValue("StartupPath").ToString() + "\\Plugins\\" + Config.GetValue("Package").ToString() + "\\";
+                        _pluginPath = Config.GetValue("StartupPath").ToString() + "\\Plugins\\" + Config.GetValue("DbName").ToString() + "\\";
 
                 }
                 return _pluginPath;

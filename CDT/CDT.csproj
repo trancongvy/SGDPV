@@ -252,10 +252,6 @@
       <Project>{49531EBD-D862-462A-9F23-A1D2A00A305B}</Project>
       <Name>CusAccounting</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CusNissan\CusNissan.csproj">
-      <Project>{3f09b425-5bfd-4c5f-a76f-6f9afdc84b83}</Project>
-      <Name>CusNissan</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CusPOS\CusPOS.csproj">
       <Project>{058428fe-fa9f-4ecc-8ccf-012944d30806}</Project>
       <Name>CusPOS</Name>

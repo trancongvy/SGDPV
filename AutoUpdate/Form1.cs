@@ -60,7 +60,8 @@ namespace AutoUpdate
                 }
             }
             richTextBox1.Text += "\n Update complete";
-        }
+            richTextBox1.ScrollToCaret();
+                }
 
         private void button2_Click(object sender, EventArgs e)
         {
