@@ -252,6 +252,10 @@
       <Project>{49531EBD-D862-462A-9F23-A1D2A00A305B}</Project>
       <Name>CusAccounting</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CusCRM\CusCRM.csproj">
+      <Project>{87a42332-9553-4725-8810-ac46a747aceb}</Project>
+      <Name>CusCRM</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CusPOS\CusPOS.csproj">
       <Project>{058428fe-fa9f-4ecc-8ccf-012944d30806}</Project>
       <Name>CusPOS</Name>

@@ -48,17 +48,22 @@ namespace CDTControl
         {
             Config.NewKeyValue("Admin", true);
                 string sysPackageID = Config.GetValue("sysPackageID").ToString();
-            DataTable dtMenu = _dbStruct.GetDataTable("select t.*,r.*,m.* from sysMenu m left join sysTable t on m.sysTableID = t.sysTableID left join sysReport r on  m.sysReportID = r.sysReportID " +
-                    " where (sysMenuParent is null or sysmenuParent in (select sysmenuid from sysmenu where isVisible=1) ) and " +
-                    "  isVisible=1 and   (m.sysPackageID is null or m.sysPackageID = " + sysPackageID +
-                    ") order by m.sysPackageID, m.MenuOrder");
-
-            string sql = "select t.*,r.*,m.*,ut.* from sysMenu m left join sysTable t on m.sysTableID = t.sysTableID left join sysReport r on  m.sysReportID = r.sysReportID " +
-                  " left join  sysUserMenu um on m.sysMenuID = um.sysMenuID left join sysUserTable ut on t.sysTableID=ut.sysTableID and um.sysUserPackageID=ut.sysUserPackageID" +
+            //DataTable dtMenu = _dbStruct.GetDataTable("select t.*,r.*,m.* from sysMenu m left join sysTable t on m.sysTableID = t.sysTableID left join sysReport r on  m.sysReportID = r.sysReportID " +
+            //        " where (sysMenuParent is null or sysmenuParent in (select sysmenuid from sysmenu where isVisible=1) ) and " +
+            //        "  isVisible=1 and   (m.sysPackageID is null or m.sysPackageID = " + sysPackageID +
+            //        ") order by m.sysPackageID, m.MenuOrder");
+            //string sql1 = "select t.*,r.*,m.* from sysMenu m left join sysTable t on m.sysTableID = t.sysTableID left join sysReport r on  m.sysReportID = r.sysReportID " +
+            //        " where (sysMenuParent is null or sysmenuParent in (select sysmenuid from sysmenu where isVisible=1) ) and " +
+            //        "  isVisible=1 and   (m.sysPackageID is null or m.sysPackageID = " + sysPackageID +
+            //        ") order by m.sysPackageID, m.MenuOrder";
+            string sql = "select t.*,r.*,m.*,ut.* from sysMenu m " + 
+                    " left join sysTable t on m.sysTableID = t.sysTableID " + 
+                    " left join sysReport r on  m.sysReportID = r.sysReportID " +
+                  " left join sysUserTable ut on t.sysTableID=ut.sysTableID and 1=0 " +
                    " where (sysMenuParent is null or sysmenuParent in (select sysmenuid from sysmenu where isVisible=1) ) and " +
                    "  isVisible=1 and   (m.sysPackageID is null or m.sysPackageID = " + sysPackageID +
                    ") order by m.sysPackageID, m.MenuOrder";
-
+            DataTable dtMenu = _dbStruct.GetDataTable(sql);
             return (dtMenu);
         }
 

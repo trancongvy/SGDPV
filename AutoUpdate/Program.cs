@@ -15,7 +15,7 @@ namespace AutoUpdate
              string path ;
              if (args.Length == 0)
              {
-                 path = @"https://www.phanmemsgd.com/Content/Update/"; 
+                 path = @"http://phanmemsgd.com/Content/Update/"; 
              }
              else
              {
