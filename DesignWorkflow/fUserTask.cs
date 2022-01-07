@@ -19,12 +19,13 @@ namespace DesignWorkflow
         public DataTable DataGr;
         BindingSource bs;
         BindingSource bsGr;
-        public fUserTask(DataTable _data, DataTable _dataGr)
+        Guid ID;
+        public fUserTask(DataTable _data, DataTable _dataGr, Guid TaskID)
         {
             InitializeComponent();
             tbUser = db.GetDataTable("select * from sysUser");
             tbUserGr = db.GetDataTable("select * from sysUserGroup");
-            Data = _data; DataGr = _dataGr;
+            Data = _data; DataGr = _dataGr;ID = TaskID;
             gridControl1.KeyUp += new KeyEventHandler(gridControl1_KeyUp);
             gridControl2.KeyUp += new KeyEventHandler(gridControl2_KeyUp);
         }
@@ -77,6 +78,45 @@ namespace DesignWorkflow
         private void gridControl2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btCopy_Click(object sender, EventArgs e)
+        {
+            fSelectTask4Copy fSelect = new fSelectTask4Copy();
+            if (fSelect.ShowDialog() == DialogResult.OK)
+            {
+                Guid fromTask = Guid.Parse(fSelect.TaskID);
+                DataTable tbtask = getSecurity(fromTask);
+                foreach (DataRow fromRow in tbtask.Rows)
+                {
+                    DataRow dr = Data.NewRow();
+                    foreach (DataColumn col in tbtask.Columns)
+                    { dr[col.ColumnName] = fromRow[col.ColumnName]; }
+                    Data.Rows.Add(dr);
+                }
+                DataTable tbGrtask = getSecurityGr(fromTask);
+                foreach (DataRow fromRow in tbGrtask.Rows)
+                {
+                    DataRow dr = DataGr.NewRow();
+                    foreach (DataColumn col in tbGrtask.Columns)
+                    { dr[col.ColumnName] = fromRow[col.ColumnName]; }
+                    DataGr.Rows.Add(dr);
+                }
+            }
+
+        }
+        public DataTable getSecurity(Guid id)
+        {
+            string sql = "select NULL as ID, sysUserID,'" +ID.ToString() +"' as TaskID, CView, CEdit, CDelete, GetMail  from sysUserTask where TaskID='" + id.ToString() + "'";
+            DataTable tb = db.GetDataTable(sql);      
+            return tb;
+        }
+        public DataTable getSecurityGr(Guid id)
+        {
+            string sql = "select 		NULL as ID, 	 sysUserGroupID,'" + ID.ToString() + "' as TaskID, CView, CEdit, CDelete, GetMail  from sysUserGrTask where TaskID='" + id.ToString() + "'";
+            DataTable tb = db.GetDataTable(sql);
+
+            return tb;
         }
     }
 }

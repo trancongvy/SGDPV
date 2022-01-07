@@ -139,6 +139,8 @@ namespace Designflow
         public string Confirm = "";
         public string Message = "";
         public bool DoconfigData = true;
+        public DataTable tbSecu;
+        public DataTable tbSecuGroup;
         public Action()
         {
             Name = "New Action";

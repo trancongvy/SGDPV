@@ -164,6 +164,14 @@ namespace FormFactory
                             MessageBox.Show("Lỗi xảy ra!");
                             return;
                         }
+                        //sql = "insert into mt32tmp (mt32id, soct) values('" + dr["MT32ID"].ToString() + "','" + dr["SoCT"].ToString() + "')";
+                        //_dbData.UpdateByNonQuery(sql);
+                        //if (_dbData.HasErrors)
+                        //{
+                        //    _dbData.RollbackMultiTrans();
+                        //    MessageBox.Show("Lỗi xảy ra khi insert!");
+                        //    return;
+                        //}
                         //Update config
 
                         foreach (DataRow drConfig in tbConfig.Rows)
@@ -190,7 +198,7 @@ namespace FormFactory
                                 }
                             }
                         }
-                        
+
                     }
                 }
                 if (!_dbData.HasErrors)

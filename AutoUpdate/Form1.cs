@@ -42,10 +42,11 @@ namespace AutoUpdate
                 UpdatePath(d, drec);
             }
         }
-        private void UpdateFile(string p,string dir)
+        private bool UpdateFile(string p, string dir)
         {
-            if (!Directory.Exists(p)) return;
+            if (!Directory.Exists(p)) return false;
             string[] files = Directory.GetFiles(p);
+            bool updateComplete = true;
             foreach (string f in files)
             {
                 string fName = Path.GetFileName(f);
@@ -57,11 +58,14 @@ namespace AutoUpdate
                 catch (Exception e)
                 {
                     richTextBox1.Text += "\n" + e.Message;
+                    updateComplete = false;
                 }
             }
+            
             richTextBox1.Text += "\n Update complete";
             richTextBox1.ScrollToCaret();
-                }
+            return updateComplete;
+        }
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -99,6 +103,7 @@ namespace AutoUpdate
                     new System.Uri(_path +@"BPM.rar"), Application.StartupPath + @"\UpdateCode\BPM.rar"
                 );
             }
+            
         }
 
         private void Wc_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
@@ -111,16 +116,29 @@ namespace AutoUpdate
             int milliseconds = 2000;
             Thread.Sleep(milliseconds);
             // System.IO.Compression.ZipFile.CreateFromDirectory(startPath, "BPM.rar");
+            try
+            {
 
+                if (Directory.Exists(extractPath)) Directory.Delete(extractPath, true);
 
-            if (Directory.Exists(extractPath)) Directory.Delete(extractPath,true);
-            System.IO.Compression.ZipFile.ExtractToDirectory(zipPath, extractPath);            
+            }
+            catch { }
+            System.IO.Compression.ZipFile.ExtractToDirectory(zipPath, extractPath);
             //Copy to 
             Thread.Sleep(milliseconds);
-            UpdateFile(extractPath, Application.StartupPath);
-            UpdateFile(extractPath + @"\Plugins\CBABPM\", Application.StartupPath+@"\Plugins\CBABPM");
-            UpdateFile(extractPath + @"\LoginImage\", Application.StartupPath + @"\LoginImage");
-            Directory.Delete(extractPath,true);
+            if (UpdateFile(extractPath, Application.StartupPath))
+                if (UpdateFile(extractPath + @"\Plugins\CBABPM\", Application.StartupPath + @"\Plugins\CBABPM"))
+                    if (UpdateFile(extractPath + @"\LoginImage\", Application.StartupPath + @"\LoginImage"))
+                    {
+                        Directory.Delete(extractPath, true);
+                        //Update thành công
+                        string path = Application.StartupPath + "\\UpdateDate.txt";
+                        File.WriteAllText(path, DateTime.Now.ToShortDateString());
+                    }
+                    else
+                    {
+                        //update fail
+                    }
         }
 
         private void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)

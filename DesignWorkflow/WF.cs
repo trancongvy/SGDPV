@@ -40,6 +40,20 @@ namespace Designflow
             tb.Columns["TaskID"].DefaultValue = id;
             return tb;
         }
+        public DataTable getSecurityAction(Guid id)
+        {
+            string sql = "select * from sysUserAction where ActionID='" + id.ToString() + "'";
+            DataTable tb = _dataSt.GetDataTable(sql);
+            tb.Columns["ActionID"].DefaultValue = id;
+            return tb;
+        }
+        public DataTable getSecurityGrAction(Guid id)
+        {
+            string sql = "select * from sysUserGrAction where ActionID='" + id.ToString() + "'";
+            DataTable tb = _dataSt.GetDataTable(sql);
+            tb.Columns["ActionID"].DefaultValue = id;
+            return tb;
+        }
         public void GetWF(string TableID)
         {
             string sql = "select * from sysWF where systableid=" + TableID;
@@ -65,6 +79,8 @@ namespace Designflow
                 foreach (DataRow dr in tbAction.Rows)
                 {
                     Action A = new Action(dr);
+                    A.tbSecu = getSecurityAction(A.Id);
+                    A.tbSecuGroup = getSecurityGrAction(A.Id);
                     lAction.Add(A);
                     foreach (Task task in lTask)
                     {
@@ -218,6 +234,35 @@ namespace Designflow
                         }
 
                         _dataSt.UpdateData(sql, new string[] { "@icon" }, new object[] { im }, new SqlDbType[] { SqlDbType.Image });
+                    }
+                    if (_dataSt.HasErrors) break;
+                    if(A.tbSecu!=null)
+                    {
+                        sql = "delete sysUserAction where ActionID='" + A.Id + "'";
+                        _dataSt.UpdateByNonQuery(sql);
+                        foreach (DataRow drSecu in A.tbSecu.Rows)
+                        {
+                            if (drSecu["GetMail"] == DBNull.Value) drSecu["GetMail"] = 0;
+                            string Getmail = Getmail = (bool.Parse(drSecu["GetMail"].ToString())) ? "1" : "0";
+                            sql = "insert into  sysUserAction (sysUserID, ActionID, CAllow, getMail) values (";
+                            sql += drSecu["sysUserID"].ToString() + ",'" + drSecu["ActionID"].ToString() + "','" + drSecu["CAllow"].ToString().Replace("'", "''") +
+                                 "'," + Getmail + ")";
+                            _dataSt.UpdateByNonQuery(sql);
+                        }
+                    }
+                    if (A.tbSecuGroup != null)
+                    {
+                        sql = "delete sysUserGrAction where ActionID='" + A.Id + "'";
+                        _dataSt.UpdateByNonQuery(sql);
+                        foreach (DataRow drSecu in A.tbSecuGroup.Rows)
+                        {
+                            if (drSecu["GetMail"] == DBNull.Value) drSecu["GetMail"] = 0;
+                            string Getmail = Getmail = (bool.Parse(drSecu["GetMail"].ToString())) ? "1" : "0";
+                            sql = "insert into  sysUserGrAction (sysUserGroupID, ActionID, CAllow, GetMail) values (";
+                            sql += drSecu["sysUserGroupID"].ToString() + ",'" + drSecu["ActionID"].ToString() + "','" + drSecu["CAllow"].ToString().Replace("'", "''") +
+                                "'," + Getmail + ")";
+                            _dataSt.UpdateByNonQuery(sql);
+                        }
                     }
                     if (_dataSt.HasErrors) break;
                 }
