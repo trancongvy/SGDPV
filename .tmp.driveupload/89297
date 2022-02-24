@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<configuration>
+<startup><supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.5"/></startup>
+<system.serviceModel>
+  <bindings>
+    <basicHttpBinding>
+      <binding name="WSPublicEHoaDonSoap">
+        <security mode="Transport" />
+      </binding>
+      <binding name="WSPublicEHoaDonSoap1" />
+    </basicHttpBinding>
+  </bindings>
+  <client>
+    <endpoint address="https://ws.ehoadon.vn/WSPublicEHoaDon.asmx"
+        binding="basicHttpBinding" bindingConfiguration="WSPublicEHoaDonSoap"
+        contract="WSBK.WSPublicEHoaDonSoap" name="WSPublicEHoaDonSoap" />
+  </client>
+</system.serviceModel>
+  <appSettings>
+    <add key="WebServer" value="http://phanmemsgd.com/"/>    
+  </appSettings>
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly>
+        <assemblyIdentity name="Newtonsoft.Json" publicKeyToken="30ad4fe6b2a6aeed" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-12.0.0.0" newVersion="12.0.0.0" />
+      </dependentAssembly>
+    </assemblyBinding>
+  </runtime>
+</configuration>

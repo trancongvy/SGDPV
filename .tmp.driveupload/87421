@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ListData>
+  <Data>
+    <MenuID>1003</MenuID>
+    <MenuName>Tính giá tồn kho</MenuName>
+    <MenuIdParent>453</MenuIdParent>
+  </Data>
+<Data>
+    <MenuID>1004</MenuID>
+    <MenuName>Kiểm kê định kỳ</MenuName>
+    <MenuIdParent>453</MenuIdParent>
+  </Data>
+
+<Data>
+    <MenuID>1005</MenuID>
+    <MenuName>Tạo bút khử tồn kho</MenuName>
+    <MenuIdParent>453</MenuIdParent>
+  </Data></ListData>

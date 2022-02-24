@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ListData>
+  <Data>
+    <MenuID>8001</MenuID>
+    <MenuName>Chấm công</MenuName>
+    <MenuIdParent>449</MenuIdParent>
+  </Data>
+  <Data>
+    <MenuID>8002</MenuID>
+    <MenuName>Tính lương</MenuName>
+    <MenuIdParent>449</MenuIdParent>
+  </Data>
+	<Data>
+    <MenuID>8003</MenuID>
+    <MenuName>Báo cáo tổng hợp lương</MenuName>
+    <MenuIdParent>449</MenuIdParent>
+  </Data>
+</ListData>
