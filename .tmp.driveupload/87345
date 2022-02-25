@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ListData>
+  <Data>
+    <MenuID>3501</MenuID>
+    <MenuName>Tạo hóa đơn</MenuName>
+    <MenuIdParent>5165</MenuIdParent>
+  </Data>
+ <Data>
+    <MenuID>3502</MenuID>
+    <MenuName>Điều phối xe</MenuName>
+    <MenuIdParent>5165</MenuIdParent>
+  </Data>
+</ListData>

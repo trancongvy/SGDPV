@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -11,7 +11,7 @@
     <RootNamespace>DesignWorkflow</RootNamespace>
     <AssemblyName>DesignWorkflow</AssemblyName>
     <StartupObject>Designflow.Program</StartupObject>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -105,6 +105,12 @@
     <Compile Include="fActionCommand.Designer.cs">
       <DependentUpon>fActionCommand.cs</DependentUpon>
     </Compile>
+    <Compile Include="fSelectAction4Copy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fSelectAction4Copy.Designer.cs">
+      <DependentUpon>fSelectAction4Copy.cs</DependentUpon>
+    </Compile>
     <Compile Include="fSelectTask4Copy.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,6 +152,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>fActionCommand.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="fSelectAction4Copy.resx">
+      <DependentUpon>fSelectAction4Copy.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="fSelectTask4Copy.resx">
       <DependentUpon>fSelectTask4Copy.cs</DependentUpon>
     </EmbeddedResource>
@@ -160,7 +169,6 @@
       <SubType>Designer</SubType>
       <DependentUpon>fUserTask.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CDTDatabase\CDTDatabase.csproj">

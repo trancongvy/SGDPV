@@ -10,6 +10,7 @@ using System.IO.Compression;
 using System.Diagnostics;
 using System.Threading;
 using System.Net;
+using System.Globalization;
 
 namespace AutoUpdate
 {
@@ -58,11 +59,11 @@ namespace AutoUpdate
                 catch (Exception e)
                 {
                     richTextBox1.Text += "\n" + e.Message;
-                    updateComplete = false;
+                    //updateComplete = false;
                 }
             }
             
-            richTextBox1.Text += "\n Update complete";
+            richTextBox1.Text += "\n Update complete " + dir;
             richTextBox1.ScrollToCaret();
             return updateComplete;
         }
@@ -127,20 +128,35 @@ namespace AutoUpdate
             //Copy to 
             Thread.Sleep(milliseconds);
             if (UpdateFile(extractPath, Application.StartupPath))
+            {
                 if (UpdateFile(extractPath + @"\Plugins\CBABPM\", Application.StartupPath + @"\Plugins\CBABPM"))
+                {
                     if (UpdateFile(extractPath + @"\LoginImage\", Application.StartupPath + @"\LoginImage"))
                     {
-                        Directory.Delete(extractPath, true);
+                        System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(extractPath);
+                        setAttributesNormal(dir);
+                        try { Directory.Delete(extractPath, true); } catch { }
                         //Update thành công
                         string path = Application.StartupPath + "\\UpdateDate.txt";
-                        File.WriteAllText(path, DateTime.Now.ToShortDateString());
+                        File.WriteAllText(path, DateTime.Today.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture));
+                        this.Dispose();
                     }
                     else
                     {
                         //update fail
                     }
+                }
+            }
         }
-
+        private void setAttributesNormal(DirectoryInfo dir)
+        {
+            foreach (var subDir in dir.GetDirectories())
+                setAttributesNormal(subDir);
+            foreach (var file in dir.GetFiles())
+            {
+                file.Attributes = FileAttributes.Normal;
+            }
+        }
         private void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             progressBar1.Value = e.ProgressPercentage;

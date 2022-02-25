@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ListData>
+  <Data>
+    <MenuID>7003</MenuID>
+    <MenuName>Tạo hóa đơn</MenuName>
+    <MenuIdParent>7</MenuIdParent>
+  </Data>
+<Data>
+    <MenuID>7004</MenuID>
+    <MenuName>Nhập kho Tp</MenuName>
+    <MenuIdParent>7</MenuIdParent>
+  </Data>
+<Data>
+    <MenuID>7005</MenuID>
+    <MenuName>Update tỉ lệ bán hàng</MenuName>
+    <MenuIdParent>7</MenuIdParent>
+  </Data>
+<Data>
+    <MenuID>7006</MenuID>
+    <MenuName>Update giá bán hàng</MenuName>
+    <MenuIdParent>7</MenuIdParent>
+  </Data>
+<Data>
+    <MenuID>7007</MenuID>
+    <MenuName>Tạo phiếu thu</MenuName>
+    <MenuIdParent>7</MenuIdParent>
+  </Data>
+</ListData>

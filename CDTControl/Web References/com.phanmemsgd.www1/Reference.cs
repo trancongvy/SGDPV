@@ -14,16 +14,16 @@
 #pragma warning disable 1591
 
 namespace CDTControl.com.phanmemsgd.www1 {
-    using System;
-    using System.Web.Services;
     using System.Diagnostics;
-    using System.Web.Services.Protocols;
+    using System;
     using System.Xml.Serialization;
     using System.ComponentModel;
+    using System.Web.Services.Protocols;
+    using System.Web.Services;
     
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Web.Services.WebServiceBindingAttribute(Name="ServiceSoap", Namespace="https://wwww.phanmemsgd.com/Service")]
@@ -249,11 +249,11 @@ namespace CDTControl.com.phanmemsgd.www1 {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
     public delegate void GetKeyBPMCompletedEventHandler(object sender, GetKeyBPMCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetKeyBPMCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -275,11 +275,11 @@ namespace CDTControl.com.phanmemsgd.www1 {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
     public delegate void GetKeyCompletedEventHandler(object sender, GetKeyCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetKeyCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -301,11 +301,11 @@ namespace CDTControl.com.phanmemsgd.www1 {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
     public delegate void GetKeyDirectCompletedEventHandler(object sender, GetKeyDirectCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetKeyDirectCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -327,11 +327,11 @@ namespace CDTControl.com.phanmemsgd.www1 {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
     public delegate void CheckUserLoginCompletedEventHandler(object sender, CheckUserLoginCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class CheckUserLoginCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {

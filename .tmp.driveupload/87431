@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ListData>
+  <Data>
+    <MenuID>5001</MenuID>
+    <MenuName>Tính giá thành</MenuName>
+    <MenuIdParent>455</MenuIdParent>
+    
+  </Data>
+  <Data>
+    <MenuID>5002</MenuID>
+    <MenuName>Tính dở dang cuối kỳ</MenuName>
+    <MenuIdParent>455</MenuIdParent>
+  </Data>
+  <Data>
+    <MenuID>5003</MenuID>
+    <MenuName>Copy định mức</MenuName>
+    <MenuIdParent>455</MenuIdParent>
+  </Data>
+<Data>
+    <MenuID>5004</MenuID>
+    <MenuName>Phân bổ chi phí cho từng thành phẩm</MenuName>
+    <MenuIdParent>455</MenuIdParent>
+  </Data>
+</ListData>
