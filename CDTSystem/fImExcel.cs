@@ -240,6 +240,9 @@ namespace CDTSystem
             gridControl1.DataMember = MapStruct.TableName;
         }
 
+        private void tFileName_EditValueChanged(object sender, EventArgs e)
+        {
 
+        }
     }
 }

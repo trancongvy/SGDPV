@@ -27,21 +27,30 @@ namespace AutoUpdate
         {
             textBox1.Text = _path;
         }
-        private void UpdatePath(string p, string dir)
+        private bool UpdatePath(string p, string dir)
         {
-            UpdateFile(p,dir);
-            string[] drs = Directory.GetDirectories(p);
-
-            foreach (string d in drs)
+            bool updateComplete = true;
+            updateComplete= UpdateFile(p,dir);
+            try
             {
-               
-                string drec = Path.GetDirectoryName(d);
-                drec = dir + d.Replace(drec , "");
-                
-                richTextBox1.Text += "\n to :" + drec;
-                if (!Directory.Exists(drec)) Directory.CreateDirectory(drec);
-                UpdatePath(d, drec);
+                string[] drs = Directory.GetDirectories(p);
+
+                foreach (string d in drs)
+                {
+
+                    string drec = Path.GetDirectoryName(d);
+                    drec = dir + d.Replace(drec, "");
+
+                    richTextBox1.Text += "\n to :" + drec;
+                    if (!Directory.Exists(drec)) Directory.CreateDirectory(drec);
+                    UpdatePath(d, drec);
+                }
             }
+            catch(Exception ex)
+            {
+                return false;
+            }
+            return updateComplete;
         }
         private bool UpdateFile(string p, string dir)
         {
@@ -101,7 +110,7 @@ namespace AutoUpdate
                 wc.DownloadFileCompleted += Wc_DownloadFileCompleted;
                 label3.Text = "Downloading...";
                 wc.DownloadFileAsync(
-                    new System.Uri(_path +@"BPM.rar"), Application.StartupPath + @"\UpdateCode\BPM.rar"
+                    new System.Uri(_path +@"BPM.zip"), Application.StartupPath + @"\UpdateCode\BPM.zip"
                 );
             }
             
@@ -112,7 +121,7 @@ namespace AutoUpdate
             label3.Text = "Extracting...";
             progressBar1.Value = 0;
             string startPath = Application.StartupPath + @"\UpdateCode\";
-            string zipPath = Application.StartupPath + @"\UpdateCode\BPM.rar";
+            string zipPath = Application.StartupPath + @"\UpdateCode\BPM.zip";
             string extractPath = Application.StartupPath + @"\UpdateCode\BPM\";
             int milliseconds = 2000;
             Thread.Sleep(milliseconds);
@@ -127,26 +136,32 @@ namespace AutoUpdate
             System.IO.Compression.ZipFile.ExtractToDirectory(zipPath, extractPath);
             //Copy to 
             Thread.Sleep(milliseconds);
-            if (UpdateFile(extractPath, Application.StartupPath))
+           if( UpdatePath(extractPath, Application.StartupPath))
             {
-                if (UpdateFile(extractPath + @"\Plugins\CBABPM\", Application.StartupPath + @"\Plugins\CBABPM"))
-                {
-                    if (UpdateFile(extractPath + @"\LoginImage\", Application.StartupPath + @"\LoginImage"))
-                    {
-                        System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(extractPath);
-                        setAttributesNormal(dir);
-                        try { Directory.Delete(extractPath, true); } catch { }
-                        //Update thành công
-                        string path = Application.StartupPath + "\\UpdateDate.txt";
-                        File.WriteAllText(path, DateTime.Today.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture));
-                        this.Dispose();
-                    }
-                    else
-                    {
-                        //update fail
-                    }
-                }
+                System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(extractPath);
+                setAttributesNormal(dir);
+                try { Directory.Delete(extractPath, true); } catch { }
+                //Update thành công
+                string path = Application.StartupPath + "\\UpdateDate.txt";
+                File.WriteAllText(path, DateTime.Today.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture));
+                this.Dispose();
             }
+
+            //if (UpdateFile(extractPath, Application.StartupPath))
+            //{
+            //    UpdatePath(extractPath, Application.StartupPath);
+            //    if (UpdateFile(extractPath + @"\Plugins\CBABPM\", Application.StartupPath + @"\Plugins\CBABPM"))
+            //    {
+            //        if (UpdateFile(extractPath + @"\LoginImage\", Application.StartupPath + @"\LoginImage"))
+            //        {
+                        
+            //        }
+            //        else
+            //        {
+            //            //update fail
+            //        }
+            //    }
+            //}
         }
         private void setAttributesNormal(DirectoryInfo dir)
         {

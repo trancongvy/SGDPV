@@ -31,6 +31,7 @@
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
@@ -44,7 +45,7 @@
             // 
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl1.Location = new System.Drawing.Point(0, 67);
-            this.layoutControl1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.layoutControl1.Margin = new System.Windows.Forms.Padding(2);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(1056, 627, 250, 350);
             this.layoutControl1.Root = this.layoutControlGroup1;
@@ -65,20 +66,30 @@
             // 
             // panelControl1
             // 
+            this.panelControl1.Controls.Add(this.textBox1);
             this.panelControl1.Controls.Add(this.simpleButton2);
             this.panelControl1.Controls.Add(this.simpleButton1);
             this.panelControl1.Controls.Add(this.labelControl1);
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl1.Location = new System.Drawing.Point(0, 0);
-            this.panelControl1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelControl1.Margin = new System.Windows.Forms.Padding(2);
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Size = new System.Drawing.Size(884, 67);
             this.panelControl1.TabIndex = 1;
             // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("Tahoma", 11F);
+            this.textBox1.Location = new System.Drawing.Point(312, 22);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(138, 25);
+            this.textBox1.TabIndex = 3;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
             // simpleButton2
             // 
             this.simpleButton2.Location = new System.Drawing.Point(655, 11);
-            this.simpleButton2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.simpleButton2.Margin = new System.Windows.Forms.Padding(2);
             this.simpleButton2.Name = "simpleButton2";
             this.simpleButton2.Size = new System.Drawing.Size(124, 36);
             this.simpleButton2.TabIndex = 2;
@@ -88,7 +99,7 @@
             // simpleButton1
             // 
             this.simpleButton1.Location = new System.Drawing.Point(495, 11);
-            this.simpleButton1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.simpleButton1.Margin = new System.Windows.Forms.Padding(2);
             this.simpleButton1.Name = "simpleButton1";
             this.simpleButton1.Size = new System.Drawing.Size(124, 36);
             this.simpleButton1.TabIndex = 1;
@@ -99,7 +110,7 @@
             // 
             this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 14F);
             this.labelControl1.Location = new System.Drawing.Point(60, 24);
-            this.labelControl1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.labelControl1.Margin = new System.Windows.Forms.Padding(2);
             this.labelControl1.Name = "labelControl1";
             this.labelControl1.Size = new System.Drawing.Size(183, 23);
             this.labelControl1.TabIndex = 0;
@@ -113,7 +124,7 @@
             this.Controls.Add(this.layoutControl1);
             this.Controls.Add(this.panelControl1);
             this.LookAndFeel.SkinName = "Money Twins";
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "fSoftList";
             this.Text = "Phần mềm SGD - SGD Software - Công ty TNHH Phát triển Thế hệ Kế tiếp";
             this.Load += new System.EventHandler(this.fSoftList_Load);
@@ -134,5 +145,6 @@
         private DevExpress.XtraEditors.SimpleButton simpleButton1;
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.SimpleButton simpleButton2;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

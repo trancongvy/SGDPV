@@ -54,6 +54,13 @@ namespace Designflow
             tb.Columns["ActionID"].DefaultValue = id;
             return tb;
         }
+        public DataTable getPara4Action(Guid id)
+        {
+            string sql = "select * from sysActionPara where ActionID='" + id.ToString() + "'";
+            DataTable tb = _dataSt.GetDataTable(sql);
+            tb.Columns["ActionID"].DefaultValue = id;
+            return tb;
+        }
         public void GetWF(string TableID)
         {
             string sql = "select * from sysWF where systableid=" + TableID;
@@ -81,6 +88,8 @@ namespace Designflow
                     Action A = new Action(dr);
                     A.tbSecu = getSecurityAction(A.Id);
                     A.tbSecuGroup = getSecurityGrAction(A.Id);
+                    A.tbPara = getPara4Action(A.Id);
+
                     lAction.Add(A);
                     foreach (Task task in lTask)
                     {
@@ -261,6 +270,18 @@ namespace Designflow
                             sql = "insert into  sysUserGrAction (sysUserGroupID, ActionID, CAllow, GetMail) values (";
                             sql += drSecu["sysUserGroupID"].ToString() + ",'" + drSecu["ActionID"].ToString() + "','" + drSecu["CAllow"].ToString().Replace("'", "''") +
                                 "'," + Getmail + ")";
+                            _dataSt.UpdateByNonQuery(sql);
+                        }
+                    }
+                    if (A.tbPara != null)
+                    {
+                        sql= "delete sysActionPara  where ActionID='" + A.Id + "'";
+                        _dataSt.UpdateByNonQuery(sql);
+                        foreach (DataRow drPara in A.tbPara.Rows)
+                        {
+
+                            sql = "insert into  sysActionPara (ActionID, FieldName, Value,Formular) values ('";
+                            sql += drPara["ActionID"].ToString() + "','" + drPara["FieldName"].ToString() + "','" + drPara["Value"].ToString().Replace("'", "''") + "','" + drPara["Formular"].ToString().Replace("'", "''") + "')";
                             _dataSt.UpdateByNonQuery(sql);
                         }
                     }

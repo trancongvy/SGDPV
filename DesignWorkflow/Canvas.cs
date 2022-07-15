@@ -141,6 +141,7 @@ namespace Designflow
         public bool DoconfigData = true;
         public DataTable tbSecu;
         public DataTable tbSecuGroup;
+        public DataTable tbPara;
         public Action()
         {
             Name = "New Action";

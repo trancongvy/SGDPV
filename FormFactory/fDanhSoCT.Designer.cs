@@ -68,7 +68,7 @@
             this.layoutControl1.Controls.Add(this.textEdit1);
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
-            this.layoutControl1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.layoutControl1.Margin = new System.Windows.Forms.Padding(2);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(535, 805, 250, 350);
             this.layoutControl1.Root = this.layoutControlGroup1;
@@ -79,7 +79,7 @@
             // simpleButton2
             // 
             this.simpleButton2.Location = new System.Drawing.Point(684, 50);
-            this.simpleButton2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.simpleButton2.Margin = new System.Windows.Forms.Padding(2);
             this.simpleButton2.Name = "simpleButton2";
             this.simpleButton2.Size = new System.Drawing.Size(249, 22);
             this.simpleButton2.StyleController = this.layoutControl1;
@@ -90,7 +90,7 @@
             // simpleButton1
             // 
             this.simpleButton1.Location = new System.Drawing.Point(684, 12);
-            this.simpleButton1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.simpleButton1.Margin = new System.Windows.Forms.Padding(2);
             this.simpleButton1.Name = "simpleButton1";
             this.simpleButton1.Size = new System.Drawing.Size(249, 22);
             this.simpleButton1.StyleController = this.layoutControl1;
@@ -101,7 +101,7 @@
             // textEdit3
             // 
             this.textEdit3.Location = new System.Drawing.Point(76, 62);
-            this.textEdit3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textEdit3.Margin = new System.Windows.Forms.Padding(2);
             this.textEdit3.Name = "textEdit3";
             this.textEdit3.Size = new System.Drawing.Size(604, 20);
             this.textEdit3.StyleController = this.layoutControl1;
@@ -110,7 +110,7 @@
             // textEdit2
             // 
             this.textEdit2.Location = new System.Drawing.Point(76, 38);
-            this.textEdit2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textEdit2.Margin = new System.Windows.Forms.Padding(2);
             this.textEdit2.Name = "textEdit2";
             this.textEdit2.Size = new System.Drawing.Size(604, 20);
             this.textEdit2.StyleController = this.layoutControl1;
@@ -119,7 +119,7 @@
             // textEdit1
             // 
             this.textEdit1.Location = new System.Drawing.Point(76, 12);
-            this.textEdit1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textEdit1.Margin = new System.Windows.Forms.Padding(2);
             this.textEdit1.Name = "textEdit1";
             this.textEdit1.Size = new System.Drawing.Size(604, 20);
             this.textEdit1.StyleController = this.layoutControl1;
@@ -222,7 +222,7 @@
             // 
             this.panelControl3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl3.Location = new System.Drawing.Point(0, 85);
-            this.panelControl3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelControl3.Margin = new System.Windows.Forms.Padding(2);
             this.panelControl3.Name = "panelControl3";
             this.panelControl3.Size = new System.Drawing.Size(962, 454);
             this.panelControl3.TabIndex = 2;
@@ -234,7 +234,7 @@
             this.ClientSize = new System.Drawing.Size(962, 539);
             this.Controls.Add(this.panelControl3);
             this.Controls.Add(this.layoutControl1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "fDanhSoCT";
             this.Text = "fDanhSoCT";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

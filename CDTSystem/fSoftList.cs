@@ -28,6 +28,7 @@ namespace CDTSystem
         }
         public string[] SoftList;
         public string Productname = "";
+        public List<LayoutItem> lstItem = new List<LayoutItem>();
         private void fSoftList_Load(object sender, EventArgs e)
         {
            // if (SoftList.Length == 0) btCreate.Visible = true;
@@ -42,6 +43,7 @@ namespace CDTSystem
                         tb.Text = CompanyName + ", Dữ liệu: " + k;
                         tb.ToolTip = k;
                         LayoutControlItem it = new LayoutControlItem(this.layoutControl1, tb);
+                        this.lstItem.Add(it);
                         it.TextVisible = false;
                         tb.Click += Tb_Click;
                         tb.MouseUp += Tb_MouseUp;
@@ -117,6 +119,24 @@ namespace CDTSystem
         private void simpleButton2_Click(object sender, EventArgs e)
         {
             Application.Restart();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            foreach (LayoutControlItem it in this.lstItem)
+            {
+                SimpleButton tb = it.Control as SimpleButton;
+                if (tb == null) continue;
+                if (!tb.ToolTip.ToString().Contains(textBox1.Text.ToUpper()))
+                {
+                    it.HideToCustomization();
+                }
+                else
+                {
+                    it.RestoreFromCustomization();
+                }
+           
+            }
         }
     }
 }
