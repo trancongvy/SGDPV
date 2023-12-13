@@ -21,7 +21,7 @@ namespace ReportFactory
             CDTData data = DataFactory.DataFactory.Create(DataType.Report, drTable);
             CDTForm tmp = new ReportFilter(data);
             return tmp;
-            //Test2 
+            //Test3 
 
         }
 
