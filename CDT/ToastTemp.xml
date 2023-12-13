@@ -1,0 +1,8 @@
+﻿<toast>
+	<visual>
+		<binding template="ToastGeneric">
+			<text>SGD BPM started!</text>
+			<text>TSGD BPM started!!.</text>
+		</binding>
+	</visual>
+</toast>
