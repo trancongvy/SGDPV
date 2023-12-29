@@ -264,6 +264,10 @@
       <Project>{91C9EBB2-ABAA-4ABE-A659-69E2208BF10E}</Project>
       <Name>DataFactory</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DataMaintain\DataMaintain.csproj">
+      <Project>{867eb03b-cf1b-4590-8f71-343e259af6c1}</Project>
+      <Name>DataMaintain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FormFactory\FormFactory.csproj">
       <Project>{1a72f659-c361-4fd3-abe8-ef03b6f33a78}</Project>
       <Name>FormFactory</Name>
