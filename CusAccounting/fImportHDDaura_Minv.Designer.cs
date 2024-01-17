@@ -1260,7 +1260,7 @@ namespace CusAccounting
             this.geTkNo.Condition = null;
             this.geTkNo.Data = null;
             this.geTkNo.DymicCondition = null;
-            this.geTkNo.EditValue = "131";
+            this.geTkNo.EditValue = "1111";
             this.geTkNo.EnterMoveNextControl = true;
             this.geTkNo.Location = new System.Drawing.Point(59, 259);
             this.geTkNo.Name = "geTkNo";

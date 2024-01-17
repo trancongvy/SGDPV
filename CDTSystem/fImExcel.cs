@@ -163,23 +163,31 @@ namespace CDTSystem
             foreach (DataRow dr in MapStruct.Rows)
             {
                 int Type = int.Parse(dr["Type"].ToString());
-                if (Type == 3 || Type == 6) continue;
-                if (dr["fieldName"].ToString() != string.Empty )
+                if (Type == 3 ) continue;
+                if (dr["fieldName"].ToString() != string.Empty)
                 {
-                    
+
                     if ((dr["ColName"] == DBNull.Value || dr["ColName"].ToString() == string.Empty) && dr["AllowNull"].ToString() == "False" && dr["DefaultValue"] == DBNull.Value) continue;
                     string note = getnote(dr["Type"].ToString());
-                    if (dr["ColName"] != DBNull.Value && dr["ColName"].ToString() != string.Empty)
+                    List<int> chars = new List<int> { 0, 1, 2 };
+                    List<int> unid = new List<int> { 6, 7, 15 };
+        
+                    if (Type == 1 && RowData[dr["ColName"].ToString()].ToString() == "")
+                        RowData[dr["ColName"].ToString()] = DBNull.Value;
+                    if (unid.Contains(Type) && note == "'" && RowData[dr["ColName"].ToString()].ToString() == "")
+                        RowData[dr["ColName"].ToString()] = DBNull.Value;
+
+                    else if (dr["ColName"] != DBNull.Value && dr["ColName"].ToString() != string.Empty)
                     {
-                        if (RowData[dr["ColName"].ToString()].ToString() == "" && note == "") 
+                        if (RowData[dr["ColName"].ToString()].ToString() == "" && note == "")
                             continue;
                         sql += dr["fieldName"].ToString() + ",";
-                        values += (note == "'" ? "N" + note : note) + RowData[dr["ColName"].ToString()].ToString() + note + ",";
+                        values += chars.Contains(Type) ? "N" : "" + note + RowData[dr["ColName"].ToString()].ToString() + note + ",";
                     }
                     else if (dr["DefaultValue"] != DBNull.Value)
                     {
                         sql += dr["fieldName"].ToString() + ",";
-                        values += ((Type == 1 || Type == 2) ? "N" + note : note) + dr["DefaultValue"].ToString() + note + ",";
+                        values += note + dr["DefaultValue"].ToString() + note + ",";
                     }
                 }
                 

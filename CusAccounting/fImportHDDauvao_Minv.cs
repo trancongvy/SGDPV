@@ -239,7 +239,7 @@ namespace CusAccounting
                 drMT["Ngayhd"] = DateTime.Parse(hd.nky.ToString()).Date;
             else
                 drMT["Ngayhd"] = DateTime.Parse(hd.tdlap.ToString()).Date;
-            drMT["Sohoadon"] = "0000000".Substring(0, 7 - hd.shdon.ToString().Length) + hd.shdon.ToString();
+            drMT["Sohoadon"] = "00000000".Substring(0, 8 - hd.shdon.ToString().Length) + hd.shdon.ToString();
             drMT["Kyhieu"] = hd.khhdon;
             drMT["HTTToan"] = hd.thtttoan;
             drMT["TenKH"] = hd.nbten;
@@ -796,6 +796,12 @@ namespace CusAccounting
                 {
                     drMT["MaKH"] = lstRows[0]["MaKH"];
                     drMT.EndEdit();
+                    if (drMT["MaKH"] != DBNull.Value)
+                    {
+                        DataRow[] ldr = dbdmKH.DsData.Tables[0].Select("MaKH='" + drMT["MaKH"].ToString() + "'");
+                        if (ldr.Length == 0) drMT["MaKH"] = DBNull.Value;
+                        drMT.EndEdit();
+                    }
                     continue;
                 }
                 else
@@ -805,6 +811,12 @@ namespace CusAccounting
                     {
                         drMT["MaKH"] = lstRows[0]["Code"];
                         drMT.EndEdit();
+                        if (drMT["MaKH"] != DBNull.Value)
+                        {
+                            DataRow[] ldr = dbdmKH.DsData.Tables[0].Select("MaKH='" + drMT["MaKH"].ToString() + "'");
+                            if (ldr.Length == 0) drMT["MaKH"] = DBNull.Value;
+                            drMT.EndEdit();
+                        }
                         continue;
                     }
                 }
@@ -831,7 +843,12 @@ namespace CusAccounting
                     }
 
                 }
-
+                if (drMT["MaKH"] != DBNull.Value)
+                {
+                    DataRow[] ldr = dbdmKH.DsData.Tables[0].Select("MaKH='" + drMT["MaKH"].ToString() + "'");
+                    if (ldr.Length == 0) drMT["MaKH"] = DBNull.Value;
+                    drMT.EndEdit();
+                }
             }
         }
 
@@ -869,127 +886,104 @@ namespace CusAccounting
             double dic1;
             foreach (DataRow drDT in tbDT.Rows)
             {
-                string TenVT = drDT["TenVT"].ToString().ToLower();
-                if (TenVT == "SỮA RỬA TAY 500ml".ToLower())
+                check1VT(drDT, arrVTDic, arrVT, lstRowsDic);
+                if (drDT["MaVT"] != DBNull.Value)
                 {
-
-                }
-                TenVT = ThietKedulieu.RemoveTextBetweenParentheses(TenVT).Trim().Replace("'", ""); 
-                TenVT = ThietKedulieu.RemoveVietnameseSigns(TenVT);
-                
-
-                DataRow[] lstRows = dbdmVT.DsData.Tables[0].Select("TenVT='" + TenVT + "'");
-                if (lstRows.Length > 0)
-                {
-                    drDT["MaVT"] = lstRows[0]["MaVT"];
-
+                    DataRow[] ldr = dbdmVT.DsData.Tables[0].Select("MaVT='" + drDT["MaVT"].ToString() + "'");
+                    if (ldr.Length == 0) drDT["MaVT"] = DBNull.Value;
                     drDT.EndEdit();
-                    continue;
                 }
-                else
-                {
-                    lstRows = DictionaryName.DsData.Tables[0].Select("Name='" + drDT["TenVT"].ToString() + "' and TableName='DMVT'");//Tìm đúng bản gốc
-                    if (lstRows.Length > 0)
-                    {
-                        if (lstRows[0]["Code"] == DBNull.Value && lstRows[0]["isDV"].ToString() == "True")
-                        {
-                            drDT["isDV"] = lstRows[0]["isDV"];
-                        }
-                        else
-                        {
-                            drDT["MaVT"] = lstRows[0]["Code"];
-                        }
-                        drDT.EndEdit();
-                        continue;
-                    }
-                    else
-                    {
-                        if (Array.IndexOf(arrVTDic, TenVT) >= 0)
-                        {
-                            DataRow[] ldrdic = DictionaryName.DsData.Tables[0].Select("Name='" + TenVT + "'");
-                            if (ldrdic.Length > 0)
-                            {
-                                DataRow drDic = ldrdic[0];
-                                {
-                                    if (drDic["Code"] == DBNull.Value && drDic["isDV"].ToString() == "True")
-                                    {
-                                        drDT["isDV"] = drDic["isDV"];
-                                    }
-                                    else
-                                    {
-                                        drDT["MaVT"] = drDic["Code"];
-                                    }
-                                    drDT.EndEdit();
-                                    return;
-                                }
-                            }
-                        }
-                    }
-                    
 
-                        int j2 = ThietKedulieu.LevantEditWithWeightHasDic(arrVTDic, TenVT, 1000, out dic2);  //Tìm khoảng cách trên Dic
-                        int j1 = ThietKedulieu.LevantEditWithWeightHasDic(arrVT, TenVT, 1000, out dic1);//Khoảng cách trên vật tư
-                        if (dic2 <= dic1)//lấy trên mã 
+            }
+        }
+
+        private void check1VT(DataRow drDT, string[] arrVTDic, string[] arrVT, DataRow[] lstRowsDic)
+        {
+            double dic2;
+            double dic1;
+            string TenVT = drDT["TenVT"].ToString().ToLower();
+
+
+            //Xử lý dấu ngoặc
+            TenVT = ThietKedulieu.RemoveTextBetweenParentheses(TenVT).Trim().Replace("'", "");
+            DataRow[] lstRows = dbdmVT.DsData.Tables[0].Select("TenVT='" + TenVT + "'");// Tìm chính xác trên danh mục
+            if (lstRows.Length > 0)
+            {
+                drDT["MaVT"] = lstRows[0]["MaVT"];
+                drDT.EndEdit();
+                return;
+            }
+            else
+            {
+                if (Array.IndexOf(arrVTDic, TenVT) >= 0)
+                {
+                    DataRow[] ldrdic = DictionaryName.DsData.Tables[0].Select("Name='" + TenVT + "'");
+                    if (ldrdic.Length > 0)
+                    {
+                        DataRow drDic = ldrdic[0];
                         {
-                            if (j2 >= 0 && j2 < arrVTDic.Length)
+                            if (drDic["Code"] == DBNull.Value && drDic["isDV"].ToString() == "True")
                             {
-                                drDT["MaVT"] = lstRowsDic[j2]["Code"];
-                                drDT["dictance"] = dic2;
-                                drDT["isDV"] = lstRowsDic[j2]["isDV"];
-                                drDT.EndEdit();
-                                continue;
+                                drDT["isDV"] = drDic["isDV"];
                             }
                             else
                             {
-                                drDT["dictance"] = dic2;
-                                drDT.EndEdit();
+                                drDT["MaVT"] = drDic["Code"];
                             }
+                            drDT.EndEdit();
+                            return;
                         }
-                        else
-                        {
-                            if (j1 >= 0 && j1 < arrVT.Length)
-                            {
-                                drDT["MaVT"] = dbdmVT.DsData.Tables[0].Rows[j1]["MaVT"];
-                                drDT["TKKho"] = dbdmVT.DsData.Tables[0].Rows[j1]["TkKho"];
-                                drDT["isDV"] = dbdmVT.DsData.Tables[0].Rows[j1]["isDV"];
-                                drDT["dictance"] = dic1;
-                                drDT.EndEdit();
-                            }
-                            else
-                            {
-                                drDT["dictance"] = dic1;
-                                drDT.EndEdit();
-                            }
-                        }
-                    
-                }
-                
-
-
-                int j = ThietKedulieu.LevantEditWithWeight(arrVT, TenVT);
-                if (j >= 0 && j < arrVT.Length)
-                {
-                    drDT["MaVT"] = dbdmVT.DsData.Tables[0].Rows[j]["MaVT"];
-
-                    drDT.EndEdit();
-                    continue;
-                }
-                else
-                {
-                    drDT["MaVT"] = DBNull.Value;
-                    drDT["isDV"] = 0;
-                    //int j1 = ThietKedulieu.FindClosestString(arrVT, TenVT);
-
-                    //if (j1 >= 0 && j1 < arrVT.Length)
-                    //{
-                    //    drDT["MaVT"] = dbdmVT.DsData.Tables[0].Rows[j1]["MaVT"];
-                    //    drDT["TKKho"] = dbdmVT.DsData.Tables[0].Rows[j1]["TkKho"];
-                    //    drDT["isDV"] = dbdmVT.DsData.Tables[0].Rows[j1]["isDV"];
-                    //    drDT.EndEdit();
-                    //}
-
+                    }
                 }
             }
+            int j2 = ThietKedulieu.LevantEditWithWeightHasDic(arrVTDic, TenVT, 1000, out dic2); ; //Tìm khoảng cách trên Dic
+            int j1 = ThietKedulieu.LevantEditWithWeightHasDic(arrVT, TenVT, 1000, out dic1);//Khoảng cách trên vật tư
+            if (dic2 <= dic1)//lấy trên mã 
+            {
+                if (j2 >= 0 && j2 < arrVTDic.Length)
+                {
+
+                    drDT["MaVT"] = lstRowsDic[j2]["Code"];
+                    drDT["dictance"] = dic2;
+                    // drDT["isDV"] = lstRowsDic[j2]["isDV"];
+                    drDT.EndEdit();
+                    return;
+                }
+                else
+                {
+                    drDT["dictance"] = dic2;
+                    drDT.EndEdit();
+                }
+            }
+            else
+            {
+                if (j1 >= 0 && j1 < arrVT.Length)
+                {
+                    drDT["MaVT"] = dbdmVT.DsData.Tables[0].Rows[j1]["MaVT"];
+                    drDT["TKKho"] = dbdmVT.DsData.Tables[0].Rows[j1]["TkKho"];
+                    drDT["dictance"] = dic1;
+                    drDT.EndEdit();
+                }
+                else
+                {
+                    drDT["dictance"] = dic1;
+                    drDT.EndEdit();
+                }
+            }
+
+
+
+            //int j1 = ThietKedulieu.FindClosestString(arrVT, drDT["TenVT"].ToString().ToLower());
+
+            //if (j1 >= 0 && j1 < arrVT.Length)
+            //{
+            //    drDT["MaVT"] = dbdmVT.DsData.Tables[0].Rows[j1]["MaVT"];
+            //    drDT["TKKho"] = dbdmVT.DsData.Tables[0].Rows[j1]["TkKho"];
+            //    drDT.EndEdit();
+            //}
+
+
+            // }
         }
         BindingSource bsVT = new BindingSource();
         private void btThemVT_Click(object sender, EventArgs e)

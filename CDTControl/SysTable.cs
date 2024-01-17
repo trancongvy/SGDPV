@@ -37,7 +37,9 @@ namespace CDTControl
         }
         public void UpdateColIndex(DataRow dr, int inx)
         {
-            string sql = "update sysField set visible = case when " + inx.ToString() +">0 and visible='0' then '1' else visible end,   TabIndex=" + inx.ToString() + " where sysfieldID=" + dr["sysFieldID"].ToString();
+            string sql = "update sysField set visible = case when " + inx.ToString() +">0 and visible='0' then '1' else visible end where sysfieldID=" + dr["sysFieldID"].ToString();
+            _dbStruct.UpdateByNonQuery(sql);
+            sql = "update sysField set TabIndex = case when  visible <> '0' and " + inx.ToString() + ">0 then " + inx.ToString() + " else TabIndex end  where sysfieldID=" + dr["sysFieldID"].ToString();
             _dbStruct.UpdateByNonQuery(sql);
         }
         public void UpdateRowHeight(string TableName, int Height)

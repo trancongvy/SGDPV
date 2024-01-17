@@ -214,11 +214,20 @@ namespace CusAccounting
             }
             if (hd.mhdon != null)
                 drMT["MCCQT"] = hd.mhdon;
-            if (hd.ntao != null)
-                drMT["Ngayhd"] = DateTime.Parse(hd.ntao.ToString()).Date; 
+            if (hd.tdlap != null)
+            {
+
+                TimeZoneInfo VNTimezone = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"); // Múi giờ của GMT+7
+                TimeZoneInfo UTCTimezone = TimeZoneInfo.Utc;
+                DateTime NgayLapVN = TimeZoneInfo.ConvertTime(DateTime.Parse(hd.tdlap.ToString()), UTCTimezone, VNTimezone);
+
+                drMT["Ngayhd"] = NgayLapVN.Date;
+            }
+            else if (hd.ntao != null)
+                drMT["Ngayhd"] = DateTime.Parse(hd.ntao.ToString()).Date;
             else
                 drMT["Ngayhd"] = DateTime.Parse(hd.nky.ToString()).Date;
-            drMT["Sohoadon"] ="0000000".Substring(0,7- hd.shdon.ToString().Length) + hd.shdon.ToString();
+            drMT["Sohoadon"] ="00000000".Substring(0,8- hd.shdon.ToString().Length) + hd.shdon.ToString();
             drMT["Kyhieu"] = hd.khhdon;
             drMT["HTTToan"] = hd.thtttoan;
             drMT["TenKH"] = hd.nmten;
@@ -401,7 +410,7 @@ namespace CusAccounting
 
 
             geMaKho.Properties.DataSource = dbdmKho.DsData.Tables[0]; geMaKho.Properties.ValueMember = "MaKho"; geMaKho.Properties.DisplayMember = "TenKho"; geMaKho.EditValue = "HH";
-            geTkNo.Properties.DataSource = dbdmTk.DsData.Tables[0]; geTkNo.Properties.ValueMember = "TK"; geTkNo.Properties.DisplayMember = "TK"; geTkNo.EditValue = "131";
+            geTkNo.Properties.DataSource = dbdmTk.DsData.Tables[0]; geTkNo.Properties.ValueMember = "TK"; geTkNo.Properties.DisplayMember = "TK"; geTkNo.EditValue = "1111";
             geTkdthu.Properties.DataSource = dbdmTk.DsData.Tables[0]; geTkdthu.Properties.ValueMember = "TK"; geTkdthu.Properties.DisplayMember = "TK"; geTkdthu.EditValue = "5111";
             geTkdthuDV.Properties.DataSource = dbdmTk.DsData.Tables[0]; geTkdthuDV.Properties.ValueMember = "TK"; geTkdthuDV.Properties.DisplayMember = "TK"; geTkdthuDV.EditValue = "5113";
             geTkgv.Properties.DataSource = dbdmTk.DsData.Tables[0]; geTkgv.Properties.ValueMember = "TK"; geTkgv.Properties.DisplayMember = "TK"; geTkgv.EditValue = "632";
@@ -707,6 +716,14 @@ namespace CusAccounting
                 if (lstRows.Length > 0)
                 {
                     drMT["MaHTTT"] = lstRows[0]["MaHTTT"];
+                    if (drMT["MaHTTT"] != DBNull.Value && drMT["MaHTTT"].ToString() == "TM")
+                    {
+                        drMT["TkNo"] = "1111";                       
+                    }
+                    else if (drMT["MaHTTT"] != DBNull.Value && drMT["MaHTTT"].ToString() == "CK")
+                    {
+                        drMT["TkNo"] = "131";                      
+                    }
                     drMT.EndEdit();
                     continue;
                 }
@@ -716,7 +733,14 @@ namespace CusAccounting
                     if (lstRows.Length > 0)
                     {
                         drMT["MaHTTT"] = lstRows[0]["Code"];
-                        drMT.EndEdit();
+                        if (drMT["MaHTTT"] != DBNull.Value && drMT["MaHTTT"].ToString() == "TM")
+                        {
+                            drMT["TkNo"] = "1111";
+                        }
+                        else if (drMT["MaHTTT"] != DBNull.Value && drMT["MaHTTT"].ToString() == "CK")
+                        {
+                            drMT["TkNo"] = "131";
+                        }
                         continue;
                     }
                 }
@@ -748,6 +772,7 @@ namespace CusAccounting
                         
                     }
                 }
+                
             }
         }
 
@@ -771,7 +796,12 @@ namespace CusAccounting
                 DataRow[] lstRows = dbdmKH.DsData.Tables[0].Select("TenKH='" + drMT["TenKH"].ToString().Replace("'","") + "'");
                 if (lstRows.Length > 0)
                 {
-                    drMT["MaKH"] = lstRows[0]["MaKH"];
+                    drMT["MaKH"] = lstRows[0]["MaKH"];                    
+                    if (drMT["MaKH"] != DBNull.Value)
+                    {
+                        DataRow[] ldr = dbdmKH.DsData.Tables[0].Select("MaKH='" + drMT["MaKH"].ToString() + "'");
+                        if (ldr.Length == 0) drMT["MaKH"] = DBNull.Value;                       
+                    }
                     drMT.EndEdit();
                     continue;
                 }
@@ -786,6 +816,13 @@ namespace CusAccounting
                     if (lstRows.Length > 0)
                     {
                         drMT["MaKH"] = lstRows[0]["Code"];
+
+                        if (drMT["MaKH"] != DBNull.Value)
+                        {
+                            DataRow[] ldr = dbdmKH.DsData.Tables[0].Select("MaKH='" + drMT["MaKH"].ToString() + "'");
+                            if (ldr.Length == 0) drMT["MaKH"] = DBNull.Value;
+
+                        }
                         drMT.EndEdit();
                         continue;
                     }
@@ -813,7 +850,12 @@ namespace CusAccounting
                         }
                     }
 
-
+                }
+                if (drMT["MaKH"] != DBNull.Value)
+                {
+                    DataRow[] ldr = dbdmKH.DsData.Tables[0].Select("MaKH='" + drMT["MaKH"].ToString() + "'");
+                    if (ldr.Length == 0) drMT["MaKH"] = DBNull.Value;
+                    drMT.EndEdit();
                 }
                 // }
             }
@@ -823,7 +865,7 @@ namespace CusAccounting
         {
             foreach(DataRow drMT in tbMT.Rows)
             {
-                if(drMT["MaKH"]==DBNull.Value || drMT["MaKH"].ToString() == string.Empty)
+                if(drMT["MaKH"]==DBNull.Value || drMT["MaKH"].ToString().Trim() == string.Empty)
                 {
                     if (drMT["MST"] == DBNull.Value) continue;
                     if (dbdmKH.DsData.Tables[0].Select("MaKH='" + drMT["MST"].ToString() + "'").Length > 0) continue;
@@ -953,7 +995,12 @@ namespace CusAccounting
             foreach ( DataRow drDT in tbDT.Rows)
             {
                 check1VT(drDT, arrVTDic, arrVT, lstRowsDic);
-
+                if (drDT["MaVT"] != DBNull.Value)
+                {
+                    DataRow[] ldr = dbdmVT.DsData.Tables[0].Select("MaVT='" + drDT["MaVT"].ToString() + "'");
+                    if (ldr.Length == 0) drDT["MaVT"] = DBNull.Value;
+                    drDT.EndEdit();
+                }
 
 
                 //int j1 = ThietKedulieu.FindClosestString(arrVT, drDT["TenVT"].ToString().ToLower());

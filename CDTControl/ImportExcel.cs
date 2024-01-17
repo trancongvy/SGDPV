@@ -48,8 +48,9 @@ namespace CDTControl
                 if (worksheet.Name == p)
                 {
                     Db = new System.Data.DataTable();
-                    for (int i = 65; i < 90; i++)
+                    for (int i = 65; i <= 90; i++)
                     {
+                        
                         string c = ((char)i).ToString();
                         Range r = worksheet.get_Range(c + "1");
                         string t = r.Text.ToString();
