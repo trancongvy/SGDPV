@@ -118,13 +118,19 @@ namespace CDTSystem
             string sql = "Update " + tableName + " set ";
             string where="";
             string note="";
+
             foreach (DataRow dr in MapStruct.Rows)
             {
                 int Type = int.Parse(dr["Type"].ToString());
+
+
+                List<int> chars = new List<int> { 0, 1, 2 };
+                List<int> unid = new List<int> { 6, 7, 15 };
+
                 if (Type == 0 || Type == 3 || Type == 6)
                 {
                     note=getnote(dr["Type"].ToString());
-                    where = " where " + PkName + " =" + note + RowData[PkValueName] + note;
+                    where = " where " + PkName + " =" + (chars.Contains(Type) ? "N" : "") + note + RowData[PkValueName] + note;
                     continue;
                 }
                 if (dr["fieldName"].ToString() != string.Empty && dr["ColName"] != DBNull.Value && dr["ColName"].ToString() != string.Empty)
@@ -132,7 +138,7 @@ namespace CDTSystem
                     if (RowData[dr["ColName"].ToString()].ToString() == "" && note == "")
                         continue;
                     note = getnote(dr["Type"].ToString());
-                    sql += dr["fieldName"].ToString() + " = " + ((Type == 1 || Type == 2) ? "N" + note : note) + RowData[dr["ColName"].ToString()].ToString() + note + ",";
+                    sql += dr["fieldName"].ToString() + " = " + (chars.Contains(Type) ? "N" : "")  + note + RowData[dr["ColName"].ToString()].ToString() + note + ",";
                 }
             }
             sql = sql.Substring(0, sql.Length - 1);
@@ -182,12 +188,12 @@ namespace CDTSystem
                         if (RowData[dr["ColName"].ToString()].ToString() == "" && note == "")
                             continue;
                         sql += dr["fieldName"].ToString() + ",";
-                        values += chars.Contains(Type) ? "N" : "" + note + RowData[dr["ColName"].ToString()].ToString() + note + ",";
+                        values += (chars.Contains(Type) ? "N" : "") + note + RowData[dr["ColName"].ToString()].ToString() + note + ",";
                     }
                     else if (dr["DefaultValue"] != DBNull.Value)
                     {
                         sql += dr["fieldName"].ToString() + ",";
-                        values += note + dr["DefaultValue"].ToString() + note + ",";
+                        values += (chars.Contains(Type) ? "N" : "") + note + dr["DefaultValue"].ToString() + note + ",";
                     }
                 }
                 

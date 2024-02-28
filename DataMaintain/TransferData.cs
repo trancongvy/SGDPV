@@ -33,7 +33,7 @@ namespace DataMaintain
                 " left join sysTable tb3 on bl.dtTableID = tb3.sysTableID " +
                 " left join sysTable tb4 on bl.reTable = tb4.sysTableID " +
                " where tb1.sysPackageID = " + _sysPackageID + // " and bl.mtTableID = " + _mtTableID +
-               " and tb1.TableName in ('BLVT','BLTK','VATIN','VATOUT','BLVTDA') ";
+               " and tb1.TableName in ('BLVT','BLTK','VATIN','VATOUT','BLVTDA','BLVTVV') ";
             if (_mtName != string.Empty)
             {
                 s += " and tb2.TableName='" + _mtName + "'";
