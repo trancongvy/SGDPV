@@ -31,16 +31,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CDTDatabase">
-      <HintPath>..\..\SGDPV\CDT\bin\Debug\CDTDatabase.dll</HintPath>
+      <HintPath>..\CDTDatabase\bin\Debug\CDTDatabase.dll</HintPath>
     </Reference>
     <Reference Include="CDTLib">
-      <HintPath>..\..\SGDPV\CDT\bin\Debug\CDTLib.dll</HintPath>
+      <HintPath>..\CDTLib\bin\Debug\CDTLib.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Data.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Utils.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="Plugins">
-      <HintPath>..\..\SGDPV\CDT\bin\Debug\Plugins.dll</HintPath>
+      <HintPath>..\Plugins\bin\Debug\Plugins.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

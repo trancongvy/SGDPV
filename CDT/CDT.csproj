@@ -67,6 +67,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\CBS Controls\bin\Debug\CBSControls.dll</HintPath>
     </Reference>
+    <Reference Include="DataMaintain">
+      <HintPath>..\DataMaintain\bin\Debug\DataMaintain.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.BonusSkins.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=95fc6c5621878f0a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\DevExpress 2011.1\Components\Sources\DevExpress.DLL\DevExpress.BonusSkins.v11.1.dll</HintPath>
@@ -113,15 +116,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\DevExpress 2011.1\Components\Sources\DevExpress.DLL\DevExpress.XtraTreeList.v11.1.dll</HintPath>
     </Reference>
-    <Reference Include="ErrorManager, Version=1.0.3768.36968, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Fomula, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ErrorManager\bin\Debug\ErrorManager.dll</HintPath>
+      <HintPath>bin\Debug\Fomula.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\CBAPV\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\CBAPV\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\CBAPV\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -199,7 +199,6 @@
       <DependentUpon>Main.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>
@@ -210,6 +209,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.config" />
+    <Fakes Include="Fakes\CDTControl.fakes" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -233,24 +233,28 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CDTControl\CDTControl.csproj">
-      <Project>{8EEECDAC-1392-4262-A698-B5BE74ADCF72}</Project>
+      <Project>{8eeecdac-1392-4262-a698-b5be74adcf72}</Project>
       <Name>CDTControl</Name>
     </ProjectReference>
     <ProjectReference Include="..\CDTDatabase\CDTDatabase.csproj">
-      <Project>{9BBDB6C7-70F8-4805-BB51-445551E282C5}</Project>
+      <Project>{9bbdb6c7-70f8-4805-bb51-445551e282c5}</Project>
       <Name>CDTDatabase</Name>
     </ProjectReference>
     <ProjectReference Include="..\CDTLib\CDTLib.csproj">
-      <Project>{CF282973-8899-4C28-8286-71155CBE9C3A}</Project>
+      <Project>{cf282973-8899-4c28-8286-71155cbe9c3a}</Project>
       <Name>CDTLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\CDTSystem\CDTSystem.csproj">
-      <Project>{15E11060-C873-4207-A081-C5D2DB94C203}</Project>
+      <Project>{15e11060-c873-4207-a081-c5d2db94c203}</Project>
       <Name>CDTSystem</Name>
     </ProjectReference>
     <ProjectReference Include="..\CusAccounting\CusAccounting.csproj">
-      <Project>{49531EBD-D862-462A-9F23-A1D2A00A305B}</Project>
+      <Project>{49531ebd-d862-462a-9f23-a1d2a00a305b}</Project>
       <Name>CusAccounting</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CusCDTData\CusCDTData.csproj">
+      <Project>{6eafce2a-4df1-40b3-be77-0195539c8a92}</Project>
+      <Name>CusCDTData</Name>
     </ProjectReference>
     <ProjectReference Include="..\CusCRM\CusCRM.csproj">
       <Project>{87a42332-9553-4725-8810-ac46a747aceb}</Project>
@@ -261,23 +265,31 @@
       <Name>CusPOS</Name>
     </ProjectReference>
     <ProjectReference Include="..\DataFactory\DataFactory.csproj">
-      <Project>{91C9EBB2-ABAA-4ABE-A659-69E2208BF10E}</Project>
+      <Project>{91c9ebb2-abaa-4abe-a659-69e2208bf10e}</Project>
       <Name>DataFactory</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DataMaintain\DataMaintain.csproj">
-      <Project>{867eb03b-cf1b-4590-8f71-343e259af6c1}</Project>
-      <Name>DataMaintain</Name>
+    <ProjectReference Include="..\DesignWorkflow\DesignWorkflow.csproj">
+      <Project>{8e505b22-96f0-4085-a510-5be535dd4d4b}</Project>
+      <Name>DesignWorkflow</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DevControls\DevControls.csproj">
+      <Project>{4983ac7a-6df3-4f84-951f-5589b56c4ac5}</Project>
+      <Name>DevControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ErrorManager\ErrorManager.csproj">
+      <Project>{87726715-c19d-44ad-9ca0-90097d40eb39}</Project>
+      <Name>ErrorManager</Name>
     </ProjectReference>
     <ProjectReference Include="..\FormFactory\FormFactory.csproj">
       <Project>{1a72f659-c361-4fd3-abe8-ef03b6f33a78}</Project>
       <Name>FormFactory</Name>
     </ProjectReference>
     <ProjectReference Include="..\Plugins\Plugins.csproj">
-      <Project>{AFA2F1D0-B84B-406A-99D3-9ADA58DBFFCD}</Project>
+      <Project>{afa2f1d0-b84b-406a-99d3-9ada58dbffcd}</Project>
       <Name>Plugins</Name>
     </ProjectReference>
     <ProjectReference Include="..\ReportFactory\ReportFactory.csproj">
-      <Project>{C409FCCF-BB0C-4DF2-960F-B26B3CF2D7E0}</Project>
+      <Project>{c409fccf-bb0c-4df2-960f-b26b3cf2d7e0}</Project>
       <Name>ReportFactory</Name>
     </ProjectReference>
   </ItemGroup>

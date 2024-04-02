@@ -146,7 +146,6 @@
       <SubType>Designer</SubType>
       <DependentUpon>fileContener.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataFactory\DataFactory.csproj">
