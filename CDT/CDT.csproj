@@ -67,9 +67,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\CBS Controls\bin\Debug\CBSControls.dll</HintPath>
     </Reference>
-    <Reference Include="DataMaintain">
-      <HintPath>..\DataMaintain\bin\Debug\DataMaintain.dll</HintPath>
-    </Reference>
     <Reference Include="DevExpress.BonusSkins.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=95fc6c5621878f0a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\DevExpress 2011.1\Components\Sources\DevExpress.DLL\DevExpress.BonusSkins.v11.1.dll</HintPath>
@@ -209,7 +206,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.config" />
-    <Fakes Include="Fakes\CDTControl.fakes" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -267,6 +263,10 @@
     <ProjectReference Include="..\DataFactory\DataFactory.csproj">
       <Project>{91c9ebb2-abaa-4abe-a659-69e2208bf10e}</Project>
       <Name>DataFactory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataMaintain\DataMaintain.csproj">
+      <Project>{867eb03b-cf1b-4590-8f71-343e259af6c1}</Project>
+      <Name>DataMaintain</Name>
     </ProjectReference>
     <ProjectReference Include="..\DesignWorkflow\DesignWorkflow.csproj">
       <Project>{8e505b22-96f0-4085-a510-5be535dd4d4b}</Project>
