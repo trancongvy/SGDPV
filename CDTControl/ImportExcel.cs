@@ -56,6 +56,23 @@ namespace CDTControl
                         string t = r.Text.ToString();
                         Range r1 = worksheet.get_Range(c + "2");
                         Type type = r1.Text.GetType();
+                        decimal result;
+                        DateTime date;
+
+                        //if (DateTime.TryParse(r1.Text.ToString(), out date))
+                        //{
+                        //    type = typeof(DateTime);
+                        //}
+                        //else if (decimal.TryParse(r1.Text.ToString(), out result) && !r1.Text.ToString().StartsWith("0"))
+                        //{
+                        //    type = typeof(decimal);
+                        //}
+                        //else
+                        //{
+                        //    type = typeof(string);
+                        //}
+                            
+
                         if (t.Trim() != "")
                         {
                             Collist.Add(t.Trim());
@@ -69,18 +86,18 @@ namespace CDTControl
                     }
                     for (int j = 2; j < 35000; j++)
                     {
-                        DataRow dr= Db.NewRow();;
+                        DataRow dr= Db.NewRow();
                         for (int i = 0; i < Db.Columns.Count; i++)
                         {
                             int k = i + 65;
                             string c = ((char)k).ToString();
                             Range r = worksheet.get_Range(c + j.ToString());
                             string t = r.Text.ToString();
-                            Type type = r.Text.GetType();
+                            Type type = Db.Columns[i].DataType;
                             
                             if (t.Trim() != "")
                             {                                
-                                dr[Db.Columns[i]] = r.Text;
+                                dr[i] = r.Text;
                             }
                             if (t.Trim() == "" && i == 0)
                             {

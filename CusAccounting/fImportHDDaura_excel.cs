@@ -30,10 +30,10 @@ using ErrorManager;
 namespace CusAccounting
 {
 
-    public partial class fImportHDDaura_Minv : DevExpress.XtraEditors.XtraForm
+    public partial class fImportHDDaura_excel : DevExpress.XtraEditors.XtraForm
     {
         [Obsolete]
-        public fImportHDDaura_Minv()
+        public fImportHDDaura_excel()
         {
             InitializeComponent();
             DevExpress.Data.CurrencyDataController.DisableThreadingProblemsDetection = true;
@@ -41,8 +41,8 @@ namespace CusAccounting
             rEisDV.MouseUp += REisDV_MouseUp;
         }
 
+        ImportExcel IEx;
 
-        
         Database _db = Database.NewDataDatabase();
         Database _dbStruct = Database.NewStructDatabase();
         BindingSource bs = new BindingSource();
@@ -73,57 +73,12 @@ namespace CusAccounting
         DataMasterDetail _dataMt31;
         BindingSource bsMT31 = new BindingSource();
         FormDesigner _frmDesign;
-        private async Task<string> GetData(int page)
-        {
-            string token = "";
-            if (Config.Variables.ContainsKey("InvToken")) token = Config.GetValue("InvToken").ToString();
-            else return "";
-            string MST = "";
-            if (Config.Variables.ContainsKey("MaSoThue")) MST = Config.GetValue("MaSoThue").ToString();
-            else return "" ;
-            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-            string requestUri = "";
-            if (Config.Variables.ContainsKey("MInvoiceUrl")) requestUri = Config.GetValue("MInvoiceUrl").ToString();
-            requestUri += "?page=" + page.ToString().Trim() + "&size=50&invoiceType=OUTPUT_ELECTRONIC_INVOICE&invoiceReleaseDateFrom=" + DateTime.Parse(dTungay.EditValue.ToString()).ToString("dd/MM/yyyy") + "&invoiceReleaseDateTo=" + DateTime.Parse(dDenngay.EditValue.ToString()).ToString("dd/MM/yyyy") + "&sellerTaxNo=" + MST;
-            var client = new HttpClient();
-            client.DefaultRequestHeaders.Add("apiToken", token); 
-            try
-            {
-                HttpResponseMessage response = await client.GetAsync(requestUri);
-                response.EnsureSuccessStatusCode();
-                string responseBody = await response.Content.ReadAsStringAsync();
-                return responseBody;
-            }
-            catch (HttpRequestException ex)
-            {
-                Console.WriteLine($"An error occurred: {ex.Message}");
-                return null;
-            }
 
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    // Lấy dữ liệu trả về từ phản hồi
-            //    string responseString = await response.Content.ReadAsStringAsync();
-            //    return responseString;
-            //    // Xử lý dữ liệu trả về ở đây
-            //}
-            //else
-            return "";
-        }
 
-        private async void btLoadData_ClickAsync(object sender, EventArgs e)
+        private  void btLoadData_ClickAsync(object sender, EventArgs e)
         {
             lstid = new string[] { };
-            string data = "";
-            try
-            {
-                data = await  GetData(1);
-            }
-            catch(Exception ex)
-            {
 
-            }
-            if (data == "" || data==null) return;
             tbDT.Rows.Clear();
             tbMT.Rows.Clear();
             _dataMt32 = new DataMasterDetail("DT32", "7");
@@ -132,30 +87,13 @@ namespace CusAccounting
             _dataMt31 = new DataMasterDetail("DT31", "7");
             _dataMt31.ConditionMaster = "1=0";
             _dataMt31.GetData();
-
+            CreateData();
             bsMT32.DataSource = _dataMt32.DsData;
             bsMT32.DataMember = _dataMt32.DsData.Tables[0].TableName;
             bsMT31.DataSource = _dataMt31.DsData;
             bsMT31.DataMember = _dataMt31.DsData.Tables[0].TableName;
-
-            MInvoiceList mInvoiceList = JsonConvert.DeserializeObject<MInvoiceList>(data);
-            if (mInvoiceList != null)
-            {
-                int pagetotal = (int)mInvoiceList.totalPage;
-                CreateData1page(mInvoiceList);
-                if (pagetotal > 1)
-                {
-                    for (int i = 2; i <= pagetotal; i++)
-                    {
-                        data = await GetData(i);
-                        MInvoiceList mInvoiceList1 = JsonConvert.DeserializeObject<MInvoiceList>(data);
-                        CreateData1page(mInvoiceList1);
-                    }
-                }
-            }
-          
-           
-
+            bs.DataSource = ds;
+            bs.DataMember = tbMT.TableName;
             gridControl1.DataSource = bs;
             gridControl2.DataSource = bs;
             gridControl2.DataMember = tbDT.TableName;// ds.Relations[0].RelationName;
@@ -163,155 +101,97 @@ namespace CusAccounting
         }
         string[] lstid = new string[] { };
 
-        private void CreateData1page(MInvoiceList mInvoiceList)
+        private void CreateData()
         {
-            if (mInvoiceList != null)
+            string Sohoadon = "";
+            DataRow drMT;
+            DataRow drDT;
+            tbDT.Rows.Clear();tbMT.Rows.Clear();
+            Guid ID = Guid.NewGuid();
+            foreach (DataRow drSource in IEx.Db.Rows)
             {
-                foreach (MInvoice inv in mInvoiceList.listInvoice)
+                if (drSource["Sohoadon"] == DBNull.Value || drSource["Sohoadon"].ToString()==string.Empty) continue;
+                if (Sohoadon != drSource["Sohoadon"].ToString())//Hóa đơn khác
                 {
-                    if (inv.id == null) continue;
-
-
-                    if (lstid.Contains(inv.id))
-                    {
-                        DataRow[] lstTrung = tbMT.Select("MTID='" + inv.id + "'");
-
-                        LogFile.AppendToFile("dulieutrung.txt", inv.shdon + "  " + inv.ntnhan);
-                        continue;
-                    }
+                    ID = Guid.NewGuid();
+                    drMT = tbMT.NewRow();
+                    drMT["MTID"] = ID;
+                    
+                    drMT["Ngayhd"] = DateTime.Parse( drSource["Ngayhd"].ToString());
+                    drMT["Sohoadon"] = drSource["Sohoadon"];
+                    drMT["Kyhieu"] = drSource["Kyhieu"];
+                    drMT["HTTToan"] = drSource["HTTToan"];
+                    drMT["TenKH"] = drSource["TenKH"];
+                    drMT["MST"] = drSource["MST"];
+                    drMT["MaThue"] = drSource["MaThue"];
+                    drMT["DiaChi"] = drSource["DiaChi"];
+                    drMT["Ongba"] = drSource["Ongba"];
+                    drMT["TkNo"] = geTkNo.EditValue.ToString();
+                    drMT["TTienH"] =decimal.Parse( drSource["TTienH"].ToString());
+                    drMT["TThue"] = decimal.Parse(drSource["TThue"].ToString());
+                   // drMT["TTien"] = decimal.Parse(drSource["TTien"].ToString());
+                    drMT.EndEdit();
+                    tbMT.Rows.Add(drMT);
+                    //Tạo dữ liệu DT luôn
+                    drDT = tbDT.NewRow();
+                    drDT["Sohoadon"] = drMT["Sohoadon"];
+                    drDT["MTID"] = drMT["MTID"];
+                    drDT["MTIDDT"] = Guid.NewGuid();
+                    drDT["MaKho"] = geMaKho.EditValue.ToString();
+                    drDT["TenVT"] = drSource["TenVT"];
+                    drDT["DVT"] = drSource["DVT"];
+                    drDT["Soluong"] = decimal.Parse(drSource["Soluong"].ToString());
+                    drDT["DonGia"] = decimal.Parse(drSource["DonGia"].ToString());
+                    drDT["TTien"] = decimal.Parse(drSource["TienH"].ToString());
+                    drDT["MaThueCT"] = drSource["MaThue"].ToString();
+                    double Thuesuat = 0;
+                    if (drSource["MaThue"] != DBNull.Value)
+                        Thuesuat = double.Parse(drSource["MaThue"].ToString()) ;
                     else
-                    {
-                        Array.Resize(ref lstid, lstid.Length + 1);
-                        lstid[lstid.Length - 1] = inv.id;
-                    }
-                    if (inv.tthai == 6)
-                        continue;
-                    DataRow drMT = tbMT.NewRow();
-
-                    drMT["MTID"] = inv.id;
-                    tbMT.Rows.Add(CreateMTRow(drMT, inv));
-                    int firstRow = 0;
-                    if (inv.hdhhdvu != null)
-                    {
-                        foreach (HHDVu_Minv HHDV_minv in inv.hdhhdvu)
-                        {
-                            if (HHDV_minv.tchat == "4") continue;
-                            if (firstRow == 0) { drMT["DienGiai"] = HHDV_minv.ten; firstRow++; }
-
-                            DataRow drDT = tbDT.NewRow();
-                            tbDT.Rows.Add(CreateDTRow(drMT, drDT, HHDV_minv));
-                        }
-                    }
+                        Thuesuat = 0;
+                    drDT["Thuesuat"] = Thuesuat;
+                    drDT["TienThue"] = drSource["Thue"];
+                    drDT["TkDthu"] = geTkdthu.EditValue.ToString();
+                    drDT["Tkgv"] = geTkgv.EditValue.ToString();
+                    drDT["Tkkho"] = geTkkho.EditValue.ToString();
+                    drDT["isDV"] = 0;
+                    drDT.EndEdit();
+                    tbDT.Rows.Add(drDT);
+                    Sohoadon = drSource["Sohoadon"].ToString();
                 }
-            }
-        }
-        private DataRow CreateMTRow(DataRow drMT, MInvoice hd)
-        {
-
-            if (hd.nky != null && hd.ntao > DateTime.Parse(hd.nky.ToString()).AddDays(1))
-            {
-
-            }
-            if (hd.mhdon != null)
-                drMT["MCCQT"] = hd.mhdon;
-            if (hd.tdlap != null)
-            {
-
-                TimeZoneInfo VNTimezone = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"); // Múi giờ của GMT+7
-                TimeZoneInfo UTCTimezone = TimeZoneInfo.Utc;
-                DateTime NgayLapVN = TimeZoneInfo.ConvertTime(DateTime.Parse(hd.tdlap.ToString()), UTCTimezone, VNTimezone);
-
-                drMT["Ngayhd"] = NgayLapVN.Date;
-            }
-            else if (hd.ntao != null)
-                drMT["Ngayhd"] = DateTime.Parse(hd.ntao.ToString()).Date;
-            else
-                drMT["Ngayhd"] = DateTime.Parse(hd.nky.ToString()).Date;
-            drMT["Sohoadon"] ="00000000".Substring(0,8- hd.shdon.ToString().Length) + hd.shdon.ToString();
-            drMT["Kyhieu"] = hd.khhdon;
-            drMT["HTTToan"] = hd.thtttoan;
-            drMT["TenKH"] = hd.nmten;
-            drMT["MST"] = hd.nmmst;
-            
-            if (hd.nmdchi != null)
-            {
-                drMT["DiaChi"] = hd.nmdchi;
-            }
-            else
-            {
-                foreach(ttkhac Ttkhac in hd.ttkhac)
+                else //Cùng hóa đơn, chỉ thêm DT
                 {
-                    if(Ttkhac.ttruong.ToLower()=="địa chỉ" && Ttkhac.dlieu!=null)
-                    {
-                        drMT["DiaChi"] = Ttkhac.dlieu;
-                        break;
-                    }
+                    drDT = tbDT.NewRow();
+                    drDT["Sohoadon"] = Sohoadon;
+                    drDT["MTID"] = ID;
+                    drDT["MTIDDT"] =Guid.NewGuid();
+                    drDT["MaKho"] = geMaKho.EditValue.ToString();
+                    drDT["TenVT"] = drSource["TenVT"];
+                    drDT["DVT"] = drSource["DVT"];
+                    drDT["Soluong"] = decimal.Parse(drSource["Soluong"].ToString());
+                    drDT["DonGia"] = decimal.Parse(drSource["DonGia"].ToString());
+                    drDT["TTien"] = decimal.Parse(drSource["TTienH"].ToString());
+                    drDT["MaThueCT"] = drSource["MaThue"].ToString();
+                    double Thuesuat = 0;
+                    if (drSource["MaThue"] != DBNull.Value)
+                        Thuesuat = double.Parse(drSource["MaThue"].ToString());
+                    else
+                        Thuesuat = 0;
+                    drDT["Thuesuat"] = Thuesuat;
+                    drDT["TienThue"] = drSource["Thue"];
+                    drDT["TkDthu"] = geTkdthu.EditValue.ToString();
+                    drDT["Tkgv"] = geTkgv.EditValue.ToString();
+                    drDT["Tkkho"] = geTkkho.EditValue.ToString();
+                    drDT["isDV"] = 0;
+                    drDT.EndEdit();
+                    tbDT.Rows.Add(drDT);
                 }
-            }    
-            drMT["Ongba"] = hd.nmtnmua;
 
-                drMT["TTienH"] = hd.tgtcthue==null?0: hd.tgtcthue;
-                drMT["TThue"] = hd.tgtthue==null ? 0 : hd.tgtthue;
-            drMT["TTien"] = hd.tgtttbso==null ? 0 : hd.tgtttbso;
-            if(hd.thttltsuat!=null && hd.thttltsuat.Length > 0)
-            {
-                drMT["MaThue"] = hd.thttltsuat[0].tsuat.Replace("%", "");
             }
-            else
-            {
-                drMT["MaThue"] = "KCT";
-            }
+            
+        }
 
-            // drMT["MaThue"] = hd.DLHDon.NDHDon.TToan.THTTLTSuat.TTSuat.TSuat.Replace("%", "");
-            drMT["TkNo"] = geTkNo.EditValue.ToString();
-            drMT.EndEdit();
-            return drMT;
-        }
-        private DataRow CreateDTRow(DataRow drMT, DataRow drDT, HHDVu_Minv hh)
-        {
-            drDT["MTID"] = drMT["MTID"];
-            drDT["Sohoadon"] = drMT["Sohoadon"];
-            drDT["MTIDDT"] =hh.id;
-            drDT["MaKho"] = geMaKho.EditValue.ToString();
-            drDT["TenVT"] = hh.ten;
-            drDT["DVT"] = hh.dvtinh;
-            if (hh.sluong == null) drDT["Soluong"] = 0;
-            else drDT["Soluong"] = hh.sluong;
-            //drDT["Soluong"] = (hh.SLuong==null)? 0: hh.SLuong;
-            if (hh.dgia == null) drDT["DonGia"] = 0;
-            else drDT["DonGia"] = hh.dgia;
-            if (hh.tlckhau != null)
-                drDT["TileCK"] = hh.tlckhau;
-            if (hh.stckhau != null)
-                drDT["CK"] = hh.stckhau;
-            else
-            {
-                hh.stckhau = 0;
-                drDT["CK"] = hh.stckhau;
-            }
-            drDT["TTien"] = hh.thtien;
-            if (hh.ltsuat != null)
-                drDT["MaThueCT"] = hh.ltsuat.Replace("%", "");
-            else
-                drDT["MaThueCT"] = "KT";
-            double Thuesuat = 0;
-            if (hh.tsuat != null)
-                Thuesuat = (double)hh.tsuat * 100;
-            else
-                Thuesuat = 0;
-            drDT["Thuesuat"] = Thuesuat;
-          
-            
-            
-            
-            drDT["TienThue"] = Math.Round((double)((hh.thtien - hh.stckhau) * Thuesuat / 100), 0);
-            drDT["TkDthu"] = geTkdthu.EditValue.ToString();
-            drDT["Tkgv"] = geTkgv.EditValue.ToString();
-            drDT["Tkkho"] = geTkkho.EditValue.ToString();
-            drDT["isDV"] = 0;
-            drDT.EndEdit();
-            return drDT;
-        }
+       
         private void fImportHDDauRa_Load(object sender, EventArgs e)
         {
 
@@ -415,11 +295,29 @@ namespace CusAccounting
             geTkdthuDV.Properties.DataSource = dbdmTk.DsData.Tables[0]; geTkdthuDV.Properties.ValueMember = "TK"; geTkdthuDV.Properties.DisplayMember = "TK"; geTkdthuDV.EditValue = "5113";
             geTkgv.Properties.DataSource = dbdmTk.DsData.Tables[0]; geTkgv.Properties.ValueMember = "TK"; geTkgv.Properties.DisplayMember = "TK"; geTkgv.EditValue = "632";
             geTkkho.Properties.DataSource = dbdmTk.DsData.Tables[0]; geTkkho.Properties.ValueMember = "TK"; geTkkho.Properties.DisplayMember = "TK"; geTkkho.EditValue = "1561";
+            //tbMT.PrimaryKey = new DataColumn[] { tbMT.Columns["MTID"] };
+            //tbDT.PrimaryKey = new DataColumn[] { tbDT.Columns["MTIDDT"] };
+
+            //ds.Tables.AddRange(new DataTable[] { tbMT, tbDT });
+
+            //DataColumn pk = tbMT.Columns["MTID"];
+            //DataColumn fk = tbDT.Columns["MTID"];
+            //DataRelation dr = new DataRelation(tbDT.TableName, pk, fk, true);
+            //try
+            //{
+            //    ds.Relations.Add(dr);
+            //}
+            //catch(Exception ex)
+            //{ 
+            //}
+            
+
+
             tbMT.PrimaryKey = new DataColumn[] { tbMT.Columns["MTID"] };
             tbDT.PrimaryKey = new DataColumn[] { tbDT.Columns["MTIDDT"] };
-
+            ds.Tables.Clear();
             ds.Tables.AddRange(new DataTable[] { tbMT, tbDT });
-
+            tbDT.TableName = "DT";
             DataColumn pk = tbMT.Columns["MTID"];
             DataColumn fk = tbDT.Columns["MTID"];
             DataRelation dr = new DataRelation(tbDT.TableName, pk, fk, true);
@@ -427,8 +325,9 @@ namespace CusAccounting
             {
                 ds.Relations.Add(dr);
             }
-            catch
-            { }
+            catch (Exception ex)
+            {
+            }
             bs.DataSource = ds;
             bs.DataMember = tbMT.TableName;
             reHTTT.KeyUp += ReHTTT_KeyUp;
@@ -681,6 +580,7 @@ namespace CusAccounting
                 else
                 {
                     ldr[0]["Code"] = Code; ldr[0]["Name"] = Name; ldr[0]["TableName"] = TableName;
+                    DictionaryName.DrCurrentMaster = ldr[0];
                     DictionaryName.UpdateData(DataAction.Update);
                 }
             }
@@ -1401,6 +1301,7 @@ namespace CusAccounting
                             _dataMt32.DsData.RejectChanges();
                             bsMT32.DataSource = _dataMt32.DsData;
                         }
+                            
                         break;
                     case "1": // Hóa đơn dịch vụ
                         HasErr = !InsertMT31(drv);
@@ -1409,6 +1310,7 @@ namespace CusAccounting
                             _dataMt31.DsData.RejectChanges();
                             bsMT31.DataSource = _dataMt31.DsData;
                         }
+
                         break;
                 }
 
@@ -1479,7 +1381,7 @@ namespace CusAccounting
         private void importMT32Row(DataRow drCurrentMaster, DataRow row)
         {
             drCurrentMaster["MCCQT"] = row["MCCQT"];
-            drCurrentMaster["MT32ID"] = row["MTID"];
+            drCurrentMaster["MT32ID"] = Guid.Parse( row["MTID"].ToString());
             drCurrentMaster["MaCT"] = "HDB";
             drCurrentMaster["NgayCT"]=row["Ngayhd"];
             drCurrentMaster["NgayHD"] = row["Ngayhd"];
@@ -1564,34 +1466,7 @@ namespace CusAccounting
             drCurrentMaster.EndEdit();
 
         }
-        private void btXoaHD_Click(object sender, EventArgs e)
-        {
-            string condition = "MCCQT in ('";
-            
-            foreach (DataRow dr in tbMT.Rows)
-            {
-                condition += dr["MCCQT"].ToString() + "','";
-
-            }
-            if (tbMT.Rows.Count > 0) condition = condition.Substring(0, condition.Length - 2) + ")";
-            else condition = "1=0";
-            _dataMt32.ConditionMaster = condition;
-            _dataMt32.GetData();
-            bsMT32.DataSource = _dataMt32.DsData;
-            bsMT32.DataMember = _dataMt32.DsData.Tables[0].TableName;
-
-            _dataMt31.ConditionMaster = condition;
-            _dataMt31.GetData();
-            bsMT31.DataSource = _dataMt31.DsData;
-            bsMT31.DataMember = _dataMt31.DsData.Tables[0].TableName;
-            bs.MoveLast();
-            progressBar1.Minimum = 0;
-            progressBar1.Maximum = bsMT32.Count + bsMT31.Count;
-            progressBar1.Step = 1;
-            progressBar1.Value = 0;
-            DeleteHD();
-            
-        }
+        
         private  async void DeleteHD()
         {
 
@@ -1643,7 +1518,33 @@ namespace CusAccounting
             }
         }
 
+        private void simpleButton1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "AllExel|*.xls;*.xlsx";
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                tFileName.EditValue = dialog.FileName;
+                IEx = new ImportExcel(dialog.FileName);
+                List<string> sheets = IEx.GetSheets();
+                lSheet.Properties.Items.Clear();
+                lSheet.Properties.Items.AddRange(sheets.ToArray());
+            }
+        }
 
+        private void lSheet_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lSheet.EditValue == null) return;
+            List<string> cols = IEx.GetCol(lSheet.EditValue.ToString());
+            if (cols == null) return;
+            RiCom.Items.AddRange(cols.ToArray());
+            //foreach (DataRow dr in MapStruct.Rows)
+            //{
+            //    if (cols.Exists(x => x.ToString().ToUpper() == dr["FieldName"].ToString().ToUpper()))
+            //        dr["ColName"] = dr["FieldName"].ToString();
+
+            //}
+        }
     }
 
 

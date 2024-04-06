@@ -1593,19 +1593,35 @@ namespace CusAccounting
                 {
                     case "0":// Mua hàng
                         HasErr = !InsertMT22(drv);
-                        if (HasErr) _dataMt22.DsData.RejectChanges();
+                        if (HasErr)
+                        {
+                            _dataMt22.DsData.RejectChanges();
+                            bsMT22.DataSource = _dataMt22.DsData;
+                        }
                         break;
                     case "1": // Mua dịch vụ
                         HasErr = !InsertMT21(drv);
-                        if (HasErr) _dataMt21.DsData.RejectChanges();
+                        if (HasErr)
+                        {
+                            _dataMt21.DsData.RejectChanges();
+                            bsMT21.DataSource = _dataMt21.DsData;
+                        }
                         break;
                     case "2":// Phiếu Chi
                         HasErr = !InsertMT12(drv);
-                        if (HasErr) _dataMt12.DsData.RejectChanges();
+                        if (HasErr)
+                        {
+                            _dataMt12.DsData.RejectChanges();
+                            bsMT12.DataSource = _dataMt12.DsData;
+                        }
                         break;
                     case "3": // Hóa đơn dịch vụ
                         HasErr = !InsertMT16(drv);
-                        if (HasErr) _dataMt16.DsData.RejectChanges();
+                        if (HasErr)
+                        {
+                            _dataMt16.DsData.RejectChanges();
+                            bsMT16.DataSource = _dataMt16.DsData;
+                        }
                         break;
                 }
                 bs.MoveNext();
