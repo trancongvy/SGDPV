@@ -184,6 +184,11 @@ namespace DataMaintain
                 sql += " and (" + condition + ")";
             if (_mtName != string.Empty && _Condition != string.Empty)
                 sql += " and (" + _Condition + ")";
+            if (drConfig.Table.Columns.Contains("SortOrder") && drConfig["SortOrder"]!=DBNull.Value && drConfig["SortOrder"].ToString()!=string.Empty)
+            {
+                string order = drConfig["SortOrder"].ToString();
+                sql += " order by " + order;
+            }
             return sql;
 
         }

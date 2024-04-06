@@ -177,7 +177,7 @@ namespace CDTSystem
                     string note = getnote(dr["Type"].ToString());
                     List<int> chars = new List<int> { 0, 1, 2 };
                     List<int> unid = new List<int> { 6, 7, 15 };
-        
+                    if (dr["ColName"] == DBNull.Value) continue;
                     if (Type == 1 && RowData[dr["ColName"].ToString()].ToString() == "")
                         RowData[dr["ColName"].ToString()] = DBNull.Value;
                     if (unid.Contains(Type) && note == "'" && RowData[dr["ColName"].ToString()].ToString() == "")

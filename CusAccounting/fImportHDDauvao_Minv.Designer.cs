@@ -238,16 +238,19 @@ namespace CusAccounting
             this.panelControl1.Controls.Add(this.splitter2);
             this.panelControl1.Controls.Add(this.panel1);
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl1.Location = new System.Drawing.Point(0, 55);
+            this.panelControl1.Location = new System.Drawing.Point(0, 68);
+            this.panelControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(1658, 637);
+            this.panelControl1.Size = new System.Drawing.Size(1924, 784);
             this.panelControl1.TabIndex = 0;
             // 
             // gridControl2
             // 
             this.gridControl2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControl2.Location = new System.Drawing.Point(2, 299);
+            this.gridControl2.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.gridControl2.Location = new System.Drawing.Point(2, 368);
             this.gridControl2.MainView = this.gridView2;
+            this.gridControl2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gridControl2.Name = "gridControl2";
             this.gridControl2.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemGridLookUpEdit1,
@@ -255,7 +258,7 @@ namespace CusAccounting
             this.repositoryItemLookUpEdit1,
             this.repositoryItemCheckEdit2,
             this.rEisDV});
-            this.gridControl2.Size = new System.Drawing.Size(1412, 336);
+            this.gridControl2.Size = new System.Drawing.Size(1638, 414);
             this.gridControl2.TabIndex = 8;
             this.gridControl2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView2});
@@ -524,24 +527,27 @@ namespace CusAccounting
             // splitter1
             // 
             this.splitter1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitter1.Location = new System.Drawing.Point(2, 296);
+            this.splitter1.Location = new System.Drawing.Point(2, 364);
+            this.splitter1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(1412, 3);
+            this.splitter1.Size = new System.Drawing.Size(1638, 4);
             this.splitter1.TabIndex = 7;
             this.splitter1.TabStop = false;
             // 
             // gridControl1
             // 
             this.gridControl1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gridControl1.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gridControl1.Location = new System.Drawing.Point(2, 2);
             this.gridControl1.MainView = this.gridView1;
+            this.gridControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.Rep1,
             this.RiCom,
             this.RiType,
             this.repositoryItemCheckEdit1});
-            this.gridControl1.Size = new System.Drawing.Size(1412, 294);
+            this.gridControl1.Size = new System.Drawing.Size(1638, 362);
             this.gridControl1.TabIndex = 6;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -824,9 +830,10 @@ namespace CusAccounting
             // splitter2
             // 
             this.splitter2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.splitter2.Location = new System.Drawing.Point(1414, 2);
+            this.splitter2.Location = new System.Drawing.Point(1640, 2);
+            this.splitter2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.splitter2.Name = "splitter2";
-            this.splitter2.Size = new System.Drawing.Size(3, 633);
+            this.splitter2.Size = new System.Drawing.Size(3, 780);
             this.splitter2.TabIndex = 9;
             this.splitter2.TabStop = false;
             // 
@@ -834,9 +841,10 @@ namespace CusAccounting
             // 
             this.panel1.Controls.Add(this.layoutControl1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(1417, 2);
+            this.panel1.Location = new System.Drawing.Point(1643, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(239, 633);
+            this.panel1.Size = new System.Drawing.Size(279, 780);
             this.panel1.TabIndex = 4;
             // 
             // layoutControl1
@@ -862,24 +870,27 @@ namespace CusAccounting
             this.layoutControl1.Controls.Add(this.geMaKho);
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
+            this.layoutControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(239, 633);
+            this.layoutControl1.Size = new System.Drawing.Size(279, 780);
             this.layoutControl1.TabIndex = 33;
             this.layoutControl1.Text = "layoutControl1";
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(12, 443);
+            this.progressBar1.Location = new System.Drawing.Point(12, 481);
+            this.progressBar1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(215, 32);
+            this.progressBar1.Size = new System.Drawing.Size(255, 54);
             this.progressBar1.TabIndex = 24;
             // 
             // btPhanloai
             // 
-            this.btPhanloai.Location = new System.Drawing.Point(12, 391);
+            this.btPhanloai.Location = new System.Drawing.Point(12, 425);
+            this.btPhanloai.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btPhanloai.Name = "btPhanloai";
-            this.btPhanloai.Size = new System.Drawing.Size(215, 22);
+            this.btPhanloai.Size = new System.Drawing.Size(255, 24);
             this.btPhanloai.StyleController = this.layoutControl1;
             this.btPhanloai.TabIndex = 26;
             this.btPhanloai.Text = "Kiểm tra phân loại loại hóa đơn";
@@ -889,9 +900,10 @@ namespace CusAccounting
             // 
             this.btThemHoaDon.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.btThemHoaDon.Appearance.Options.UseFont = true;
-            this.btThemHoaDon.Location = new System.Drawing.Point(12, 417);
+            this.btThemHoaDon.Location = new System.Drawing.Point(12, 453);
+            this.btThemHoaDon.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btThemHoaDon.Name = "btThemHoaDon";
-            this.btThemHoaDon.Size = new System.Drawing.Size(215, 22);
+            this.btThemHoaDon.Size = new System.Drawing.Size(255, 24);
             this.btThemHoaDon.StyleController = this.layoutControl1;
             this.btThemHoaDon.TabIndex = 23;
             this.btThemHoaDon.Text = "Thêm vào tất cả các hóa đơn";
@@ -906,7 +918,8 @@ namespace CusAccounting
             this.geTkNo.DymicCondition = null;
             this.geTkNo.EditValue = "131";
             this.geTkNo.EnterMoveNextControl = true;
-            this.geTkNo.Location = new System.Drawing.Point(85, 369);
+            this.geTkNo.Location = new System.Drawing.Point(106, 401);
+            this.geTkNo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.geTkNo.Name = "geTkNo";
             this.geTkNo.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
             this.geTkNo.Properties.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(236)))), ((int)(((byte)(239)))));
@@ -918,7 +931,7 @@ namespace CusAccounting
             this.geTkNo.Properties.NullText = "";
             this.geTkNo.Properties.View = this.gridView10;
             this.geTkNo.refTable = null;
-            this.geTkNo.Size = new System.Drawing.Size(142, 18);
+            this.geTkNo.Size = new System.Drawing.Size(161, 20);
             this.geTkNo.StyleController = this.layoutControl1;
             this.geTkNo.TabIndex = 31;
             // 
@@ -959,7 +972,8 @@ namespace CusAccounting
             this.geTkNH.DymicCondition = null;
             this.geTkNH.EditValue = "131";
             this.geTkNH.EnterMoveNextControl = true;
-            this.geTkNH.Location = new System.Drawing.Point(85, 347);
+            this.geTkNH.Location = new System.Drawing.Point(106, 377);
+            this.geTkNH.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.geTkNH.Name = "geTkNH";
             this.geTkNH.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
             this.geTkNH.Properties.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(236)))), ((int)(((byte)(239)))));
@@ -971,7 +985,7 @@ namespace CusAccounting
             this.geTkNH.Properties.NullText = "";
             this.geTkNH.Properties.View = this.gridView9;
             this.geTkNH.refTable = null;
-            this.geTkNH.Size = new System.Drawing.Size(142, 18);
+            this.geTkNH.Size = new System.Drawing.Size(161, 20);
             this.geTkNH.StyleController = this.layoutControl1;
             this.geTkNH.TabIndex = 29;
             // 
@@ -1005,9 +1019,10 @@ namespace CusAccounting
             // 
             // btReload
             // 
-            this.btReload.Location = new System.Drawing.Point(12, 194);
+            this.btReload.Location = new System.Drawing.Point(12, 208);
+            this.btReload.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btReload.Name = "btReload";
-            this.btReload.Size = new System.Drawing.Size(215, 22);
+            this.btReload.Size = new System.Drawing.Size(255, 24);
             this.btReload.StyleController = this.layoutControl1;
             this.btReload.TabIndex = 20;
             this.btReload.Text = "Reload danh mục ";
@@ -1015,9 +1030,10 @@ namespace CusAccounting
             // 
             // simpleButton4
             // 
-            this.simpleButton4.Location = new System.Drawing.Point(12, 38);
+            this.simpleButton4.Location = new System.Drawing.Point(12, 40);
+            this.simpleButton4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.simpleButton4.Name = "simpleButton4";
-            this.simpleButton4.Size = new System.Drawing.Size(215, 22);
+            this.simpleButton4.Size = new System.Drawing.Size(255, 24);
             this.simpleButton4.StyleController = this.layoutControl1;
             this.simpleButton4.TabIndex = 4;
             this.simpleButton4.Text = "Kiểm tra Mã khách hàng";
@@ -1032,7 +1048,8 @@ namespace CusAccounting
             this.geTkTM.DymicCondition = null;
             this.geTkTM.EditValue = "131";
             this.geTkTM.EnterMoveNextControl = true;
-            this.geTkTM.Location = new System.Drawing.Point(85, 325);
+            this.geTkTM.Location = new System.Drawing.Point(106, 353);
+            this.geTkTM.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.geTkTM.Name = "geTkTM";
             this.geTkTM.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
             this.geTkTM.Properties.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(236)))), ((int)(((byte)(239)))));
@@ -1044,7 +1061,7 @@ namespace CusAccounting
             this.geTkTM.Properties.NullText = "";
             this.geTkTM.Properties.View = this.gridView7;
             this.geTkTM.refTable = null;
-            this.geTkTM.Size = new System.Drawing.Size(142, 18);
+            this.geTkTM.Size = new System.Drawing.Size(161, 20);
             this.geTkTM.StyleController = this.layoutControl1;
             this.geTkTM.TabIndex = 27;
             // 
@@ -1078,9 +1095,10 @@ namespace CusAccounting
             // 
             // btAddMaKH
             // 
-            this.btAddMaKH.Location = new System.Drawing.Point(12, 64);
+            this.btAddMaKH.Location = new System.Drawing.Point(12, 68);
+            this.btAddMaKH.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btAddMaKH.Name = "btAddMaKH";
-            this.btAddMaKH.Size = new System.Drawing.Size(215, 22);
+            this.btAddMaKH.Size = new System.Drawing.Size(255, 24);
             this.btAddMaKH.StyleController = this.layoutControl1;
             this.btAddMaKH.TabIndex = 5;
             this.btAddMaKH.Text = "Tự động thêm mã Khách hàng";
@@ -1088,9 +1106,10 @@ namespace CusAccounting
             // 
             // btCheckVT
             // 
-            this.btCheckVT.Location = new System.Drawing.Point(12, 142);
+            this.btCheckVT.Location = new System.Drawing.Point(12, 152);
+            this.btCheckVT.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btCheckVT.Name = "btCheckVT";
-            this.btCheckVT.Size = new System.Drawing.Size(215, 22);
+            this.btCheckVT.Size = new System.Drawing.Size(255, 24);
             this.btCheckVT.StyleController = this.layoutControl1;
             this.btCheckVT.TabIndex = 6;
             this.btCheckVT.Text = "Kiểm tra Mã vật tư";
@@ -1098,9 +1117,10 @@ namespace CusAccounting
             // 
             // btThemVT
             // 
-            this.btThemVT.Location = new System.Drawing.Point(12, 168);
+            this.btThemVT.Location = new System.Drawing.Point(12, 180);
+            this.btThemVT.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btThemVT.Name = "btThemVT";
-            this.btThemVT.Size = new System.Drawing.Size(215, 22);
+            this.btThemVT.Size = new System.Drawing.Size(255, 24);
             this.btThemVT.StyleController = this.layoutControl1;
             this.btThemVT.TabIndex = 7;
             this.btThemVT.Text = "Thêm mã vật tư";
@@ -1109,8 +1129,9 @@ namespace CusAccounting
             // btKiemTraHTTT
             // 
             this.btKiemTraHTTT.Location = new System.Drawing.Point(12, 12);
+            this.btKiemTraHTTT.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btKiemTraHTTT.Name = "btKiemTraHTTT";
-            this.btKiemTraHTTT.Size = new System.Drawing.Size(215, 22);
+            this.btKiemTraHTTT.Size = new System.Drawing.Size(255, 24);
             this.btKiemTraHTTT.StyleController = this.layoutControl1;
             this.btKiemTraHTTT.TabIndex = 19;
             this.btKiemTraHTTT.Text = "Kiểm tra Hình thức TT";
@@ -1118,9 +1139,10 @@ namespace CusAccounting
             // 
             // btThemDVT
             // 
-            this.btThemDVT.Location = new System.Drawing.Point(12, 116);
+            this.btThemDVT.Location = new System.Drawing.Point(12, 124);
+            this.btThemDVT.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btThemDVT.Name = "btThemDVT";
-            this.btThemDVT.Size = new System.Drawing.Size(215, 22);
+            this.btThemDVT.Size = new System.Drawing.Size(255, 24);
             this.btThemDVT.StyleController = this.layoutControl1;
             this.btThemDVT.TabIndex = 22;
             this.btThemDVT.Text = "Thêm Đơn vị tính";
@@ -1134,7 +1156,8 @@ namespace CusAccounting
             this.geTkkho.Data = null;
             this.geTkkho.DymicCondition = null;
             this.geTkkho.EnterMoveNextControl = true;
-            this.geTkkho.Location = new System.Drawing.Point(85, 303);
+            this.geTkkho.Location = new System.Drawing.Point(106, 329);
+            this.geTkkho.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.geTkkho.Name = "geTkkho";
             this.geTkkho.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
             this.geTkkho.Properties.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(236)))), ((int)(((byte)(239)))));
@@ -1146,7 +1169,7 @@ namespace CusAccounting
             this.geTkkho.Properties.NullText = "";
             this.geTkkho.Properties.View = this.gridView6;
             this.geTkkho.refTable = null;
-            this.geTkkho.Size = new System.Drawing.Size(142, 18);
+            this.geTkkho.Size = new System.Drawing.Size(161, 20);
             this.geTkkho.StyleController = this.layoutControl1;
             this.geTkkho.TabIndex = 15;
             // 
@@ -1180,9 +1203,10 @@ namespace CusAccounting
             // 
             // btCheckDVT
             // 
-            this.btCheckDVT.Location = new System.Drawing.Point(12, 90);
+            this.btCheckDVT.Location = new System.Drawing.Point(12, 96);
+            this.btCheckDVT.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btCheckDVT.Name = "btCheckDVT";
-            this.btCheckDVT.Size = new System.Drawing.Size(215, 22);
+            this.btCheckDVT.Size = new System.Drawing.Size(255, 24);
             this.btCheckDVT.StyleController = this.layoutControl1;
             this.btCheckDVT.TabIndex = 21;
             this.btCheckDVT.Text = "Kiểm tra Đơn vị tính";
@@ -1196,7 +1220,8 @@ namespace CusAccounting
             this.geTkCK.Data = null;
             this.geTkCK.DymicCondition = null;
             this.geTkCK.EnterMoveNextControl = true;
-            this.geTkCK.Location = new System.Drawing.Point(85, 281);
+            this.geTkCK.Location = new System.Drawing.Point(106, 305);
+            this.geTkCK.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.geTkCK.Name = "geTkCK";
             this.geTkCK.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
             this.geTkCK.Properties.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(236)))), ((int)(((byte)(239)))));
@@ -1208,7 +1233,7 @@ namespace CusAccounting
             this.geTkCK.Properties.NullText = "";
             this.geTkCK.Properties.View = this.gridView5;
             this.geTkCK.refTable = null;
-            this.geTkCK.Size = new System.Drawing.Size(142, 18);
+            this.geTkCK.Size = new System.Drawing.Size(161, 20);
             this.geTkCK.StyleController = this.layoutControl1;
             this.geTkCK.TabIndex = 13;
             this.geTkCK.EditValueChanged += new System.EventHandler(this.geTkCK_EditValueChanged);
@@ -1243,9 +1268,10 @@ namespace CusAccounting
             // 
             // labelControl1
             // 
-            this.labelControl1.Location = new System.Drawing.Point(12, 220);
+            this.labelControl1.Location = new System.Drawing.Point(12, 236);
+            this.labelControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(73, 13);
+            this.labelControl1.Size = new System.Drawing.Size(94, 17);
             this.labelControl1.StyleController = this.layoutControl1;
             this.labelControl1.TabIndex = 8;
             this.labelControl1.Text = "Giá trị mặc định";
@@ -1259,7 +1285,8 @@ namespace CusAccounting
             this.geTkCo.DymicCondition = null;
             this.geTkCo.EditValue = "131";
             this.geTkCo.EnterMoveNextControl = true;
-            this.geTkCo.Location = new System.Drawing.Point(85, 259);
+            this.geTkCo.Location = new System.Drawing.Point(106, 281);
+            this.geTkCo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.geTkCo.Name = "geTkCo";
             this.geTkCo.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
             this.geTkCo.Properties.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(236)))), ((int)(((byte)(239)))));
@@ -1271,7 +1298,7 @@ namespace CusAccounting
             this.geTkCo.Properties.NullText = "";
             this.geTkCo.Properties.View = this.cdtGridLookUpEdit1View;
             this.geTkCo.refTable = null;
-            this.geTkCo.Size = new System.Drawing.Size(142, 18);
+            this.geTkCo.Size = new System.Drawing.Size(161, 20);
             this.geTkCo.StyleController = this.layoutControl1;
             this.geTkCo.TabIndex = 9;
             // 
@@ -1311,7 +1338,8 @@ namespace CusAccounting
             this.geMaKho.Data = null;
             this.geMaKho.DymicCondition = null;
             this.geMaKho.EnterMoveNextControl = true;
-            this.geMaKho.Location = new System.Drawing.Point(85, 237);
+            this.geMaKho.Location = new System.Drawing.Point(106, 257);
+            this.geMaKho.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.geMaKho.Name = "geMaKho";
             this.geMaKho.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
             this.geMaKho.Properties.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(236)))), ((int)(((byte)(239)))));
@@ -1325,7 +1353,7 @@ namespace CusAccounting
             this.geMaKho.Properties.ValueMember = "MaKho";
             this.geMaKho.Properties.View = this.gridView3;
             this.geMaKho.refTable = null;
-            this.geMaKho.Size = new System.Drawing.Size(142, 18);
+            this.geMaKho.Size = new System.Drawing.Size(161, 20);
             this.geMaKho.StyleController = this.layoutControl1;
             this.geMaKho.TabIndex = 11;
             // 
@@ -1385,7 +1413,7 @@ namespace CusAccounting
             this.layoutControlItem8});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "Root";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(239, 633);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(279, 780);
             this.layoutControlGroup1.Text = "Root";
             this.layoutControlGroup1.TextVisible = false;
             // 
@@ -1393,9 +1421,9 @@ namespace CusAccounting
             // 
             this.layoutControlItem2.Control = this.simpleButton4;
             this.layoutControlItem2.CustomizationFormText = "layoutControlItem2";
-            this.layoutControlItem2.Location = new System.Drawing.Point(0, 26);
+            this.layoutControlItem2.Location = new System.Drawing.Point(0, 28);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(219, 26);
+            this.layoutControlItem2.Size = new System.Drawing.Size(259, 28);
             this.layoutControlItem2.Text = "layoutControlItem2";
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextToControlDistance = 0;
@@ -1405,9 +1433,9 @@ namespace CusAccounting
             // 
             this.layoutControlItem3.Control = this.btAddMaKH;
             this.layoutControlItem3.CustomizationFormText = "layoutControlItem3";
-            this.layoutControlItem3.Location = new System.Drawing.Point(0, 52);
+            this.layoutControlItem3.Location = new System.Drawing.Point(0, 56);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(219, 26);
+            this.layoutControlItem3.Size = new System.Drawing.Size(259, 28);
             this.layoutControlItem3.Text = "layoutControlItem3";
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextToControlDistance = 0;
@@ -1417,9 +1445,9 @@ namespace CusAccounting
             // 
             this.layoutControlItem4.Control = this.btCheckVT;
             this.layoutControlItem4.CustomizationFormText = "layoutControlItem4";
-            this.layoutControlItem4.Location = new System.Drawing.Point(0, 130);
+            this.layoutControlItem4.Location = new System.Drawing.Point(0, 140);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(219, 26);
+            this.layoutControlItem4.Size = new System.Drawing.Size(259, 28);
             this.layoutControlItem4.Text = "layoutControlItem4";
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextToControlDistance = 0;
@@ -1429,9 +1457,9 @@ namespace CusAccounting
             // 
             this.layoutControlItem5.Control = this.btThemVT;
             this.layoutControlItem5.CustomizationFormText = "layoutControlItem5";
-            this.layoutControlItem5.Location = new System.Drawing.Point(0, 156);
+            this.layoutControlItem5.Location = new System.Drawing.Point(0, 168);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(219, 26);
+            this.layoutControlItem5.Size = new System.Drawing.Size(259, 28);
             this.layoutControlItem5.Text = "layoutControlItem5";
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextToControlDistance = 0;
@@ -1441,9 +1469,9 @@ namespace CusAccounting
             // 
             this.layoutControlItem10.Control = this.labelControl1;
             this.layoutControlItem10.CustomizationFormText = "layoutControlItem10";
-            this.layoutControlItem10.Location = new System.Drawing.Point(0, 208);
+            this.layoutControlItem10.Location = new System.Drawing.Point(0, 224);
             this.layoutControlItem10.Name = "layoutControlItem10";
-            this.layoutControlItem10.Size = new System.Drawing.Size(219, 17);
+            this.layoutControlItem10.Size = new System.Drawing.Size(259, 21);
             this.layoutControlItem10.Text = "layoutControlItem10";
             this.layoutControlItem10.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem10.TextToControlDistance = 0;
@@ -1453,69 +1481,69 @@ namespace CusAccounting
             // 
             this.layoutControlItem11.Control = this.geTkCo;
             this.layoutControlItem11.CustomizationFormText = "Tk Có";
-            this.layoutControlItem11.Location = new System.Drawing.Point(0, 247);
+            this.layoutControlItem11.Location = new System.Drawing.Point(0, 269);
             this.layoutControlItem11.Name = "layoutControlItem11";
-            this.layoutControlItem11.Size = new System.Drawing.Size(219, 22);
+            this.layoutControlItem11.Size = new System.Drawing.Size(259, 24);
             this.layoutControlItem11.Text = "Tk Có";
-            this.layoutControlItem11.TextSize = new System.Drawing.Size(70, 13);
+            this.layoutControlItem11.TextSize = new System.Drawing.Size(91, 16);
             // 
             // layoutControlItem14
             // 
             this.layoutControlItem14.Control = this.geTkCK;
             this.layoutControlItem14.CustomizationFormText = "Tk CK";
-            this.layoutControlItem14.Location = new System.Drawing.Point(0, 269);
+            this.layoutControlItem14.Location = new System.Drawing.Point(0, 293);
             this.layoutControlItem14.Name = "layoutControlItem14";
-            this.layoutControlItem14.Size = new System.Drawing.Size(219, 22);
+            this.layoutControlItem14.Size = new System.Drawing.Size(259, 24);
             this.layoutControlItem14.Text = "Tk CK";
-            this.layoutControlItem14.TextSize = new System.Drawing.Size(70, 13);
+            this.layoutControlItem14.TextSize = new System.Drawing.Size(91, 16);
             // 
             // layoutControlItem16
             // 
             this.layoutControlItem16.Control = this.geTkkho;
             this.layoutControlItem16.CustomizationFormText = "TK Kho";
-            this.layoutControlItem16.Location = new System.Drawing.Point(0, 291);
+            this.layoutControlItem16.Location = new System.Drawing.Point(0, 317);
             this.layoutControlItem16.Name = "layoutControlItem16";
-            this.layoutControlItem16.Size = new System.Drawing.Size(219, 22);
+            this.layoutControlItem16.Size = new System.Drawing.Size(259, 24);
             this.layoutControlItem16.Text = "TK Kho";
-            this.layoutControlItem16.TextSize = new System.Drawing.Size(70, 13);
+            this.layoutControlItem16.TextSize = new System.Drawing.Size(91, 16);
             // 
             // layoutControlItem18
             // 
             this.layoutControlItem18.Control = this.geTkTM;
             this.layoutControlItem18.CustomizationFormText = "Tk có (ChiTM)";
-            this.layoutControlItem18.Location = new System.Drawing.Point(0, 313);
+            this.layoutControlItem18.Location = new System.Drawing.Point(0, 341);
             this.layoutControlItem18.Name = "layoutControlItem18";
-            this.layoutControlItem18.Size = new System.Drawing.Size(219, 22);
+            this.layoutControlItem18.Size = new System.Drawing.Size(259, 24);
             this.layoutControlItem18.Text = "Tk có (ChiTM)";
-            this.layoutControlItem18.TextSize = new System.Drawing.Size(70, 13);
+            this.layoutControlItem18.TextSize = new System.Drawing.Size(91, 16);
             // 
             // layoutControlItem20
             // 
             this.layoutControlItem20.Control = this.geTkNH;
             this.layoutControlItem20.CustomizationFormText = "Tk Có (Chi NH)";
-            this.layoutControlItem20.Location = new System.Drawing.Point(0, 335);
+            this.layoutControlItem20.Location = new System.Drawing.Point(0, 365);
             this.layoutControlItem20.Name = "layoutControlItem20";
-            this.layoutControlItem20.Size = new System.Drawing.Size(219, 22);
+            this.layoutControlItem20.Size = new System.Drawing.Size(259, 24);
             this.layoutControlItem20.Text = "Tk Có (Chi NH)";
-            this.layoutControlItem20.TextSize = new System.Drawing.Size(70, 13);
+            this.layoutControlItem20.TextSize = new System.Drawing.Size(91, 16);
             // 
             // layoutControlItem22
             // 
             this.layoutControlItem22.Control = this.geTkNo;
             this.layoutControlItem22.CustomizationFormText = "Tk Nợ (Chi phí)";
-            this.layoutControlItem22.Location = new System.Drawing.Point(0, 357);
+            this.layoutControlItem22.Location = new System.Drawing.Point(0, 389);
             this.layoutControlItem22.Name = "layoutControlItem22";
-            this.layoutControlItem22.Size = new System.Drawing.Size(219, 22);
+            this.layoutControlItem22.Size = new System.Drawing.Size(259, 24);
             this.layoutControlItem22.Text = "Tk Nợ (Chi phí)";
-            this.layoutControlItem22.TextSize = new System.Drawing.Size(70, 13);
+            this.layoutControlItem22.TextSize = new System.Drawing.Size(91, 17);
             // 
             // layoutControlItem24
             // 
             this.layoutControlItem24.Control = this.btPhanloai;
             this.layoutControlItem24.CustomizationFormText = "layoutControlItem24";
-            this.layoutControlItem24.Location = new System.Drawing.Point(0, 379);
+            this.layoutControlItem24.Location = new System.Drawing.Point(0, 413);
             this.layoutControlItem24.Name = "layoutControlItem24";
-            this.layoutControlItem24.Size = new System.Drawing.Size(219, 26);
+            this.layoutControlItem24.Size = new System.Drawing.Size(259, 28);
             this.layoutControlItem24.Text = "layoutControlItem24";
             this.layoutControlItem24.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem24.TextToControlDistance = 0;
@@ -1525,9 +1553,9 @@ namespace CusAccounting
             // 
             this.layoutControlItem25.Control = this.btThemHoaDon;
             this.layoutControlItem25.CustomizationFormText = "layoutControlItem25";
-            this.layoutControlItem25.Location = new System.Drawing.Point(0, 405);
+            this.layoutControlItem25.Location = new System.Drawing.Point(0, 441);
             this.layoutControlItem25.Name = "layoutControlItem25";
-            this.layoutControlItem25.Size = new System.Drawing.Size(219, 26);
+            this.layoutControlItem25.Size = new System.Drawing.Size(259, 28);
             this.layoutControlItem25.Text = "layoutControlItem25";
             this.layoutControlItem25.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem25.TextToControlDistance = 0;
@@ -1537,9 +1565,9 @@ namespace CusAccounting
             // 
             this.layoutControlItem26.Control = this.progressBar1;
             this.layoutControlItem26.CustomizationFormText = "layoutControlItem26";
-            this.layoutControlItem26.Location = new System.Drawing.Point(0, 431);
+            this.layoutControlItem26.Location = new System.Drawing.Point(0, 469);
             this.layoutControlItem26.Name = "layoutControlItem26";
-            this.layoutControlItem26.Size = new System.Drawing.Size(219, 36);
+            this.layoutControlItem26.Size = new System.Drawing.Size(259, 58);
             this.layoutControlItem26.Text = "layoutControlItem26";
             this.layoutControlItem26.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem26.TextToControlDistance = 0;
@@ -1549,19 +1577,19 @@ namespace CusAccounting
             // 
             this.layoutControlItem12.Control = this.geMaKho;
             this.layoutControlItem12.CustomizationFormText = "Mã Kho";
-            this.layoutControlItem12.Location = new System.Drawing.Point(0, 225);
+            this.layoutControlItem12.Location = new System.Drawing.Point(0, 245);
             this.layoutControlItem12.Name = "layoutControlItem12";
-            this.layoutControlItem12.Size = new System.Drawing.Size(219, 22);
+            this.layoutControlItem12.Size = new System.Drawing.Size(259, 24);
             this.layoutControlItem12.Text = "Mã Kho";
-            this.layoutControlItem12.TextSize = new System.Drawing.Size(70, 13);
+            this.layoutControlItem12.TextSize = new System.Drawing.Size(91, 16);
             // 
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
             this.emptySpaceItem1.CustomizationFormText = "emptySpaceItem1";
-            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 467);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 527);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(219, 146);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(259, 233);
             this.emptySpaceItem1.Text = "emptySpaceItem1";
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
@@ -1571,7 +1599,7 @@ namespace CusAccounting
             this.layoutControlItem6.CustomizationFormText = "layoutControlItem6";
             this.layoutControlItem6.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(219, 26);
+            this.layoutControlItem6.Size = new System.Drawing.Size(259, 28);
             this.layoutControlItem6.Text = "layoutControlItem6";
             this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem6.TextToControlDistance = 0;
@@ -1581,9 +1609,9 @@ namespace CusAccounting
             // 
             this.layoutControlItem1.Control = this.btReload;
             this.layoutControlItem1.CustomizationFormText = "layoutControlItem1";
-            this.layoutControlItem1.Location = new System.Drawing.Point(0, 182);
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 196);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(219, 26);
+            this.layoutControlItem1.Size = new System.Drawing.Size(259, 28);
             this.layoutControlItem1.Text = "layoutControlItem1";
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextToControlDistance = 0;
@@ -1593,9 +1621,9 @@ namespace CusAccounting
             // 
             this.layoutControlItem7.Control = this.btCheckDVT;
             this.layoutControlItem7.CustomizationFormText = "layoutControlItem7";
-            this.layoutControlItem7.Location = new System.Drawing.Point(0, 78);
+            this.layoutControlItem7.Location = new System.Drawing.Point(0, 84);
             this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(219, 26);
+            this.layoutControlItem7.Size = new System.Drawing.Size(259, 28);
             this.layoutControlItem7.Text = "layoutControlItem7";
             this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem7.TextToControlDistance = 0;
@@ -1605,9 +1633,9 @@ namespace CusAccounting
             // 
             this.layoutControlItem8.Control = this.btThemDVT;
             this.layoutControlItem8.CustomizationFormText = "layoutControlItem8";
-            this.layoutControlItem8.Location = new System.Drawing.Point(0, 104);
+            this.layoutControlItem8.Location = new System.Drawing.Point(0, 112);
             this.layoutControlItem8.Name = "layoutControlItem8";
-            this.layoutControlItem8.Size = new System.Drawing.Size(219, 26);
+            this.layoutControlItem8.Size = new System.Drawing.Size(259, 28);
             this.layoutControlItem8.Text = "layoutControlItem8";
             this.layoutControlItem8.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem8.TextToControlDistance = 0;
@@ -1631,23 +1659,26 @@ namespace CusAccounting
             this.panel2.Controls.Add(this.btLoadData);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1658, 55);
+            this.panel2.Size = new System.Drawing.Size(1924, 68);
             this.panel2.TabIndex = 5;
             // 
             // labelControl8
             // 
-            this.labelControl8.Location = new System.Drawing.Point(273, 25);
+            this.labelControl8.Location = new System.Drawing.Point(318, 31);
+            this.labelControl8.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.labelControl8.Name = "labelControl8";
-            this.labelControl8.Size = new System.Drawing.Size(49, 13);
+            this.labelControl8.Size = new System.Drawing.Size(63, 17);
             this.labelControl8.TabIndex = 14;
             this.labelControl8.Text = "đến ngày:";
             // 
             // labelControl2
             // 
-            this.labelControl2.Location = new System.Drawing.Point(63, 25);
+            this.labelControl2.Location = new System.Drawing.Point(73, 31);
+            this.labelControl2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.labelControl2.Name = "labelControl2";
-            this.labelControl2.Size = new System.Drawing.Size(44, 13);
+            this.labelControl2.Size = new System.Drawing.Size(57, 17);
             this.labelControl2.TabIndex = 13;
             this.labelControl2.Text = "Từ ngày:";
             // 
@@ -1655,7 +1686,8 @@ namespace CusAccounting
             // 
             this.dDenngay.EditValue = null;
             this.dDenngay.EnterMoveNextControl = true;
-            this.dDenngay.Location = new System.Drawing.Point(351, 19);
+            this.dDenngay.Location = new System.Drawing.Point(409, 23);
+            this.dDenngay.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dDenngay.Name = "dDenngay";
             this.dDenngay.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
             this.dDenngay.Properties.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(236)))), ((int)(((byte)(239)))));
@@ -1669,14 +1701,15 @@ namespace CusAccounting
             this.dDenngay.Properties.Mask.UseMaskAsDisplayFormat = true;
             this.dDenngay.Properties.VistaTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.dDenngay.Size = new System.Drawing.Size(100, 18);
+            this.dDenngay.Size = new System.Drawing.Size(117, 20);
             this.dDenngay.TabIndex = 12;
             // 
             // dTungay
             // 
             this.dTungay.EditValue = null;
             this.dTungay.EnterMoveNextControl = true;
-            this.dTungay.Location = new System.Drawing.Point(142, 20);
+            this.dTungay.Location = new System.Drawing.Point(166, 25);
+            this.dTungay.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dTungay.Name = "dTungay";
             this.dTungay.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
             this.dTungay.Properties.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(236)))), ((int)(((byte)(239)))));
@@ -1690,23 +1723,25 @@ namespace CusAccounting
             this.dTungay.Properties.Mask.UseMaskAsDisplayFormat = true;
             this.dTungay.Properties.VistaTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.dTungay.Size = new System.Drawing.Size(100, 18);
+            this.dTungay.Size = new System.Drawing.Size(117, 20);
             this.dTungay.TabIndex = 11;
             // 
             // btXoaHD
             // 
-            this.btXoaHD.Location = new System.Drawing.Point(607, 15);
+            this.btXoaHD.Location = new System.Drawing.Point(708, 18);
+            this.btXoaHD.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btXoaHD.Name = "btXoaHD";
-            this.btXoaHD.Size = new System.Drawing.Size(279, 23);
+            this.btXoaHD.Size = new System.Drawing.Size(325, 28);
             this.btXoaHD.TabIndex = 5;
             this.btXoaHD.Text = "Xóa hóa đơn trên phần mềm nếu trùng Mã CQT";
             this.btXoaHD.Click += new System.EventHandler(this.btXoaHD_Click);
             // 
             // btLoadData
             // 
-            this.btLoadData.Location = new System.Drawing.Point(490, 15);
+            this.btLoadData.Location = new System.Drawing.Point(572, 18);
+            this.btLoadData.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btLoadData.Name = "btLoadData";
-            this.btLoadData.Size = new System.Drawing.Size(96, 23);
+            this.btLoadData.Size = new System.Drawing.Size(112, 28);
             this.btLoadData.TabIndex = 2;
             this.btLoadData.Text = "Load dữ liệu";
             this.btLoadData.Click += new System.EventHandler(this.btLoadData_Click);
@@ -1721,11 +1756,12 @@ namespace CusAccounting
             // 
             // fImportHDDauvao_Minv
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1658, 692);
+            this.ClientSize = new System.Drawing.Size(1924, 852);
             this.Controls.Add(this.panelControl1);
             this.Controls.Add(this.panel2);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "fImportHDDauvao_Minv";
             this.Text = "Import hóa đơn đầu vào";
             this.Load += new System.EventHandler(this.fImportHDDauVao_Load);
