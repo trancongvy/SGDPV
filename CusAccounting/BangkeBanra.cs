@@ -50,7 +50,7 @@ namespace CusAccounting
 
         public void AddDatatoFile()
         {
-            Microsoft.Office.Interop.Excel.Application application = new ApplicationClass();
+            Microsoft.Office.Interop.Excel.Application application = new Microsoft.Office.Interop.Excel.ApplicationClass();
 
             Workbook workbook = application.Workbooks.Open(this._tmpFile, Type.Missing, false, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
             try

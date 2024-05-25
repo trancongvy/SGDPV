@@ -90,7 +90,8 @@ namespace CDTLib
             {
                 if (match.Groups[1].Success) // Variable
                 {
-                    variables.Add(match.Value);
+                    if (!variables.Contains(match.Value))
+                        variables.Add(match.Value);
                 }
                 else if (match.Groups[2].Success) // Constant
                 {

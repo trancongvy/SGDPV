@@ -123,11 +123,6 @@
       <HintPath>C:\Program Files (x86)\DevExpress 2011.1\Components\Sources\DevExpress.DLL\DevExpress.XtraTreeList.v11.1.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <HintPath>..\CDT\bin\Debug\Microsoft.Office.Interop.Excel.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\CDT\bin\Debug\Newtonsoft.Json.dll</HintPath>
@@ -162,6 +157,12 @@
     </Compile>
     <Compile Include="fImportHDDaura_Minv.Designer.cs">
       <DependentUpon>fImportHDDaura_Minv.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fImportHDDauvao_excel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fImportHDDauvao_excel.Designer.cs">
+      <DependentUpon>fImportHDDauvao_excel.cs</DependentUpon>
     </Compile>
     <Compile Include="fImportHDDauvao_Minv.cs">
       <SubType>Form</SubType>
@@ -333,6 +334,9 @@
     <EmbeddedResource Include="fImportHDDaura_Minv.resx">
       <DependentUpon>fImportHDDaura_Minv.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="fImportHDDauvao_excel.resx">
+      <DependentUpon>fImportHDDauvao_excel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="fImportHDDauvao_Minv.resx">
       <DependentUpon>fImportHDDauvao_Minv.cs</DependentUpon>
     </EmbeddedResource>
@@ -406,6 +410,15 @@
       <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>9</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </COMReference>
     <COMReference Include="VBIDE">
       <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>

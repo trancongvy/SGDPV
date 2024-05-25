@@ -26,7 +26,7 @@ using System.Net;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
 using System.Net.Http.Headers;
-using ErrorManager;
+
 namespace CusAccounting
 {
 
@@ -77,26 +77,33 @@ namespace CusAccounting
 
         private  void btLoadData_ClickAsync(object sender, EventArgs e)
         {
-            lstid = new string[] { };
+            try
+            {
+                lstid = new string[] { };
 
-            tbDT.Rows.Clear();
-            tbMT.Rows.Clear();
-            _dataMt32 = new DataMasterDetail("DT32", "7");
-            _dataMt32.ConditionMaster = "1=0";
-            _dataMt32.GetData();
-            _dataMt31 = new DataMasterDetail("DT31", "7");
-            _dataMt31.ConditionMaster = "1=0";
-            _dataMt31.GetData();
-            CreateData();
-            bsMT32.DataSource = _dataMt32.DsData;
-            bsMT32.DataMember = _dataMt32.DsData.Tables[0].TableName;
-            bsMT31.DataSource = _dataMt31.DsData;
-            bsMT31.DataMember = _dataMt31.DsData.Tables[0].TableName;
-            bs.DataSource = ds;
-            bs.DataMember = tbMT.TableName;
-            gridControl1.DataSource = bs;
-            gridControl2.DataSource = bs;
-            gridControl2.DataMember = tbDT.TableName;// ds.Relations[0].RelationName;
+                tbDT.Rows.Clear();
+                tbMT.Rows.Clear();
+                _dataMt32 = new DataMasterDetail("DT32", "7");
+                _dataMt32.ConditionMaster = "1=0";
+                _dataMt32.GetData();
+                _dataMt31 = new DataMasterDetail("DT31", "7");
+                _dataMt31.ConditionMaster = "1=0";
+                _dataMt31.GetData();
+                CreateData();
+                bsMT32.DataSource = _dataMt32.DsData;
+                bsMT32.DataMember = _dataMt32.DsData.Tables[0].TableName;
+                bsMT31.DataSource = _dataMt31.DsData;
+                bsMT31.DataMember = _dataMt31.DsData.Tables[0].TableName;
+                bs.DataSource = ds;
+                bs.DataMember = tbMT.TableName;
+                gridControl1.DataSource = bs;
+                gridControl2.DataSource = bs;
+                gridControl2.DataMember = tbDT.TableName;// ds.Relations[0].RelationName;
+            }catch(Exception ex)
+            {
+                LogFile.AppendToFile("log.txt", ex.Message);
+                MessageBox.Show(ex.Message);
+            }
 
         }
         string[] lstid = new string[] { };
@@ -111,13 +118,16 @@ namespace CusAccounting
             foreach (DataRow drSource in IEx.Db.Rows)
             {
                 if (drSource["Sohoadon"] == DBNull.Value || drSource["Sohoadon"].ToString()==string.Empty) continue;
+
                 if (Sohoadon != drSource["Sohoadon"].ToString())//Hóa đơn khác
                 {
+                    string[] date = drSource["Ngayhd"].ToString().Split("/".ToCharArray());
+                    if (date.Length != 3) break;
                     ID = Guid.NewGuid();
                     drMT = tbMT.NewRow();
                     drMT["MTID"] = ID;
-                    
-                    drMT["Ngayhd"] = DateTime.Parse( drSource["Ngayhd"].ToString());
+
+                    drMT["Ngayhd"] = DateTime.Parse(date[1] + "/" + date[0] + "/" + date[2]);
                     drMT["Sohoadon"] = drSource["Sohoadon"];
                     drMT["Kyhieu"] = drSource["Kyhieu"];
                     drMT["HTTToan"] = drSource["HTTToan"];
@@ -170,7 +180,7 @@ namespace CusAccounting
                     drDT["DVT"] = drSource["DVT"];
                     drDT["Soluong"] = decimal.Parse(drSource["Soluong"].ToString());
                     drDT["DonGia"] = decimal.Parse(drSource["DonGia"].ToString());
-                    drDT["TTien"] = decimal.Parse(drSource["TTienH"].ToString());
+                    drDT["TTien"] = decimal.Parse(drSource["TienH"].ToString());
                     drDT["MaThueCT"] = drSource["MaThue"].ToString();
                     double Thuesuat = 0;
                     if (drSource["MaThue"] != DBNull.Value)
@@ -195,7 +205,7 @@ namespace CusAccounting
         private void fImportHDDauRa_Load(object sender, EventArgs e)
         {
 
-            if (Config.Variables.Contains("MaSoThue")) this.Text += ": " + Config.GetValue("MaSoThue").ToString();
+            //if (Config.Variables.Contains("MaSoThue")) this.Text += ": " + Config.GetValue("MaSoThue").ToString();
             //Lấy dữ liệu MT32
             _dataMt32 = new DataMasterDetail("DT32", "7");
             _dataMt32.ConditionMaster = "1=0";
@@ -769,6 +779,7 @@ namespace CusAccounting
                 {
                     if (drMT["MST"] == DBNull.Value) continue;
                     if (dbdmKH.DsData.Tables[0].Select("MaKH='" + drMT["MST"].ToString() + "'").Length > 0) continue;
+                    if (drMT["MST"] == DBNull.Value || drMT["MST"].ToString() == string.Empty) continue;
                     DataRow drKH = dbdmKH.DsData.Tables[0].NewRow();
                     drKH["MaKH"] = drMT["MST"];
                     drKH["TenKH"] = drMT["TenKH"];
@@ -1131,6 +1142,13 @@ namespace CusAccounting
             {
                 return true;
             }
+            sql = "select MT32ID from MT32 where sohoadon='" + drv["Sohoadon"].ToString() + "' and Soseri='" + drv["Kyhieu"].ToString() + "'";
+            i = _dataMt32.DbData.GetValue(sql);
+            Guid mt32id;
+            if (i != null && Guid.TryParse(i.ToString(), out mt32id))
+            {
+                return true;
+            }
             bsMT32.AddNew();
             bsMT32.EndEdit();
             bsMT32.MoveLast();
@@ -1210,7 +1228,13 @@ namespace CusAccounting
                 
                 return true;
             }
-
+            sql = "select MT31ID from MT31 where sohoadon='" + drv["Sohoadon"].ToString() + "' and Soseri='" + drv["Kyhieu"].ToString() + "'";
+            i = _dataMt32.DbData.GetValue(sql);
+            Guid mt31id;
+            if (i != null && Guid.TryParse(i.ToString(), out mt31id))
+            {
+                return true;
+            }
             bsMT31.AddNew();
             bsMT31.EndEdit();
             bsMT31.MoveLast();
@@ -1339,7 +1363,14 @@ namespace CusAccounting
             progressBar1.Maximum = bs.Count;
             progressBar1.Step = 1;
             progressBar1.Value = 0;
-            InserttoData();
+            try
+            {
+                InserttoData();
+            }catch(Exception ex)
+            {
+                LogFile.AppendToFile("log.txt", ex.Message);
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void importDT32Row(DataRow drDT32, DataRow drDT)
@@ -1544,6 +1575,11 @@ namespace CusAccounting
             //        dr["ColName"] = dr["FieldName"].ToString();
 
             //}
+        }
+
+        private void tFileName_EditValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 
