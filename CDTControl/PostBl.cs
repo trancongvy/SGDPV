@@ -15,6 +15,7 @@ namespace CDTControl
         private string _mtTableID;
 
         List<string> _LField=new List<string>();
+        string where = "";
         public PostBl(Database _dbData, string systableid, DateTime _tungay, DateTime _denngay)
         {
             tuNgay = _tungay;
@@ -30,7 +31,16 @@ namespace CDTControl
             _mtTableID = systableid;
             _LField = LField;
         }
-     
+        public PostBl(Database _dbData, string systableid, DateTime _tungay, DateTime _denngay, List<string> LField, string _where)
+        {
+            tuNgay = _tungay;
+            denNgay = _denngay;
+            dataDb = _dbData;
+            _mtTableID = systableid;
+            _LField = LField;
+            where = _where;
+        }
+
         public void Post()
         {
             DataTable tbNhomdk = GetDtConfig();
@@ -211,7 +221,8 @@ namespace CDTControl
                 sql += " and " + drNhomdk["Condition"].ToString();
             }
             sql += " and (" + s1.Trim() + ".ngayct between cast('" + tuNgay.ToShortDateString() + "' as datetime) and cast('" + denNgay.ToShortDateString() + "' as datetime))";
-
+            if (where != string.Empty && where != null)
+                sql += " and " + where;
             return sql;
 
         }

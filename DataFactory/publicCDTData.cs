@@ -15,7 +15,7 @@ namespace DataFactory
                 {
 
                 }
-                if (c._tableName.ToUpper() == tableName.ToUpper() && condition == c.Condition && c.DynCondition == DynCondition)
+                if (c._tableName.ToUpper() == tableName.ToUpper() && condition == c.Condition)//&& c.DynCondition == DynCondition
                     return c;
             }
                 return null;

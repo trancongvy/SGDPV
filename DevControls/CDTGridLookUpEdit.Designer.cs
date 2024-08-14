@@ -28,11 +28,34 @@ namespace DevControls
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.fProperties = new DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit();
+            this.fPropertiesView = new DevExpress.XtraGrid.Views.Grid.GridView();
+            ((System.ComponentModel.ISupportInitialize)(this.fProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fPropertiesView)).BeginInit();
             this.SuspendLayout();
+            // 
+            // fProperties
+            // 
+            this.fProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.fProperties.Name = "fProperties";
+            this.fProperties.View = this.fPropertiesView;
+            // 
+            // fPropertiesView
+            // 
+            this.fPropertiesView.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.fPropertiesView.Name = "fPropertiesView";
+            this.fPropertiesView.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.fPropertiesView.OptionsView.ShowGroupPanel = false;
+            ((System.ComponentModel.ISupportInitialize)(this.fProperties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fPropertiesView)).EndInit();
             this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit fProperties;
+        private DevExpress.XtraGrid.Views.Grid.GridView fPropertiesView;
     }
 }

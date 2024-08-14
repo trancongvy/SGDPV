@@ -134,6 +134,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>CDTGridColumn.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CDTGridLookUpEdit.resx">
+      <DependentUpon>CDTGridLookUpEdit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CDTRepositoryItemDateEdit.resx">
       <DependentUpon>CDTRepositoryItemDateEdit.cs</DependentUpon>
       <SubType>Designer</SubType>
