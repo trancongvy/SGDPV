@@ -88,6 +88,16 @@ namespace CDTControl
                 dr["ExtraSql"] = extraSql;
             }
         }
+        public void UpdateMenuReport(DataRow dr)
+        {
+            string sql = "select query from sysreport where sysreportID=" + dr["sysReportID"].ToString();
+            object qr = _dbStruct.GetValue(sql);
+            if (qr != null)
+            {
+                dr["Query"]=qr.ToString();
+                dr.EndEdit();
+            }
+        }
         public void SynMenuforUser()
         {
             _dbStruct.UpdateDatabyStore("SynMenu", new string[] { "@sysPackageid" }, new object[] { int.Parse(Config.GetValue("sysPackageID").ToString()) });

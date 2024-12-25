@@ -25,7 +25,7 @@ namespace CDTSystem
         DataTable dataType;
         private void fImExcel_Load(object sender, EventArgs e)
         {
-            dmBang = _dbStruct.GetDataTable("select * from systable where type=2 and sysPackageID=" + Config.GetValue("sysPackageID").ToString() );
+            dmBang = _dbStruct.GetDataTable("select * from systable where (type=1 or type=2) and sysPackageID=" + Config.GetValue("sysPackageID").ToString() );
             if (dmBang == null) return;
             this.gTable.Properties.DataSource = dmBang;
             gTable.Properties.View.BestFitColumns();
@@ -41,6 +41,11 @@ namespace CDTSystem
                 tFileName.EditValue = dialog.FileName;
                 IEx = new ImportExcel(dialog.FileName);
                 List<string> sheets = IEx.GetSheets();
+                if (sheets.Count == 1 && sheets[0] == "FileOpening")
+                {
+                    MessageBox.Show("File is open, please close before importing");
+                    return;
+                }
                 lSheet.Properties.Items.Clear();
                 lSheet.Properties.Items.AddRange(sheets.ToArray());
             }
@@ -177,7 +182,7 @@ namespace CDTSystem
                     string note = getnote(dr["Type"].ToString());
                     List<int> chars = new List<int> { 0, 1, 2 };
                     List<int> unid = new List<int> { 6, 7, 15 };
-                    if (dr["ColName"] == DBNull.Value) continue;
+                    if (dr["ColName"] == DBNull.Value || dr["ColName"].ToString()==string.Empty) continue;
                     if (Type == 1 && RowData[dr["ColName"].ToString()].ToString() == "")
                         RowData[dr["ColName"].ToString()] = DBNull.Value;
                     if (unid.Contains(Type) && note == "'" && RowData[dr["ColName"].ToString()].ToString() == "")
@@ -185,10 +190,10 @@ namespace CDTSystem
 
                     else if (dr["ColName"] != DBNull.Value && dr["ColName"].ToString() != string.Empty)
                     {
-                        if (RowData[dr["ColName"].ToString()].ToString() == "" && note == "")
+                        if (RowData[dr["ColName"].ToString().Trim()].ToString() == "" && note == "")
                             continue;
                         sql += dr["fieldName"].ToString() + ",";
-                        values += (chars.Contains(Type) ? "N" : "") + note + RowData[dr["ColName"].ToString()].ToString() + note + ",";
+                        values += (chars.Contains(Type) ? "N" : "") + note + RowData[dr["ColName"].ToString().Trim()].ToString() + note + ",";
                     }
                     else if (dr["DefaultValue"] != DBNull.Value)
                     {
@@ -213,17 +218,25 @@ namespace CDTSystem
 
         private void lSheet_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (lSheet.EditValue == null) return;
+            if (lSheet.EditValue == null || lSheet.EditValue.ToString()==string.Empty) return;
             List<string> cols= IEx.GetCol(lSheet.EditValue.ToString());
             if (cols == null) return;
             RiCom.Items.AddRange(cols.ToArray());
             foreach (DataRow dr in MapStruct.Rows)
             {
-                if (cols.Exists(x => x.ToString().ToUpper() == dr["FieldName"].ToString().ToUpper()))
-                    dr["ColName"] = dr["FieldName"].ToString();
-                
+                if (cols.Exists(x => x.ToString().ToUpper().Trim() == dr["FieldName"].ToString().ToUpper().Trim()))
+                    dr["ColName"] = dr["FieldName"].ToString().Trim();
+                else if (cols.Exists(x => x.ToString().ToUpper().Trim() == dr["LabelName"].ToString().ToUpper().Trim()))
+                    dr["ColName"] = dr["LabelName"].ToString().Trim();
             }
 
+            //foreach (DataRow dr in MapStruct.Rows)
+            //{
+            //    if (cols.Exists(x => x.ToString().ToUpper() == dr["FieldName"].ToString().ToUpper()))
+            //        dr["ColName"] = dr["FieldName"].ToString();
+            //    else if (cols.Exists(x => x.ToString().ToUpper() == dr["LabelName"].ToString().ToUpper()))
+            //        dr["ColName"] = dr["LabelName"].ToString();
+            //}
         }
         DataTable dmField;
         private void gTable_EditValueChanged(object sender, EventArgs e)

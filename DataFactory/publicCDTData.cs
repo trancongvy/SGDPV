@@ -23,7 +23,7 @@ namespace DataFactory
         }
         public static void AddCDTData(DataSingle c)
         {
-            if (!lCDTData.Exists(data => data._tableName.ToUpper() == c._tableName.ToUpper() && data.Condition == c.Condition && c.DynCondition == data.DynCondition))
+            if (!lCDTData.Exists(data => data._tableName.ToUpper() == c._tableName.ToUpper() && data.Condition == c.Condition))
             {
                 lCDTData.Add(c);
             }
