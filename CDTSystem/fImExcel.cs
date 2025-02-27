@@ -193,7 +193,12 @@ namespace CDTSystem
                         if (RowData[dr["ColName"].ToString().Trim()].ToString() == "" && note == "")
                             continue;
                         sql += dr["fieldName"].ToString() + ",";
-                        values += (chars.Contains(Type) ? "N" : "") + note + RowData[dr["ColName"].ToString().Trim()].ToString() + note + ",";
+                        if (RowData[dr["ColName"].ToString().Trim()] == DBNull.Value || RowData[dr["ColName"].ToString().Trim()].ToString().Trim() == string.Empty)
+                        {
+                            values += "NULL,";
+                        }
+                        else
+                            values += (chars.Contains(Type) ? "N" : "") + note + RowData[dr["ColName"].ToString().Trim()].ToString() + note + ",";
                     }
                     else if (dr["DefaultValue"] != DBNull.Value)
                     {

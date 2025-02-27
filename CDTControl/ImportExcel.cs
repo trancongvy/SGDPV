@@ -56,7 +56,7 @@ namespace CDTControl
             try
             {
                 workbook = application.Workbooks.Open(fileName, Type.Missing, false, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
-               
+
 
                 foreach (Worksheet worksheet in workbook.Sheets)
                 {
@@ -145,16 +145,17 @@ namespace CDTControl
 
                 }
                 workbook.Close(false, false, false);
-               application.Quit();
-            }
-            catch (Exception ex)
-                {
 
             }
-             finally
+            catch (Exception ex)
             {
-               // application.Quit();
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(application);
+
+            }
+            finally
+            {
+                application.Quit();
+                //
             }
 
             //OleDbDataAdapter ole = new OleDbDataAdapter(); ;

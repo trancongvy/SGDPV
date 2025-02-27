@@ -33,6 +33,31 @@ namespace CDTControl
             return o;
 
         }
+        public object InsertHistory(string sysMenuID, string action, string pkValue, string content, string sysTableID, string MtPkvalue)
+        {
+            object o;
+           
+            try
+            {
+                string sysUserID = Config.GetValue("sysUserID").ToString();
+                string syspackageID = Config.GetValue("sysPackageID").ToString();
+                string sql = "insert into sysHistory(hDateTime, sysUserID, sysPackageID, sysMenuID, Action, PkValue, OldContent, sysTableID,ComputerName, Mtpkvalue) " +
+                    " values(getdate()," + sysUserID + "," + syspackageID + "," + sysMenuID + ",N'" + action + "',N'" + pkValue + "',N'" + content + "'," + sysTableID + ",'" + "','" + MtPkvalue + "')";
+                _dbStruct.BeginMultiTrans();
+                _dbStruct.UpdateByNonQuery(sql);
+                o = _dbStruct.GetValue("select @@identity");
+                _dbStruct.EndMultiTrans();
+
+            }
+            finally
+            {
+                if (_dbStruct.Connection.State != ConnectionState.Closed)
+                    _dbStruct.Connection.Close();
+            }
+            return o;
+           
+
+        }
         public object InsertHistory(string sysMenuID, string action, string pkValue, string content, string sysTableID)
         {
             object o;

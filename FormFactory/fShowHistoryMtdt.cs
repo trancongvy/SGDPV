@@ -50,14 +50,14 @@ namespace FormFactory
 
             }
             idlist =idlist.Substring(0,idlist.Length-1) + ")";
-            sql = "select a.*, b.UserName from sysHistory a inner join sysuser b on a.sysUserID=b.sysUserID where a.sysTableID=" + _Data.DrTable["sysTableID"].ToString() + " and pkValue in " + idlist + " order by a.hDatetime";
+            sql = "select a.*, b.UserName from sysHistory a inner join sysuser b on a.sysUserID=b.sysUserID where a.sysTableID=" + _Data.DrTable["sysTableID"].ToString() + " and (pkValue in " + idlist + " or MtPkValue='" + _Data.DrCurrentMaster[_Data.PkMaster.FieldName] + "')   order by a.hDatetime";
             DataTable tbDt = _dbData.GetDataTable(sql);
             DataSet dbSetDt=new DataSet();
             if (tbDt != null) dbSetDt.Tables.Add(tbDt);
             else return;
             tbDt.PrimaryKey = new DataColumn[] { tbDt.Columns["sysHistoryID"] };
             sql = "select a.*, c.FieldName,c.LabelName from sysHistoryDt a inner join sysHistory b on a.sysHistoryID =b.sysHistoryID inner join sysField c on a.sysFieldID=c.sysFieldID where ";
-            sql += " a.sysHistoryID in (select sysHistoryID from sysHistory where  sysTableID=" + _Data.DrTable["sysTableID"].ToString() + " and pkValue in " + idlist + ") order by b.hDatetime";
+            sql += " a.sysHistoryID in (select sysHistoryID from sysHistory where  sysTableID=" + _Data.DrTable["sysTableID"].ToString() + " and (pkValue in " + idlist + " or MtPkValue='" + _Data.DrCurrentMaster[_Data.PkMaster.FieldName] + "')) order by b.hDatetime";
             DataTable tbDt1 = _dbData.GetDataTable(sql);
             if (tbDt1 != null) dbSetDt.Tables.Add(tbDt1);
             tbDt.TableName = "Master";
