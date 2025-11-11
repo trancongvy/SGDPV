@@ -31,7 +31,6 @@ namespace CusAccounting
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.gridControl2 = new DevExpress.XtraGrid.GridControl();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -159,8 +158,8 @@ namespace CusAccounting
             this.dTungay = new CBSControls.VDateEdit();
             this.btXoaHD = new DevExpress.XtraEditors.SimpleButton();
             this.btLoadData = new DevExpress.XtraEditors.SimpleButton();
-            this.dxErrorProviderMain = new DevExpress.XtraEditors.DXErrorProvider.DXErrorProvider(this.components);
-            this.dxErrorVT = new DevExpress.XtraEditors.DXErrorProvider.DXErrorProvider(this.components);
+            this.dxErrorProviderMain = new DevExpress.XtraEditors.DXErrorProvider.DXErrorProvider();
+            this.dxErrorVT = new DevExpress.XtraEditors.DXErrorProvider.DXErrorProvider();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).BeginInit();
@@ -234,7 +233,7 @@ namespace CusAccounting
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl1.Location = new System.Drawing.Point(0, 55);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(1899, 875);
+            this.panelControl1.Size = new System.Drawing.Size(1123, 761);
             this.panelControl1.TabIndex = 0;
             // 
             // gridControl2
@@ -249,7 +248,7 @@ namespace CusAccounting
             this.repositoryItemLookUpEdit1,
             this.repositoryItemCheckEdit2,
             this.rEisDV});
-            this.gridControl2.Size = new System.Drawing.Size(1670, 574);
+            this.gridControl2.Size = new System.Drawing.Size(894, 460);
             this.gridControl2.TabIndex = 8;
             this.gridControl2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView2});
@@ -535,7 +534,7 @@ namespace CusAccounting
             this.splitter1.Dock = System.Windows.Forms.DockStyle.Top;
             this.splitter1.Location = new System.Drawing.Point(2, 296);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(1670, 3);
+            this.splitter1.Size = new System.Drawing.Size(894, 3);
             this.splitter1.TabIndex = 7;
             this.splitter1.TabStop = false;
             // 
@@ -550,7 +549,7 @@ namespace CusAccounting
             this.RiCom,
             this.RiType,
             this.repositoryItemCheckEdit1});
-            this.gridControl1.Size = new System.Drawing.Size(1670, 294);
+            this.gridControl1.Size = new System.Drawing.Size(894, 294);
             this.gridControl1.TabIndex = 6;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -829,9 +828,9 @@ namespace CusAccounting
             // splitter2
             // 
             this.splitter2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.splitter2.Location = new System.Drawing.Point(1672, 2);
+            this.splitter2.Location = new System.Drawing.Point(896, 2);
             this.splitter2.Name = "splitter2";
-            this.splitter2.Size = new System.Drawing.Size(3, 871);
+            this.splitter2.Size = new System.Drawing.Size(3, 757);
             this.splitter2.TabIndex = 9;
             this.splitter2.TabStop = false;
             // 
@@ -839,9 +838,9 @@ namespace CusAccounting
             // 
             this.panel1.Controls.Add(this.layoutControl1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(1675, 2);
+            this.panel1.Location = new System.Drawing.Point(899, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(222, 871);
+            this.panel1.Size = new System.Drawing.Size(222, 757);
             this.panel1.TabIndex = 4;
             // 
             // layoutControl1
@@ -869,7 +868,7 @@ namespace CusAccounting
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(1420, 247, 250, 350);
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(222, 871);
+            this.layoutControl1.Size = new System.Drawing.Size(222, 757);
             this.layoutControl1.TabIndex = 30;
             this.layoutControl1.Text = "layoutControl1";
             // 
@@ -877,7 +876,7 @@ namespace CusAccounting
             // 
             this.progressBar1.Location = new System.Drawing.Point(12, 421);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(198, 21);
+            this.progressBar1.Size = new System.Drawing.Size(198, 20);
             this.progressBar1.TabIndex = 24;
             // 
             // btPhanloai
@@ -1335,7 +1334,7 @@ namespace CusAccounting
             this.layoutControlItem6});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "Root";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(222, 871);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(222, 757);
             this.layoutControlGroup1.Text = "Root";
             this.layoutControlGroup1.TextVisible = false;
             // 
@@ -1493,7 +1492,7 @@ namespace CusAccounting
             this.layoutControlItem25.CustomizationFormText = "layoutControlItem25";
             this.layoutControlItem25.Location = new System.Drawing.Point(0, 409);
             this.layoutControlItem25.Name = "layoutControlItem25";
-            this.layoutControlItem25.Size = new System.Drawing.Size(202, 25);
+            this.layoutControlItem25.Size = new System.Drawing.Size(202, 24);
             this.layoutControlItem25.Text = "layoutControlItem25";
             this.layoutControlItem25.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem25.TextToControlDistance = 0;
@@ -1523,9 +1522,9 @@ namespace CusAccounting
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
             this.emptySpaceItem1.CustomizationFormText = "emptySpaceItem1";
-            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 434);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 433);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(202, 417);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(202, 304);
             this.emptySpaceItem1.Text = "emptySpaceItem1";
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
@@ -1572,7 +1571,7 @@ namespace CusAccounting
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1899, 55);
+            this.panel2.Size = new System.Drawing.Size(1123, 55);
             this.panel2.TabIndex = 5;
             // 
             // labelControl8
@@ -1663,7 +1662,7 @@ namespace CusAccounting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1899, 930);
+            this.ClientSize = new System.Drawing.Size(1123, 816);
             this.Controls.Add(this.panelControl1);
             this.Controls.Add(this.panel2);
             this.Name = "fImportHDDaura_Minv";

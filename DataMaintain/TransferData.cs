@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Data;
@@ -218,7 +218,31 @@ namespace DataMaintain
                 " where (NhomDk = '" + nhomDk + "' and " + Rootkey + " in (" + selectString + "))";
             return tmp;
         }
+        private string GenDelString1(DataRow drConfig, DataTable blConfigDetail, string Pk)
+        {
+            string blTableName = drConfig["blTableName"].ToString();
+            string mtTableName = drConfig["mtTableName"].ToString();
+            string nhomDk = drConfig["NhomDK"].ToString();
+            string reKey = drConfig["Pk"].ToString();
+            string Rootkey = drConfig["RootIDName"].ToString();
+            string dtPkRef = Pk;
+            string dateFieldName = "NGAYCT";
+            foreach (DataRow dr in blConfigDetail.Rows)
+            {
 
+                if (dr["blFieldName"].ToString().ToUpper() == "NGAYCT")
+                {
+                    if (dr["mtFieldName"] != DBNull.Value)
+                        dateFieldName = dr["mtFieldName"].ToString();
+                }
+            }
+            string selectString = "select " + Pk + " from " + mtTableName + " where (" + dateFieldName + " between '" + _tuNgay.ToString() + "' and '" + _denNgay.ToString() + "')";
+            if (_mtName != string.Empty && _Condition != string.Empty)
+                selectString += " and (" + _Condition + ")";
+            string tmp = "delete from " + blTableName +
+                " where ngayct between '" + _tuNgay.ToString() + "' and '" + _denNgay.ToString() + "' and (NhomDk = '" + nhomDk + "' and " + Rootkey + " not in (" + selectString + "))" ;
+            return tmp;
+        }
         public void Maintain(DateTime tuNgay, DateTime denNgay, bool deleteOnly, string mtName, string Condition)
         {
             _tuNgay = tuNgay;
@@ -233,6 +257,10 @@ namespace DataMaintain
                 string blConfigID = dr["blConfigID"].ToString();
                 string pk = dr["Pk"].ToString();
                 DataTable blConfigDetail = GetDtConfigDetail(blConfigID);
+                //Xóa những mấu tin không còn trong bảng gốc
+                string nhomDk = dr["NhomDK"].ToString();
+                string sqldel1= GenDelString1(dr, blConfigDetail, pk);
+                _dataDb.UpdateByNonQuery(sqldel1);
                 string sqlDel = GenDelString(dr, blConfigDetail, pk);
                 _dataDb.UpdateByNonQuery(sqlDel);
                 if (deleteOnly)

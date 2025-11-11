@@ -147,6 +147,12 @@
   <ItemGroup>
     <Compile Include="BangkeBanra.cs" />
     <Compile Include="BangkeMuavao.cs" />
+    <Compile Include="fBanhangDNDuoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fBanhangDNDuoc.designer.cs">
+      <DependentUpon>fBanhangDNDuoc.cs</DependentUpon>
+    </Compile>
     <Compile Include="fBanhangDN.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -207,18 +213,6 @@
     </Compile>
     <Compile Include="fDanhSoCT.Designer.cs">
       <DependentUpon>fDanhSoCT.cs</DependentUpon>
-    </Compile>
-    <Compile Include="fImExcelHongDongNaiIn.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="fImExcelHongDongNaiIn.designer.cs">
-      <DependentUpon>fImExcelHongDongNaiIn.cs</DependentUpon>
-    </Compile>
-    <Compile Include="fImExcelHongDongNaiOut.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="fImExcelHongDongNaiOut.designer.cs">
-      <DependentUpon>fImExcelHongDongNaiOut.cs</DependentUpon>
     </Compile>
     <Compile Include="fImExcelGTCC.cs">
       <SubType>Form</SubType>
@@ -299,6 +293,9 @@
       <DependentUpon>CoPhanBoCtrinh.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="fBanhangDNDuoc.resx">
+      <DependentUpon>fBanhangDNDuoc.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="fBanhangDN.resx">
       <DependentUpon>fBanhangDN.cs</DependentUpon>
     </EmbeddedResource>
@@ -311,14 +308,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fDanhSoCT.resx">
       <DependentUpon>fDanhSoCT.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="fImExcelHongDongNaiIn.resx">
-      <DependentUpon>fImExcelHongDongNaiIn.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="fImExcelHongDongNaiOut.resx">
-      <DependentUpon>fImExcelHongDongNaiOut.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="fImExcelGTCC.resx">
       <DependentUpon>fImExcelGTCC.cs</DependentUpon>

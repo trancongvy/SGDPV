@@ -84,15 +84,22 @@ namespace CDTSystem
                             if (PkValueName == string.Empty) continue;
                             sqlUpdate = UpdateSql(tableName, dr);
                             _db.UpdateByNonQuery(sqlUpdate);
-                            if (_db.HasErrors) { _db.RollbackMultiTrans(); return; }
+                        if (_db.HasErrors)
+                        {
+                            _db.RollbackMultiTrans(); return;
                         }
-                        catch { }
+                        }
+                        catch {
+                    }
                     }
                     else
                     {
                         sqlInsert = CreateSql(tableName, dr);    
                         _db.UpdateByNonQuery(sqlInsert);
-                        if (_db.HasErrors) { _db.RollbackMultiTrans(); return; }
+                    if (_db.HasErrors)
+                    {
+                        _db.RollbackMultiTrans(); return;
+                    }
 
                     }
                
@@ -140,10 +147,18 @@ namespace CDTSystem
                 }
                 if (dr["fieldName"].ToString() != string.Empty && dr["ColName"] != DBNull.Value && dr["ColName"].ToString() != string.Empty)
                 {
-                    if (RowData[dr["ColName"].ToString()].ToString() == "" && note == "")
-                        continue;
+                    string value = RowData[dr["ColName"].ToString()].ToString();
                     note = getnote(dr["Type"].ToString());
-                    sql += dr["fieldName"].ToString() + " = " + (chars.Contains(Type) ? "N" : "")  + note + RowData[dr["ColName"].ToString()].ToString() + note + ",";
+
+                    if (value == "" && note == "")
+                        continue;
+                    else if (value == "" &&  note =="'" ) {
+                        value = null;
+                        
+                    }
+
+                    
+                    sql += dr["fieldName"].ToString() + " = " + (value==null?"NULL,":( (chars.Contains(Type) ? "N" : "")  + note + value + note + ","));
                 }
             }
             sql = sql.Substring(0, sql.Length - 1);

@@ -24,6 +24,7 @@ namespace CusAccounting
 
         // Properties
         //public string inv_InvoiceAuth_id { get; [CompilerGenerated] set; }
+        public string inv_invoiceAuth_id { get; [CompilerGenerated] set; }
         public string inv_invoiceSeries { get; [CompilerGenerated] set; }
         public string inv_invoiceNumber { get; [CompilerGenerated] set; }
         public string inv_invoiceIssuedDate { get; [CompilerGenerated] set; }
@@ -46,6 +47,7 @@ namespace CusAccounting
         public double inv_vatAmount { get; [CompilerGenerated] set; }
         public bool isDeductionNQ43 { get; [CompilerGenerated] set; }
         public double tlptdoanhthu20 { get; [CompilerGenerated] set; }
+        public double tgtck20 { get; [CompilerGenerated] set; }
         public string api_key { get; [CompilerGenerated] set; }
         public double inv_TotalAmount { get; [CompilerGenerated] set; }
         public double inv_discountAmount { get; [CompilerGenerated] set; }
@@ -53,6 +55,9 @@ namespace CusAccounting
         public string id { get; [CompilerGenerated] set; }
         public string trang_thai_hd { get; set; }
         public string trang_thai { get; set; }
+        public string mdvqhnsach_nmua { get; set; }
+        public string cccdan { get; set; }
+        public string so_hchieu { get; set; }
     }
     public class InvoiceGet
     {
@@ -97,7 +102,20 @@ namespace CusAccounting
         public int editmode { get; [CompilerGenerated] set; }
         public Invoice[] data { get; [CompilerGenerated] set; }
     }
-    public class Invoices
+    public class InvoiceInfoDelete
+    {
+
+        // Properties
+        //public string windowid { get; [CompilerGenerated] set; }
+        public int editmode { get; [CompilerGenerated] set; }
+        public InvoiceDelete[] data { get; [CompilerGenerated] set; }
+    }
+    public class InvoiceDelete
+    {
+        public string inv_invoiceSeries { get; [CompilerGenerated] set; }
+        public string inv_invoiceNumber { get; [CompilerGenerated] set; }
+    }
+     public class Invoices
     {
         // Fields
 
@@ -152,6 +170,8 @@ namespace CusAccounting
         public double inv_discountPercentage { get; [CompilerGenerated] set; }
         public double inv_discountAmount { get; [CompilerGenerated] set; }
         public string ma_thue { get; [CompilerGenerated] set; }
+        public string soLo { get; [CompilerGenerated] set; }
+        public string hanDung { get; [CompilerGenerated] set; }
     }
     public class Details
     {
@@ -293,6 +313,15 @@ namespace CusAccounting
         public string sovb { get; set; }
         public string ngayvb { get; set; }
         public string ghi_chu { get; set; }
+    }
+    public class VietQRInfo
+    {
+        public string accountNo { get; [CompilerGenerated] set; }
+        public string accountName { get; [CompilerGenerated] set; }
+        public string acqId { get; [CompilerGenerated] set; }
+        public string addInfo { get; [CompilerGenerated] set; }
+        public double amount { get; [CompilerGenerated] set; }
+        public string template { get; [CompilerGenerated] set; }
     }
 }
 

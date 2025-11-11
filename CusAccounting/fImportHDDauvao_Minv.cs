@@ -238,7 +238,7 @@ namespace CusAccounting
             if (hd.nky != null)
                 drMT["Ngayhd"] = DateTime.Parse(hd.nky.ToString()).Date;
             else
-                drMT["Ngayhd"] = DateTime.Parse(hd.tdlap.ToString()).Date;
+                drMT["Ngayhd"] = DateTime.Parse(hd.ntao.ToString()).Date;
             drMT["Sohoadon"] = "00000000".Substring(0, 8 - hd.shdon.ToString().Length) + hd.shdon.ToString();
             drMT["Kyhieu"] = hd.khhdon;
             drMT["HTTToan"] = hd.thtttoan;
@@ -1208,9 +1208,12 @@ namespace CusAccounting
                         drMt["TKCo"] = geTkCo.EditValue.ToString();
                         drMt["TKNo"] = geTkNo.EditValue.ToString();
                     }
-                    else
+                    else if (drMt["MaHTTT"].ToString() == "TM/CK")
                     {
-                        drMt["KieuHD"] = 1;
+                        if (drMt["TTien"] !=DBNull.Value && double.Parse(drMt["TTien"].ToString()) < 5000000)
+                            drMt["KieuHD"] = 2;
+                        else
+                            drMt["KieuHD"] = 1;
                     }
                 }
                 else drMt["KieuHD"] = 0;
@@ -1754,7 +1757,7 @@ namespace CusAccounting
             drCurrentMaster["DiaChi"] = row["DiaChi"];
             drCurrentMaster["MaNT"] = "VND";
             drCurrentMaster["TyGia"] = 1;
-            drCurrentMaster["DienGiai"] = "Mua dịch vụ";
+            drCurrentMaster["DienGiai"] = row["DienGiai"];
             drCurrentMaster["TkCo"] = row["TkCo"];
             drCurrentMaster["MaThue"] = row["MaThue"];
             //drCurrentMaster["TkCK"] = "5211";

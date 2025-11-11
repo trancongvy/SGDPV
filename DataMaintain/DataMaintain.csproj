@@ -30,18 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CDTDatabase">
-      <HintPath>..\CDTDatabase\bin\Debug\CDTDatabase.dll</HintPath>
-    </Reference>
-    <Reference Include="CDTLib">
-      <HintPath>..\CDTLib\bin\Debug\CDTLib.dll</HintPath>
-    </Reference>
     <Reference Include="DevExpress.Data.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Utils.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="Plugins">
-      <HintPath>..\Plugins\bin\Debug\Plugins.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -68,6 +59,21 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CDTDatabase\CDTDatabase.csproj">
+      <Project>{9bbdb6c7-70f8-4805-bb51-445551e282c5}</Project>
+      <Name>CDTDatabase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CDTLib\CDTLib.csproj">
+      <Project>{cf282973-8899-4c28-8286-71155cbe9c3a}</Project>
+      <Name>CDTLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\Plugins.csproj">
+      <Project>{afa2f1d0-b84b-406a-99d3-9ada58dbffcd}</Project>
+      <Name>Plugins</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

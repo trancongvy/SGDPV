@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("CDTControl")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("SGD ltd,co")]
+[assembly: AssemblyCompany("SGD ltd,Co")]
 [assembly: AssemblyProduct("CDTControl")]
 [assembly: AssemblyCopyright("Copyright © sgd 2010")]
 [assembly: AssemblyTrademark("")]
