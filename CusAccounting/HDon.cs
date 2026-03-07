@@ -134,7 +134,9 @@ namespace CusAccounting
             DataColumn tb21 = new DataColumn("KieuHD", typeof(int));//0. Hàng hóa, 1. Dịch vụ ,2 Chi trực tiếp, 3. Chi từ Ngân hàng
             DataColumn tb23 = new DataColumn("TkThue", typeof(string));
             DataColumn tb24 = new DataColumn("DienGiai", typeof(string));
-            tb.Columns.AddRange(new DataColumn[] { tb1, tb2, tb3, tb4, tb5, tb6, tb7, tb8, tb9, tb10, tb11, tb12, tb13, tb14, tb15, tb16,tb17, tb18, tb19,tb20,tb21,tb22, tb23,tb0, tb24 });
+            DataColumn tb25 = new DataColumn("NXT", typeof(bool));
+            tb25.DefaultValue = false;
+            tb.Columns.AddRange(new DataColumn[] { tb1, tb2, tb3, tb4, tb5, tb6, tb7, tb8, tb9, tb10, tb11, tb12, tb13, tb14, tb15, tb16,tb17, tb18, tb19,tb20,tb21,tb22, tb23,tb0, tb24, tb25 });
             return tb;
         }
         public static DataTable CreateHHDV()
@@ -156,12 +158,14 @@ namespace CusAccounting
             DataColumn tb13 = new DataColumn("Thuesuat", typeof(double));
             DataColumn tb14 = new DataColumn("TienThue", typeof(double));
             DataColumn tb15 = new DataColumn("TkDthu", typeof(string));
-            DataColumn tb16 = new DataColumn("Tkgv", typeof(string)); 
+            DataColumn tb16 = new DataColumn("TkCP", typeof(string)); 
             DataColumn tb17 = new DataColumn("Tkkho", typeof(string));
             DataColumn tb18= new DataColumn("isDV", typeof(bool));
             DataColumn tb20 = new DataColumn("dictance", typeof(double));
             DataColumn tb21 = new DataColumn("Sohoadon", typeof(string));
-            tb.Columns.AddRange(new DataColumn[] { tb1, tb2, tb3, tb4, tb5, tb6, tb7, tb8, tb9, tb10, tb11, tb12, tb13,tb14, tb15, tb16, tb17, tb18,tb19,tb20,tb21 });
+            DataColumn tb22 = new DataColumn("MaCongtrinh", typeof(string));
+            DataColumn tb23 = new DataColumn("Tkgv", typeof(string));
+            tb.Columns.AddRange(new DataColumn[] { tb1, tb2, tb3, tb4, tb5, tb6, tb7, tb8, tb9, tb10, tb11, tb12, tb13,tb14, tb15, tb16, tb17, tb18,tb19,tb20,tb21, tb22, tb23 });
             return tb;
         }
         static int EditDistance(string s, string t)

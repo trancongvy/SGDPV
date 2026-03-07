@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Threading;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using System.Xml;
@@ -23,26 +22,31 @@ using CBSControls;
 using FormFactory;
 using DevControls;
 using System.Net;
-using System.Net.Http;
-using Newtonsoft.Json.Linq;
-using System.Net.Http.Headers;
 
 namespace CusAccounting
 {
 
-    public partial class fImportHDDaura_Minv : DevExpress.XtraEditors.XtraForm
+    public partial class fImportHDDauvaoHKD : DevExpress.XtraEditors.XtraForm
     {
-        [Obsolete]
-        public fImportHDDaura_Minv()
+
+
+        public fImportHDDauvaoHKD()
         {
             InitializeComponent();
-            DevExpress.Data.CurrencyDataController.DisableThreadingProblemsDetection = true;
-        
-            rEisDV.MouseUp += REisDV_MouseUp;
+            gridControl1.KeyUp += GridControl1_KeyUp;
         }
 
+        private void GridControl1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F4 && bs!=null)
+            {
+                bs.RemoveCurrent();
+                ds.AcceptChanges();
 
-        
+            }
+            
+        }
+
         Database _db = Database.NewDataDatabase();
         Database _dbStruct = Database.NewStructDatabase();
         BindingSource bs = new BindingSource();
@@ -57,7 +61,7 @@ namespace CusAccounting
         DataSingle dbdmDVT;//= new DataSingle("DMDVT", "7");
         DataSingle dbdmHTTT;// = new DataSingle("DMHTTT", "7");
         DataSingle dbdmTk;//= new DataSingle("DMtk", "7");
-        DataSingle dbdmThueSuat;//= new DataSingle("DMtk", "7");
+        DataSingle dbdmThueSuat;
         DataSingle DictionaryName;
         DevControls.CDTRepGridLookup reHTTT;
         DevControls.CDTRepGridLookup reDMKH;
@@ -68,13 +72,18 @@ namespace CusAccounting
         DevControls.CDTRepGridLookup reDMVT1;
         DevControls.CDTRepGridLookup reDMKHO;
         DevControls.CDTRepGridLookup reDMDVT;
-        DevControls.CDTRepGridLookup reDMCongtrinh;
-        DataMasterDetail _dataMt32;
-        BindingSource bsMT32 = new BindingSource();
-        DataMasterDetail _dataMt31;
-        BindingSource bsMT31 = new BindingSource();
+        DataMasterDetail _dataMt22;
+        //DataMasterDetail _dataMt21;
+        BindingSource bsMT22 = new BindingSource();
+
+
+        DataMasterDetail _dataMt12;
+        //DataMasterDetail _dataMt16;
+        BindingSource bsMT12 = new BindingSource();
+        //BindingSource bsMT16 = new BindingSource();
+
+
         FormDesigner _frmDesign;
-        FormDesigner _frmDesign31;
         private async Task<string> GetData(int page)
         {
             string token = "";
@@ -82,21 +91,21 @@ namespace CusAccounting
             else return "";
             string MST = "";
             if (Config.Variables.ContainsKey("MaSoThue")) MST = Config.GetValue("MaSoThue").ToString();
-            else return "" ;
+            else return "";
             System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             string requestUri = "";
             if (Config.Variables.ContainsKey("MInvoiceUrl")) requestUri = Config.GetValue("MInvoiceUrl").ToString();
-            requestUri += "?page=" + page.ToString().Trim() + "&size=50&invoiceType=OUTPUT_ELECTRONIC_INVOICE&invoiceReleaseDateFrom=" + DateTime.Parse(dTungay.EditValue.ToString()).ToString("dd/MM/yyyy") + "&invoiceReleaseDateTo=" + DateTime.Parse(dDenngay.EditValue.ToString()).ToString("dd/MM/yyyy") + "&sellerTaxNo=" + MST;
-            var client = new HttpClient();
-            client.DefaultRequestHeaders.Add("apiToken", token); 
+            requestUri += "?page=" + page.ToString().Trim() + "&size=50&invoiceType=INPUT_ELECTRONIC_INVOICE&invoiceReleaseDateFrom=" + DateTime.Parse(dTungay.EditValue.ToString()).ToString("dd/MM/yyyy") + "&invoiceReleaseDateTo=" + DateTime.Parse(dDenngay.EditValue.ToString()).ToString("dd/MM/yyyy") + "&buyerTaxNo=" + MST;
+            var client = new System.Net.Http.HttpClient();
+            client.DefaultRequestHeaders.Add("apiToken", token);
             try
             {
-                HttpResponseMessage response = await client.GetAsync(requestUri);
+                System.Net.Http.HttpResponseMessage response = await client.GetAsync(requestUri);
                 response.EnsureSuccessStatusCode();
                 string responseBody = await response.Content.ReadAsStringAsync();
                 return responseBody;
             }
-            catch (HttpRequestException ex)
+            catch (System.Net.Http.HttpRequestException ex)
             {
                 Console.WriteLine($"An error occurred: {ex.Message}");
                 return null;
@@ -110,43 +119,58 @@ namespace CusAccounting
             //    // Xử lý dữ liệu trả về ở đây
             //}
             //else
-            return "";
-        }
 
-        private async void btLoadData_ClickAsync(object sender, EventArgs e)
+        }
+        private async void btLoadData_Click(object sender, EventArgs e)
         {
             lstid = new string[] { };
             string data = "";
             try
             {
-                data = await  GetData(1);
+                data = await GetData(1);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-
+                MessageBox.Show(ex.Message);
+                return;
             }
-            if (data == "" || data==null) return;
+            if (data == "" || data == null) return;
             tbDT.Rows.Clear();
             tbMT.Rows.Clear();
-            _dataMt32 = new DataMasterDetail("DT32", "7");
-            _dataMt32.ConditionMaster = "1=0";
-            _dataMt32.GetData();
-            _dataMt31 = new DataMasterDetail("DT31", "7");
-            _dataMt31.ConditionMaster = "1=0";
-            _dataMt31.GetData();
+            _dataMt22 = new DataMasterDetail("DT22", "7");
+            _dataMt22.ConditionMaster = "1=0";
+            _dataMt22.GetData();
+            //_dataMt21 = new DataMasterDetail("DT21", "7");
+            //_dataMt21.ConditionMaster = "1=0";
+            //_dataMt21.GetData();
+            bsMT22.DataSource = _dataMt22.DsData;
+            bsMT22.DataMember = _dataMt22.DsData.Tables[0].TableName;
+            //bsMT21.DataSource = _dataMt21.DsData;
+            //bsMT21.DataMember = _dataMt21.DsData.Tables[0].TableName;
 
-            bsMT32.DataSource = _dataMt32.DsData;
-            bsMT32.DataMember = _dataMt32.DsData.Tables[0].TableName;
-            bsMT31.DataSource = _dataMt31.DsData;
-            bsMT31.DataMember = _dataMt31.DsData.Tables[0].TableName;
+            _dataMt12 = new DataMasterDetail("DT12", "7");
+            _dataMt12.ConditionMaster = "1=0";
+            _dataMt12.GetData();
+            //_dataMt16 = new DataMasterDetail("DT16", "7");
+            //_dataMt16.ConditionMaster = "1=0";
+            //_dataMt16.GetData();
+
+            bsMT22.DataSource = _dataMt22.DsData;
+            bsMT22.DataMember = _dataMt22.DsData.Tables[0].TableName;
+            //bsMT21.DataSource = _dataMt21.DsData;
+            //bsMT21.DataMember = _dataMt21.DsData.Tables[0].TableName;
+
+            bsMT12.DataSource = _dataMt12.DsData;
+            bsMT12.DataMember = _dataMt12.DsData.Tables[0].TableName;
+            //bsMT16.DataSource = _dataMt16.DsData;
+            //bsMT16.DataMember = _dataMt16.DsData.Tables[0].TableName;
 
             MInvoiceList mInvoiceList = JsonConvert.DeserializeObject<MInvoiceList>(data);
             if (mInvoiceList != null)
             {
                 int pagetotal = (int)mInvoiceList.totalPage;
                 CreateData1page(mInvoiceList);
-                if (pagetotal > 1)
-                {
+                if (pagetotal > 1) {
                     for (int i = 2; i <= pagetotal; i++)
                     {
                         data = await GetData(i);
@@ -155,34 +179,12 @@ namespace CusAccounting
                     }
                 }
             }
-          
-           
-
             gridControl1.DataSource = bs;
             gridControl2.DataSource = bs;
             gridControl2.DataMember = tbDT.TableName;// ds.Relations[0].RelationName;
-            tbMT.ColumnChanged += TbMT_ColumnChanged;
-        }
 
-        private void TbMT_ColumnChanged(object sender, DataColumnChangeEventArgs e)
-        {
-            if(e.Column.ColumnName== "MaHTTT" && dbdmHTTT!=null &&dbdmHTTT.DsData!=null)
-            {
-                DataTable tbHTTT = dbdmHTTT.DsData.Tables[0];
-                if (tbHTTT.Columns.Contains("TkNo"))
-                {
-                    DataRow[] ldrHttt = tbHTTT.Select("MaHTTT='" + e.Row[e.Column].ToString() + "'");
-                    if(ldrHttt.Length>0)
-                    {
-                        e.Row["TKNo"] = ldrHttt[0]["TkNo"];
-                        e.Row.EndEdit();
-                    }
-                }
-            }
         }
-
         string[] lstid = new string[] { };
-
         private void CreateData1page(MInvoiceList mInvoiceList)
         {
             if (mInvoiceList != null)
@@ -191,10 +193,8 @@ namespace CusAccounting
                 {
                     if (inv.id == null) continue;
 
-
                     if (lstid.Contains(inv.id))
                     {
-                        DataRow[] lstTrung = tbMT.Select("MTID='" + inv.id + "'");
 
                         LogFile.AppendToFile("dulieutrung.txt", inv.shdon + "  " + inv.ntnhan);
                         continue;
@@ -207,7 +207,6 @@ namespace CusAccounting
                     if (inv.tthai == 6)
                         continue;
                     DataRow drMT = tbMT.NewRow();
-
                     drMT["MTID"] = inv.id;
                     tbMT.Rows.Add(CreateMTRow(drMT, inv));
                     int firstRow = 0;
@@ -215,65 +214,61 @@ namespace CusAccounting
                     {
                         foreach (HHDVu_Minv HHDV_minv in inv.hdhhdvu)
                         {
-                            if (HHDV_minv.tchat == "4") continue;
-                            if (firstRow == 0) { drMT["DienGiai"] = HHDV_minv.ten.ToString().Replace("\n", " "); firstRow++; }
-
+                            if (firstRow == 0) { drMT["DienGiai"] = HHDV_minv.ten; firstRow++; }
                             DataRow drDT = tbDT.NewRow();
                             tbDT.Rows.Add(CreateDTRow(drMT, drDT, HHDV_minv));
                         }
                     }
+                    else
+                    {
+
+                    }    
                 }
             }
         }
         private DataRow CreateMTRow(DataRow drMT, MInvoice hd)
         {
-
-            if (hd.nky != null && hd.ntao > DateTime.Parse(hd.nky.ToString()).AddDays(1))
+            if (hd.nky !=null && hd.ntao > DateTime.Parse( hd.nky.ToString()).AddDays(1) )
             {
 
             }
             if (hd.mhdon != null)
                 drMT["MCCQT"] = hd.mhdon;
-            if (hd.tdlap != null)
-            {
 
-                TimeZoneInfo VNTimezone = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"); // Múi giờ của GMT+7
-                TimeZoneInfo UTCTimezone = TimeZoneInfo.Utc;
-                DateTime NgayLapVN = TimeZoneInfo.ConvertTime(DateTime.Parse(hd.tdlap.ToString()), UTCTimezone, VNTimezone);
-
-                drMT["Ngayhd"] = NgayLapVN.Date;
-            }
-            else if (hd.ntao != null)
-                drMT["Ngayhd"] = DateTime.Parse(hd.ntao.ToString()).Date;
-            else
+            if (hd.nky != null)
                 drMT["Ngayhd"] = DateTime.Parse(hd.nky.ToString()).Date;
-            drMT["Sohoadon"] ="00000000".Substring(0,8- hd.shdon.ToString().Length) + hd.shdon.ToString();
+            else
+                drMT["Ngayhd"] = DateTime.Parse(hd.ntao.ToString()).Date;
+            drMT["Sohoadon"] = "00000000".Substring(0, 8 - hd.shdon.ToString().Length) + hd.shdon.ToString();
             drMT["Kyhieu"] = hd.khhdon;
-            drMT["HTTToan"] = hd.thtttoan==null?"TM/CK":hd.thtttoan;
-            drMT["TenKH"] = hd.nmten;
-            drMT["MST"] = hd.nmmst;
-            
-            if (hd.nmdchi != null)
+            drMT["HTTToan"] = hd.thtttoan;
+            drMT["TenKH"] = hd.nbten;
+            drMT["MST"] = hd.nbmst;
+          //  drMT["DiaChi"] = hd.nbdchi == null || hd.nbdchi == string.Empty ? "." : hd.nbdchi;
+
+            if (hd.nbdchi != null)
             {
-                drMT["DiaChi"] = hd.nmdchi;
+                drMT["DiaChi"] = hd.nbdchi;
             }
             else
             {
-                foreach(ttkhac Ttkhac in hd.ttkhac)
+                foreach (ttkhac Ttkhac in hd.ttkhac)
                 {
-                    if(Ttkhac.ttruong.ToLower()=="địa chỉ" && Ttkhac.dlieu!=null)
+                    if (Ttkhac.ttruong.ToLower() == "địa chỉ" && Ttkhac.dlieu != null)
                     {
                         drMT["DiaChi"] = Ttkhac.dlieu;
                         break;
                     }
                 }
-            }    
+            }
+
             drMT["Ongba"] = hd.nmtnmua;
 
-                drMT["TTienH"] = hd.tgtcthue==null?0: hd.tgtcthue;
-                drMT["TThue"] = hd.tgtthue==null ? 0 : hd.tgtthue;
-            drMT["TTien"] = hd.tgtttbso==null ? 0 : hd.tgtttbso;
-            if(hd.thttltsuat!=null && hd.thttltsuat.Length > 0)
+            drMT["TTienH"] =  hd.tgtcthue==null?0: hd.tgtcthue;
+            drMT["TThue"] = hd.tgtthue == null ? 0 : hd.tgtthue;
+            drMT["TTien"] = hd.tgtttbso == null ? 0 : hd.tgtttbso;
+
+            if (hd.thttltsuat != null && hd.thttltsuat.Length > 0)
             {
                 drMT["MaThue"] = hd.thttltsuat[0].tsuat.Replace("%", "");
             }
@@ -283,17 +278,18 @@ namespace CusAccounting
             }
 
             // drMT["MaThue"] = hd.DLHDon.NDHDon.TToan.THTTLTSuat.TTSuat.TSuat.Replace("%", "");
-            drMT["TkNo"] = geTkNo.EditValue.ToString();
+            drMT["TkCo"] = geTkCo.EditValue.ToString();
             drMT.EndEdit();
             return drMT;
         }
         private DataRow CreateDTRow(DataRow drMT, DataRow drDT, HHDVu_Minv hh)
         {
+
             drDT["MTID"] = drMT["MTID"];
             drDT["Sohoadon"] = drMT["Sohoadon"];
-            drDT["MTIDDT"] =hh.id;
+            drDT["MTIDDT"] = hh.id;
             drDT["MaKho"] = geMaKho.EditValue.ToString();
-            drDT["TenVT"] = hh.ten.Replace("\n", " ");
+            drDT["TenVT"] = hh.ten;
             drDT["DVT"] = hh.dvtinh;
             if (hh.sluong == null) drDT["Soluong"] = 0;
             else drDT["Soluong"] = hh.sluong;
@@ -309,68 +305,68 @@ namespace CusAccounting
                 hh.stckhau = 0;
                 drDT["CK"] = hh.stckhau;
             }
+            hh.thtien = hh.thtien == null ? 0 : hh.thtien;
             drDT["TTien"] = hh.thtien;
+
             if (hh.ltsuat != null)
                 drDT["MaThueCT"] = hh.ltsuat.Replace("%", "");
             else
-                drDT["MaThueCT"] = "KT";
+                drDT["MaThueCT"] = "KCT";
             double Thuesuat = 0;
             if (hh.tsuat != null)
                 Thuesuat = (double)hh.tsuat * 100;
             else
                 Thuesuat = 0;
             drDT["Thuesuat"] = Thuesuat;
-          
-            
-            
-            
+
+
+
+
             drDT["TienThue"] = Math.Round((double)((hh.thtien - hh.stckhau) * Thuesuat / 100), 0);
-            drDT["TkDthu"] = geTkdthu.EditValue.ToString();
-            drDT["Tkgv"] = geTkgv.EditValue.ToString();
+            drDT["Tkgv"] = geTkCK.EditValue.ToString();
             drDT["Tkkho"] = geTkkho.EditValue.ToString();
             drDT["isDV"] = 0;
             drDT.EndEdit();
             return drDT;
         }
-        private void fImportHDDauRa_Load(object sender, EventArgs e)
+        private void fImportHDDauVao_Load(object sender, EventArgs e)
         {
-
             if (Config.Variables.Contains("MaSoThue")) this.Text += ": " + Config.GetValue("MaSoThue").ToString();
-            //Lấy dữ liệu MT32
-            _dataMt32 = new DataMasterDetail("DT32", "7");
-            _dataMt32.ConditionMaster = "1=0";
-            _dataMt32.GetData();
-            bsMT32.DataSource = _dataMt32.DsData;
-            bsMT32.DataMember = _dataMt32.DsData.Tables[0].TableName;
 
-            //Lấy dữ liệu MT31
-            _dataMt31 = new DataMasterDetail("DT31", "7");
-            _dataMt31.ConditionMaster = "1=0";
-            _dataMt31.GetData();
-            bsMT31.DataSource = _dataMt31.DsData;
-            bsMT31.DataMember = _dataMt31.DsData.Tables[0].TableName;
-            _frmDesign = new FormDesigner(_dataMt32, bsMT32);
-            _frmDesign31 = new FormDesigner(_dataMt31, bsMT31);
+            //Lấy dữ liệu MT22
+            _dataMt22 = new DataMasterDetail("DT22", "7");
+            _dataMt22.ConditionMaster = "1=0";
+            _dataMt22.GetData();
+            bsMT22.DataSource = _dataMt22.DsData;
+            bsMT22.DataMember = _dataMt22.DsData.Tables[0].TableName;
+            _frmDesign = new FormDesigner(_dataMt22, bsMT22);
             dxErrorProviderMain.DataSource = bs;
             
-            foreach(DataRow drCol in _dataMt32.DsStruct.Tables[0].Rows)
+            foreach(DataRow drCol in _dataMt22.DsStruct.Tables[0].Rows)
             {
                 switch (drCol["FieldName"].ToString().ToLower())
                 {
                     case "mahttt":
                         reHTTT = _frmDesign.GenRIGridLookupEdit(drCol);
+                        reHTTT.DisplayMember = "MaHTTT";
                         break;
                     case "makh":
                         reDMKH = _frmDesign.GenRIGridLookupEdit(drCol);
                         reDMKH1 = _frmDesign.GenRIGridLookupEdit(drCol);
                         reDMKH1.DisplayMember = "TenKH";
                         break;
-                    case "tkno":
+                    case "tk":
                       reDMTK= _frmDesign.GenRIGridLookupEdit(drCol);
                         break;
+                    case "makho":
+                        reDMKHO = _frmDesign.GenRIGridLookupEdit(drCol);
+                        break;
+                        //case "mathue":
+                        //    reMaThue = _frmDesign.GenRIGridLookupEdit(drCol);
+                        //    break;
                 }
             }
-            foreach (DataRow drCol in _dataMt32.DsStruct.Tables[1].Rows)
+            foreach (DataRow drCol in _dataMt22.DsStruct.Tables[1].Rows)
             {
                 switch (drCol["FieldName"].ToString().ToLower())
                 {
@@ -379,28 +375,13 @@ namespace CusAccounting
                         reDMVT1 = _frmDesign.GenRIGridLookupEdit(drCol);
                         reDMVT1.DisplayMember = "TenVT";
                         break;
-                    case "makho":
-                        reDMKHO = _frmDesign.GenRIGridLookupEdit(drCol);
-                        break;
+                    
                     case "madvt":
                         reDMDVT = _frmDesign.GenRIGridLookupEdit(drCol);
                         break;
-                    case "mathue":
-                        reMaThue = _frmDesign.GenRIGridLookupEdit(drCol);
-                        break;
-                        
                 }
             }
-            foreach (DataRow drCol in _dataMt31.DsStruct.Tables[1].Rows)
-            {
-                switch (drCol["FieldName"].ToString().ToLower())
-                {
-                    case "macongtrinh":
-                        reDMCongtrinh = _frmDesign31.GenRIGridLookupEdit(drCol);
-                            break;
-                }
-            }
-                dbdmKH = publicCDTData.findCDTData("DMKH", "", "");
+            dbdmKH = publicCDTData.findCDTData("DMKH", "", "");
             if (dbdmKH == null) dbdmKH = new DataSingle("DMKH", "7");
             dbdmVT = publicCDTData.findCDTData("DMVT", "", "");
             if (dbdmVT == null) dbdmVT = new DataSingle("DMVT", "7");
@@ -410,42 +391,47 @@ namespace CusAccounting
             if (dbdmDVT == null) dbdmDVT = new DataSingle("DMDVT", "7");
             dbdmHTTT = publicCDTData.findCDTData("DMHTTT", "", "");
             if (dbdmHTTT == null) dbdmHTTT = new DataSingle("DMHTTT", "7");
-            dbdmTk = publicCDTData.findCDTData("DMTK", "TK not in (select  TK=case when TKMe is null then '' else TKMe end from DMTK group by TKMe)", "");
+            dbdmTk = publicCDTData.findCDTData("DMTK", "", "");
             if (dbdmTk == null) dbdmTk = new DataSingle("DMtk", "7");
-            dbdmThueSuat = publicCDTData.findCDTData("dmThueSuat", "", "");
-            if (dbdmThueSuat == null) dbdmThueSuat = new DataSingle("dmThueSuat", "7");
-            DataFactory.publicCDTData.AddCDTData(dbdmThueSuat);
+            //dbdmThueSuat = publicCDTData.findCDTData("DMThueSuat", "", "");
+            //if (dbdmThueSuat == null) dbdmThueSuat = new DataSingle("DMThueSuat", "7");
+            //DataFactory.publicCDTData.AddCDTData(dbdmThueSuat);
             if (!dbdmKH.FullData) dbdmKH.GetData();
             if (!dbdmVT.FullData) dbdmVT.GetData();
             if (!dbdmKho.FullData) dbdmKho.GetData();
             if (!dbdmDVT.FullData) dbdmDVT.GetData();
             if (!dbdmHTTT.FullData) dbdmHTTT.GetData();
             if (!dbdmTk.FullData) dbdmTk.GetData();
-            if (!dbdmThueSuat.FullData) dbdmThueSuat.GetData();
+            reDMTK.Data.GetData();
+            //if (!dbdmThueSuat.FullData) dbdmThueSuat.GetData();
 
             //Thiết kế repository
-            //reHTTT.DataSource = dbdmHTTT.DsData.Tables[0]; reHTTT.ValueMember = "MaHTTT"; reHTTT.DisplayMember = "MaHTTT";
+            reHTTT.DataSource = dbdmHTTT.DsData.Tables[0]; reHTTT.ValueMember = "MaHTTT"; reHTTT.DisplayMember = "MaHTTT";
             gCMaHTTT.ColumnEdit = reHTTT;
 
             //reDMKH.DataSource = dbdmKH.DsData.Tables[0]; reDMKH.ValueMember = "MaKH"; reDMKH.DisplayMember = "MaKH";
             gCMaKH.ColumnEdit = reDMKH;gCTenKH.ColumnEdit = reDMKH1;
-            //reDMTK.DataSource = dbdmTk.DsData.Tables[0]; reDMTK.ValueMember = "TK"; reDMKH.DisplayMember = "TK";
-            gCTkNo.ColumnEdit = reDMTK; gCTkDT.ColumnEdit = reDMTK; gCTkGV.ColumnEdit = reDMTK; gCTkKho.ColumnEdit = reDMTK; gcCongtrinh.ColumnEdit = reDMCongtrinh;
+            //reDMTK.DataSource = dbdmTk.DsData.Tables[0];
+            reDMTK.ValueMember = "Tk"; reDMTK.DisplayMember = "Tk";
+            gCTkCo.ColumnEdit = reDMTK;
+           
+ 
             //reDMVT.DataSource = dbdmVT.DsData.Tables[0]; reDMVT.ValueMember = "TK"; reDMVT.DisplayMember = "MaVT";
             gCMaVT.ColumnEdit = reDMVT; gCTenVT.ColumnEdit = reDMVT1;
             //reDMKHO.DataSource = dbdmKho.DsData.Tables[0]; reDMKHO.ValueMember = "MaKho"; reDMKHO.DisplayMember = "MaKho";
             gCMaKho.ColumnEdit = reDMKHO;
             //reDMDVT.DataSource = dbdmDVT.DsData.Tables[0]; reDMDVT.ValueMember = "MaDVT"; reDMDVT.DisplayMember = "MaDVT";
             gCMaDVT.ColumnEdit = reDMDVT;
-            gcMaThue.ColumnEdit = reMaThue;
+           // gcMaThue.ColumnEdit = reMaThue;
+            
+            geMaKho.Properties.DataSource = dbdmKho.DsData.Tables[0]; geMaKho.Properties.ValueMember = "MaKho"; geMaKho.Properties.DisplayMember = "TenKho"; geMaKho.EditValue = "K1";
+            geTkCo.Properties.DataSource = dbdmTk.DsData.Tables[0]; geTkCo.Properties.ValueMember = "Tk"; geTkCo.Properties.DisplayMember = "Tk"; geTkCo.EditValue = "CNTRA";
+            geTkTM.Properties.DataSource = dbdmTk.DsData.Tables[0]; geTkTM.Properties.ValueMember = "Tk"; geTkTM.Properties.DisplayMember = "Tk"; geTkTM.EditValue = "TM";
+            geTkNH.Properties.DataSource = dbdmTk.DsData.Tables[0]; geTkNH.Properties.ValueMember = "Tk"; geTkNH.Properties.DisplayMember = "Tk"; geTkNH.EditValue = "NHVCB";
+            geTkNo.Properties.DataSource = dbdmTk.DsData.Tables[0]; geTkNo.Properties.ValueMember = "Tk"; geTkNo.Properties.DisplayMember = "Tk"; geTkNo.EditValue = "CP";
 
-
-            geMaKho.Properties.DataSource = dbdmKho.DsData.Tables[0]; geMaKho.Properties.ValueMember = "MaKho"; geMaKho.Properties.DisplayMember = "TenKho"; geMaKho.EditValue = "HH";
-            geTkNo.Properties.DataSource = dbdmTk.DsData.Tables[0]; geTkNo.Properties.ValueMember = "TK"; geTkNo.Properties.DisplayMember = "TK"; geTkNo.EditValue = "1111";
-            geTkdthu.Properties.DataSource = dbdmTk.DsData.Tables[0]; geTkdthu.Properties.ValueMember = "TK"; geTkdthu.Properties.DisplayMember = "TK"; geTkdthu.EditValue = "5111";
-            geTkdthuDV.Properties.DataSource = dbdmTk.DsData.Tables[0]; geTkdthuDV.Properties.ValueMember = "TK"; geTkdthuDV.Properties.DisplayMember = "TK"; geTkdthuDV.EditValue = "5113";
-            geTkgv.Properties.DataSource = dbdmTk.DsData.Tables[0]; geTkgv.Properties.ValueMember = "TK"; geTkgv.Properties.DisplayMember = "TK"; geTkgv.EditValue = "632";
-            geTkkho.Properties.DataSource = dbdmTk.DsData.Tables[0]; geTkkho.Properties.ValueMember = "TK"; geTkkho.Properties.DisplayMember = "TK"; geTkkho.EditValue = "1561";
+            geTkCK.Properties.DataSource = dbdmTk.DsData.Tables[0]; geTkCK.Properties.ValueMember = "Tk"; geTkCK.Properties.DisplayMember = "Tk"; geTkCK.EditValue = "GV";
+            geTkkho.Properties.DataSource = dbdmTk.DsData.Tables[0]; geTkkho.Properties.ValueMember = "Tk"; geTkkho.Properties.DisplayMember = "Tk"; geTkkho.EditValue = "HH";
             tbMT.PrimaryKey = new DataColumn[] { tbMT.Columns["MTID"] };
             tbDT.PrimaryKey = new DataColumn[] { tbDT.Columns["MTIDDT"] };
 
@@ -469,19 +455,36 @@ namespace CusAccounting
             reDMDVT.KeyUp += ReDMDVT_KeyUp;
             tbDT.ColumnChanged += TbDT_ColumnChanged;
             tbDT.ColumnChanging += TbDT_ColumnChanging;
+            tbMT.ColumnChanged += TbMT_ColumnChanged;
             DictionaryName = new DataSingle("DictionaryName", "7");
             DictionaryName.GetData();
             gridControl2.KeyUp += GridControl2_KeyUp;
-            gridControl1.KeyUp += GridControl1_KeyUp;
             gridView1.CustomDrawRowIndicator += GridView1_CustomDrawRowIndicator;
             gridView2.CustomDrawRowIndicator += GridView1_CustomDrawRowIndicator;
             gridView1.IndicatorWidth = 40;
             gridView2.IndicatorWidth = 40;
+
+            rEisDV.MouseUp += REisDV_MouseUp;
+        }
+
+        private void TbMT_ColumnChanged(object sender, DataColumnChangeEventArgs e)
+        {
+            if (e.Column.ColumnName.ToLower() == "mahttt" && e.Row["MaHTTT"] != DBNull.Value)
+            {
+                string MaHTTT = e.Row["MaHTTT"].ToString();
+                DataRow[] lstMaHTTT = dbdmHTTT.DsData.Tables[0].Select("MaHTTT='" + MaHTTT + "'");
+                if (lstMaHTTT.Length > 0)
+                {
+                    e.Row["TkCo"] = lstMaHTTT[0]["TkNo"];
+                    e.Row["TkNo"] = "HH";
+                   
+                }
+            }
         }
 
         private void ReDMVT_EditValueChanging(object sender, DevExpress.XtraEditors.Controls.ChangingEventArgs e)
         {
-            if (e.NewValue != null &&   e.OldValue== DBNull.Value)
+            if (e.NewValue != null && e.OldValue == DBNull.Value)
             {
                 DataRow dr = gridView2.GetDataRow(gridView2.FocusedRowHandle);
                 string Code = e.NewValue.ToString();
@@ -511,10 +514,10 @@ namespace CusAccounting
                 DataRow[] ldr = DictionaryName.DsData.Tables[0].Select("TableName='" + TableName + "' and Name='" + Name + "'");
                 if (ldr.Length >= 0)
                 {
-                    
+
                     DictionaryName.DrCurrentMaster = ldr[0];
                     DictionaryName.DrCurrentMaster.Delete();
-                        DictionaryName.UpdateData(DataAction.Delete);
+                    DictionaryName.UpdateData(DataAction.Delete);
                 }
             }
         }
@@ -557,33 +560,16 @@ namespace CusAccounting
                 if (lstMaVT.Length > 0)
                 {
                     e.Row["MaDVT"] = lstMaVT[0]["MaDVT"];
-                    e.Row["TkKho"] = lstMaVT[0]["TkKho"];
-                    e.Row["TkDthu"] = lstMaVT[0]["TkDT"];
-                    e.Row["TkGV"] = lstMaVT[0]["TkGV"];
+                    e.Row["TkKho"] = "HH";
+                    //e.Row["TkDthu"] = lstMaVT[0]["TkDT"];
+                    //e.Row["TkGV"] = lstMaVT[0]["TkGV"];
                     e.Row["isDV"] = lstMaVT[0]["isDV"];
                 }
             }
         }
 
+       
 
-
-        private void GridControl1_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.F4 && bs != null)
-            {
-                bs.RemoveCurrent();
-                ds.AcceptChanges();
-
-            }
-        }
-
-        private void GridView1_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
-        {
-            if (e.Info.IsRowIndicator && (e.RowHandle >= 0))
-            {
-                e.Info.DisplayText = (e.RowHandle + 1).ToString();
-            }
-        }
         private void REisDV_MouseUp(object sender, MouseEventArgs e)
         {
 
@@ -628,8 +614,14 @@ namespace CusAccounting
 
             }
         }
-       
 
+        private void GridView1_CustomDrawRowIndicator(object sender, DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs e)
+        {
+            if (e.Info.IsRowIndicator && (e.RowHandle >= 0))
+            {
+                e.Info.DisplayText = (e.RowHandle + 1).ToString();
+            }
+        }
         private void ReDMDVT_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.F12)
@@ -649,7 +641,6 @@ namespace CusAccounting
                 else
                 {
                     ldr[0]["Code"] = Code; ldr[0]["Name"] = Name; ldr[0]["TableName"] = TableName;
-                    DictionaryName.DrCurrentMaster = ldr[0];
                     DictionaryName.UpdateData(DataAction.Update);
                 }
             }
@@ -657,31 +648,36 @@ namespace CusAccounting
 
         private void GridControl2_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.F11 && gridControl2.DataMember != "")
+            if (e.KeyCode == Keys.F11)
             {
-                gridControl2.DataSource = tbDT;
-                gridControl2.DataMember = "";
-            }
-            else if (e.KeyCode == Keys.F11)
-            {
-                gridControl2.DataSource = bs;
-                gridControl2.DataMember = tbDT.TableName;
+                if (gridControl2.DataMember != "")
+                {
+                    gridControl2.DataSource = tbDT;
+                    gridControl2.DataMember = "";
+                }
+                else
+                {
+                    gridControl2.DataSource = bs;
+                    gridControl2.DataMember = tbDT.TableName;
+                }
             }
         }
-
         private void ReDMVT_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.F12)
             {
                 DataRow dr = gridView2.GetDataRow(gridView2.FocusedRowHandle);
-                string Code = (sender as GridLookUpEdit).EditValue.ToString();
+                string Code = "";
+                if ((sender as GridLookUpEdit).EditValue == null)
+                    Code = null;
+                else Code = (sender as GridLookUpEdit).EditValue.ToString();
                 string Name = dr["TenVT"].ToString();
                 string TableName = "DMVT";
                 DataRow[] ldr = DictionaryName.DsData.Tables[0].Select("TableName='" + TableName + "' and Name='" + Name + "'");
                 if (ldr.Length == 0)
                 {
                     DataRow drDic = DictionaryName.DsData.Tables[0].NewRow();
-                    drDic["Code"] = Code; drDic["Name"] = Name; drDic["TableName"] = TableName;
+                    drDic["Code"] = Code; drDic["Name"] = Name; drDic["TableName"] = TableName; drDic["isDV"] = 0;
                     DictionaryName.DsData.Tables[0].Rows.Add(drDic);
                     DictionaryName.UpdateData(DataAction.Insert);
                 }
@@ -725,21 +721,27 @@ namespace CusAccounting
                 string Code = (sender as GridLookUpEdit).EditValue.ToString();
                 string Name = dr["HTTToan"].ToString();
                 string TableName = "dmHTTT";
-                if(DictionaryName.DsData.Tables[0].Select("TableName='" + TableName +"' and Name='" + Name + "'").Length == 0)
+                DataRow[] ldr = DictionaryName.DsData.Tables[0].Select("TableName='" + TableName + "' and Name='" + Name + "'");
+                if (ldr.Length == 0)
                 {
-                    DataRow drDic= DictionaryName.DsData.Tables[0].NewRow();
+                    DataRow drDic = DictionaryName.DsData.Tables[0].NewRow();
                     drDic["Code"] = Code; drDic["Name"] = Name; drDic["TableName"] = TableName;
                     DictionaryName.DsData.Tables[0].Rows.Add(drDic);
                     DictionaryName.UpdateData(DataAction.Insert);
                 }
+                else
+                {
+                    ldr[0]["Code"] = Code; ldr[0]["Name"] = Name; ldr[0]["TableName"] = TableName;
+                    DictionaryName.UpdateData(DataAction.Update);
+                }    
             }
         }
 
+
         private void btKiemTraHTTT_Click(object sender, EventArgs e)
         {
-            
-            
             string[] arrHTTT = ThietKedulieu.ConvertDataTableToArray(dbdmHTTT.DsData.Tables[0], "TenHTTT");
+
             foreach (DataRow drMT in tbMT.Rows)
             {
                 //Tìm kiếm chính xác và trong từ điển trước
@@ -747,14 +749,6 @@ namespace CusAccounting
                 if (lstRows.Length > 0)
                 {
                     drMT["MaHTTT"] = lstRows[0]["MaHTTT"];
-                    if (drMT["MaHTTT"] != DBNull.Value && drMT["MaHTTT"].ToString() == "TM")
-                    {
-                        drMT["TkNo"] = "1111";
-                    }
-                    else if (drMT["MaHTTT"] != DBNull.Value && drMT["MaHTTT"].ToString() == "CK")
-                    {
-                        drMT["TkNo"] = "131";
-                    }
                     drMT.EndEdit();
                     continue;
                 }
@@ -764,14 +758,7 @@ namespace CusAccounting
                     if (lstRows.Length > 0)
                     {
                         drMT["MaHTTT"] = lstRows[0]["Code"];
-                        if (drMT["MaHTTT"] != DBNull.Value && drMT["MaHTTT"].ToString() == "TM")
-                        {
-                            drMT["TkNo"] = "1111";
-                        }
-                        else if (drMT["MaHTTT"] != DBNull.Value && drMT["MaHTTT"].ToString() == "CK")
-                        {
-                            drMT["TkNo"] = "131";
-                        }
+                        drMT.EndEdit();
                         continue;
                     }
                 }
@@ -803,7 +790,6 @@ namespace CusAccounting
                         
                     }
                 }
-                
             }
         }
 
@@ -818,47 +804,42 @@ namespace CusAccounting
             DictionaryName.GetData();
         }
 
-        private void btCheckMaKH_Click(object sender, EventArgs e)
+        private void BtCheckMaKH_Click(object sender, EventArgs e)
         {
             string[] arrHTTT = ThietKedulieu.ConvertDataTableToArray(dbdmKH.DsData.Tables[0], "TenKH");
 
             foreach (DataRow drMT in tbMT.Rows)
             {
-                DataRow[] lstRows = dbdmKH.DsData.Tables[0].Select("TenKH='" + drMT["TenKH"].ToString().Replace("'","") + "'");
+                DataRow[] lstRows = dbdmKH.DsData.Tables[0].Select("TenKH='" + drMT["TenKH"].ToString() + "'");
                 if (lstRows.Length > 0)
                 {
-                    drMT["MaKH"] = lstRows[0]["MaKH"];                    
+                    drMT["MaKH"] = lstRows[0]["MaKH"];
+                    drMT.EndEdit();
                     if (drMT["MaKH"] != DBNull.Value)
                     {
                         DataRow[] ldr = dbdmKH.DsData.Tables[0].Select("MaKH='" + drMT["MaKH"].ToString() + "'");
-                        if (ldr.Length == 0) drMT["MaKH"] = DBNull.Value;                       
+                        if (ldr.Length == 0) drMT["MaKH"] = DBNull.Value;
+                        drMT.EndEdit();
                     }
-                    drMT.EndEdit();
                     continue;
                 }
                 else
                 {
-                    if (drMT["TenKH"].ToString() == "")
-                    {
-
-                    }
-
-                    lstRows = DictionaryName.DsData.Tables[0].Select("Name='" + drMT["TenKH"].ToString().Replace("'", "") + "' and TableName='DMKH'");
+                    lstRows = DictionaryName.DsData.Tables[0].Select("Name='" + drMT["TenKH"].ToString() + "' and TableName='DMKH'");
                     if (lstRows.Length > 0)
                     {
                         drMT["MaKH"] = lstRows[0]["Code"];
-
+                        drMT.EndEdit();
                         if (drMT["MaKH"] != DBNull.Value)
                         {
                             DataRow[] ldr = dbdmKH.DsData.Tables[0].Select("MaKH='" + drMT["MaKH"].ToString() + "'");
                             if (ldr.Length == 0) drMT["MaKH"] = DBNull.Value;
-
+                            drMT.EndEdit();
                         }
-                        drMT.EndEdit();
                         continue;
                     }
                 }
-                int j = ThietKedulieu.LevantEdit(arrHTTT, drMT["TenKH"].ToString().Replace("'", ""));
+                int j = ThietKedulieu.LevantEdit(arrHTTT, drMT["TenKH"].ToString());
                 if (j >= 0 && j < arrHTTT.Length)
                 {
                     if (dbdmKH.DsData.Tables[0].Rows[j]["MST"] == DBNull.Value || dbdmKH.DsData.Tables[0].Rows[j]["MST"].ToString().Trim() == "" || dbdmKH.DsData.Tables[0].Rows[j]["MST"].ToString().Trim() == drMT["MST"].ToString().Trim())
@@ -866,11 +847,10 @@ namespace CusAccounting
                         drMT["MaKH"] = dbdmKH.DsData.Tables[0].Rows[j]["MaKH"];
                         drMT.EndEdit();
                     }
-
                 }
                 else
                 {
-                    int j1 = ThietKedulieu.FindClosestString(arrHTTT, drMT["TenKH"].ToString().Replace("'", "").ToLower());
+                    int j1 = ThietKedulieu.FindClosestString(arrHTTT, drMT["TenKH"].ToString().ToLower());
 
                     if (j1 >= 0 && j1 < arrHTTT.Length)
                     {
@@ -888,7 +868,6 @@ namespace CusAccounting
                     if (ldr.Length == 0) drMT["MaKH"] = DBNull.Value;
                     drMT.EndEdit();
                 }
-                // }
             }
         }
 
@@ -896,15 +875,14 @@ namespace CusAccounting
         {
             foreach(DataRow drMT in tbMT.Rows)
             {
-                if(drMT["MaKH"]==DBNull.Value || drMT["MaKH"].ToString().Trim() == string.Empty)
+                if(drMT["MaKH"]==DBNull.Value || drMT["MaKH"].ToString() == string.Empty)
                 {
-                    if (drMT["MST"] == DBNull.Value) continue;
                     if (dbdmKH.DsData.Tables[0].Select("MaKH='" + drMT["MST"].ToString() + "'").Length > 0) continue;
                     DataRow drKH = dbdmKH.DsData.Tables[0].NewRow();
                     drKH["MaKH"] = drMT["MST"];
                     drKH["TenKH"] = drMT["TenKH"];
                     drKH["DiaChi"] = drMT["DiaChi"];
-                    drKH["Doitac"] = drMT["Ongba"];
+                    //drKH["Doitac"] = drMT["TenKH"];// drMT["Ongba"];
                     drKH["MST"] = drMT["MST"];
                     drKH["SDT"] = drMT["SDThoai"];
                     drKH["Email"] = drMT["DCTDTu"];
@@ -916,16 +894,35 @@ namespace CusAccounting
                 dbdmKH.UpdateData();
             }
         }
-        private  void  check1VT(DataRow drDT, string[] arrVTDic, string[] arrVT, DataRow[] lstRowsDic)
+
+        private void btCheckVT_Click(object sender, EventArgs e)
+        {
+            string[] arrVT = ThietKedulieu.ConvertDataTableToArray(dbdmVT.DsData.Tables[0], "TenVT");
+
+            DataRow[] lstRowsDic = DictionaryName.DsData.Tables[0].Select("TableName='DMVT'");//Name='" + drDT["TenVT"].ToString() + "' and 
+            string[] arrVTDic = ThietKedulieu.ConvertDataRowsToArray(lstRowsDic, "Name");
+            double dic2;
+            double dic1;
+            foreach (DataRow drDT in tbDT.Rows)
+            {
+                check1VT(drDT, arrVTDic, arrVT, lstRowsDic);
+                if (drDT["MaVT"] != DBNull.Value)
+                {
+                    DataRow[] ldr = dbdmVT.DsData.Tables[0].Select("MaVT='" + drDT["MaVT"].ToString() + "'");
+                    if (ldr.Length == 0) drDT["MaVT"] = DBNull.Value;
+                    drDT.EndEdit();
+                }
+
+            }
+        }
+
+        private void check1VT(DataRow drDT, string[] arrVTDic, string[] arrVT, DataRow[] lstRowsDic)
         {
             double dic2;
             double dic1;
             string TenVT = drDT["TenVT"].ToString().ToLower();
 
-            if (TenVT == "Lẩu thập cẩm (lớn)".ToLower())
-            {
 
-            }
             //Xử lý dấu ngoặc
             TenVT = ThietKedulieu.RemoveTextBetweenParentheses(TenVT).Trim().Replace("'", "");
             DataRow[] lstRows = dbdmVT.DsData.Tables[0].Select("TenVT='" + TenVT + "'");// Tìm chính xác trên danh mục
@@ -959,7 +956,7 @@ namespace CusAccounting
                 }
             }
             int j2 = ThietKedulieu.LevantEditWithWeightHasDic(arrVTDic, TenVT, 1000, out dic2); ; //Tìm khoảng cách trên Dic
-            int j1 = ThietKedulieu.LevantEditWithWeightHasDic(arrVT, TenVT,1000, out dic1);//Khoảng cách trên vật tư
+            int j1 = ThietKedulieu.LevantEditWithWeightHasDic(arrVT, TenVT, 1000, out dic1);//Khoảng cách trên vật tư
             if (dic2 <= dic1)//lấy trên mã 
             {
                 if (j2 >= 0 && j2 < arrVTDic.Length)
@@ -982,7 +979,7 @@ namespace CusAccounting
                 if (j1 >= 0 && j1 < arrVT.Length)
                 {
                     drDT["MaVT"] = dbdmVT.DsData.Tables[0].Rows[j1]["MaVT"];
-                    drDT["TKKho"] = dbdmVT.DsData.Tables[0].Rows[j1]["TkKho"];
+                    drDT["TKKho"] ="HH";
                     drDT["dictance"] = dic1;
                     drDT.EndEdit();
                 }
@@ -1007,74 +1004,48 @@ namespace CusAccounting
 
             // }
         }
-    
-        private void btCheckVT_Click(object sender, EventArgs e)
-        {
-            DataRow[] lstRowsDic = DictionaryName.DsData.Tables[0].Select("TableName='DMVT'");//Name='" + drDT["TenVT"].ToString() + "' and 
-            string[] arrVTDic = ThietKedulieu.ConvertDataRowsToArray(lstRowsDic, "Name");
-
-            string[] arrVT = ThietKedulieu.ConvertDataTableToArray(dbdmVT.DsData.Tables[0], "TenVT");
-            //DateTime t1 = DateTime.Now;
-
-            //DateTime t2 = DateTime.Now;
-            //MessageBox.Show((t2 - t1).TotalMilliseconds.ToString());
-
-
-
-            //test với 1 nhân
-            //t1 = DateTime.Now;
-            foreach ( DataRow drDT in tbDT.Rows)
-            {
-                check1VT(drDT, arrVTDic, arrVT, lstRowsDic);
-                if (drDT["MaVT"] != DBNull.Value)
-                {
-                    DataRow[] ldr = dbdmVT.DsData.Tables[0].Select("MaVT='" + drDT["MaVT"].ToString() + "'");
-                    if (ldr.Length == 0) drDT["MaVT"] = DBNull.Value;
-                    drDT.EndEdit();
-                }
-
-
-                //int j1 = ThietKedulieu.FindClosestString(arrVT, drDT["TenVT"].ToString().ToLower());
-
-                //if (j1 >= 0 && j1 < arrVT.Length)
-                //{
-                //    drDT["MaVT"] = dbdmVT.DsData.Tables[0].Rows[j1]["MaVT"];
-                //    drDT["TKKho"] = dbdmVT.DsData.Tables[0].Rows[j1]["TkKho"];
-                //    drDT.EndEdit();
-                //}
-
-
-                // }
-            }
-            // t2 = DateTime.Now;
-            //MessageBox.Show((t2 - t1).TotalMilliseconds.ToString());
-        }
         BindingSource bsVT = new BindingSource();
         private void btThemVT_Click(object sender, EventArgs e)
         {
             dxErrorVT.DataSource = bsVT;
             bsVT.DataSource = dbdmVT.DsData.Tables[0];
             bs.MoveFirst();
+
             List<string> lsTenVT = new List<string>();
             int idx = 0;
+
             while (idx < bs.Count)
             {
                 DataRowView drv = (bs.Current as DataRowView);
                 DataRow[] lstDT = tbDT.Select("MTID='" + drv["MTID"].ToString() + "'");
+                if(drv["sohoadon"].ToString()== "3032")
+                {
+
+                }
                 if (drv["KieuHD"] == DBNull.Value)
                 {
                     MessageBox.Show("Chưa phân loại hóa đơn nên không phân biệt được dịch vụ hay hàng hóa!");
                     break;
                 }
-                if (drv["KieuHD"] != DBNull.Value && drv["KieuHD"].ToString() == "1")
+                if (drv["KieuHD"] != DBNull.Value && drv["KieuHD"].ToString() != "0")
                 {
                     bs.MoveNext();
+                    idx++;
                     continue;
                 }
+
                 foreach (DataRow drDT in lstDT)
                 {
+                    if(drDT["TenVT"].ToString()== "QUẠT MÀU NGOẠI THẤT - 576 MÀU")
+                    {
+
+                    }
                     if (drDT["MaVT"] == DBNull.Value || drDT["MaVT"].ToString() == string.Empty)
                     {
+                        if (bool.Parse(drDT["isDV"].ToString()))
+                        {
+                            continue;
+                        }
                         string TenVT = drDT["TenVT"].ToString();
                         //Xử lý dấu ngoặc
                         TenVT = ThietKedulieu.RemoveTextBetweenParentheses(TenVT);
@@ -1132,6 +1103,10 @@ namespace CusAccounting
                 bs.MoveNext();
                 idx++;
             }
+            
+
+            
+            
         }
 
         private void btCheckDVT_Click(object sender, EventArgs e)
@@ -1141,19 +1116,9 @@ namespace CusAccounting
             foreach (DataRow drDT in tbDT.Rows)
             {
                 DataRow[] lstRows = dbdmDVT.DsData.Tables[0].Select("TenDVT='" + drDT["DVT"].ToString() + "'");
-                if (drDT["DVT"].ToString() == "") 
-                {
-                }
                 if (lstRows.Length > 0)
                 {
-
                     drDT["MaDVT"] = lstRows[0]["MaDVT"];
-                    if (dbdmDVT.DsData.Tables[0].Columns.Contains("isDV"))
-                    {
-                        if(lstRows[0]["IsDV"]!=null && lstRows[0]["isDV"].ToString().ToLower() == "true") {
-                            drDT["isDV"] = 1;
-                        }
-                    }
                     drDT.EndEdit();
                     continue;
                 }
@@ -1163,13 +1128,6 @@ namespace CusAccounting
                     if (lstRows.Length > 0)
                     {
                         drDT["MaDVT"] = lstRows[0]["Code"];
-                        if (DictionaryName.DsData.Tables[0].Columns.Contains("isDV"))
-                        {
-                            if (lstRows[0]["IsDV"] != null && lstRows[0]["isDV"].ToString().ToLower() == "true")
-                            {
-                                drDT["isDV"] = 1;
-                            }
-                        }
                         drDT.EndEdit();
                         continue;
                     }
@@ -1181,8 +1139,7 @@ namespace CusAccounting
                 int j = ThietKedulieu.LevantEdit(arrDVT, drDT["DVT"].ToString());
                 if (j >= 0 && j < arrDVT.Length)
                 {
-                    drDT["MaDVT"] = dbdmDVT.DsData.Tables[0].Rows[j]["MaDVT"];
-                   
+                    drDT["MaDVT"] = dbdmDVT.DsData.Tables[0].Rows[j]["MaDVT"];                   
                     drDT.EndEdit();
                 }
                 else
@@ -1191,13 +1148,11 @@ namespace CusAccounting
 
                     if (j1 >= 0 && j1 < arrDVT.Length)
                     {
-                        drDT["MaDVT"] = dbdmDVT.DsData.Tables[0].Rows[j1]["MaDVT"];
-                       
+                        drDT["MaDVT"] = dbdmDVT.DsData.Tables[0].Rows[j1]["MaDVT"];                        
                         drDT.EndEdit();
                     }
 
                 }
-                // }
             }
         }
         BindingSource bsDVT = new BindingSource();
@@ -1246,203 +1201,289 @@ namespace CusAccounting
                 idx++;
             }
         }
-        private bool InsertMT32(DataRowView drv)
+        private void btPhanloai_Click(object sender, EventArgs e)
         {
-            _dataMt32.LstDrCurrentDetails.Clear();
+            foreach (DataRow drMt in tbMT.Rows)
+            {
+                if (drMt["MaHTTT"] == DBNull.Value) continue;
+                DataRow[] lstRowHH = tbDT.Select("isDV=0 and MTID='" + drMt["MTID"].ToString() +"'");
+                if (lstRowHH.Length == 0)// Không có dòng hàng hóa nào chắc chắn phải vào hóa đơn dịch vụ
+                {
+                    if (drMt["MaHTTT"].ToString() == "TM")//Chắc chắn là phiếu chi
+                    {
+                        drMt["KieuHD"] = 2;
+                        drMt["TKCo"] = geTkTM.EditValue.ToString();
+                        drMt["TKNo"] = geTkNo.EditValue.ToString();
+                    }
+                    else if (drMt["MaHTTT"].ToString() == "CK")//Chắc chắn là chuyển khoản trực tiếp
+                    {
+                        drMt["KieuHD"] = 3;
+                        drMt["TKCo"] = geTkNH.EditValue.ToString();
+                        drMt["TKNo"] = geTkNo.EditValue.ToString();
+                    }
+                    else if (drMt["MaHTTT"].ToString() == "CN")//Chắc chắn phải nhập vào mua dịch vụ
+                    {
+                        drMt["KieuHD"] = 1;
+                        drMt["TKCo"] = geTkCo.EditValue.ToString();
+                        drMt["TKNo"] = geTkNo.EditValue.ToString();
+                    }
+                    else if (drMt["MaHTTT"].ToString() == "TM/CK")
+                    {
+                        if (drMt["TTien"] !=DBNull.Value && double.Parse(drMt["TTien"].ToString()) < 5000000)
+                            drMt["KieuHD"] = 2;
+                        else
+                            drMt["KieuHD"] = 1;
+                    }
+                }
+                else drMt["KieuHD"] = 0;
+            }
+        }
 
-            DataRow[] lstDT = tbDT.Select("MTID='" + drv["MTID"].ToString() + "'");
-            if (_dataMt32.DsData.Tables[0].Select("MT32ID='" + drv["MTID"].ToString() + "'").Length > 0)
+        private bool InsertMT22(DataRowView drv)
+        {
+            _dataMt22.LstDrCurrentDetails.Clear();
+            _dataMt22._lstCurRowDetail.Clear();
+            if (_dataMt22.DsData.Tables[0].Select("MT22ID='" + drv["MTID"].ToString() + "'").Length > 0)
             {
 
                 return true;
             }
-            string sql = "select count(*) from mt32 where mccqt='" + drv["MCCQT"].ToString() + "'";
-            object i = _dataMt32.DbData.GetValue(sql);
+            string sql = "select count(*) from mt22 where mccqt='" + drv["MCCQT"].ToString() + "'";
+            object i = _dataMt22.DbData.GetValue(sql);
             if (i != null && int.Parse(i.ToString()) > 0)
             {
-                return true;
+                 return true;
             }
-            bsMT32.AddNew();
-            bsMT32.EndEdit();
-            bsMT32.MoveLast();
-
-
-            DataRowView drMT = (bsMT32.Current as DataRowView);
-
+            bsMT22.AddNew();
+            bsMT22.EndEdit();
+            bsMT22.MoveLast();
+            DataRowView drMT = (bsMT22.Current as DataRowView);
+            DataRow[] lstDT = tbDT.Select("MTID='" + drv["MTID"].ToString() + "'");
             if (drMT != null)
-                _dataMt32.DrCurrentMaster = drMT.Row;
-            importMT32Row(_dataMt32.DrCurrentMaster, drv.Row);
+                _dataMt22.DrCurrentMaster = drMT.Row;
+            importMT22Row(_dataMt22.DrCurrentMaster, drv.Row);
             foreach (DataRow drDT in lstDT)
             {
-                DataRow drDT32 = _dataMt32.DsData.Tables[1].NewRow();
+                DataRow drDT22 = _dataMt22.DsData.Tables[1].NewRow();
 
-                if (drDT32.RowState == DataRowState.Detached)
-                    _dataMt32.DsData.Tables[1].Rows.Add(drDT32);
-                importDT32Row(drDT32, drDT);
-                drDT32.EndEdit();
+                if (drDT22.RowState == DataRowState.Detached)
+                    _dataMt22.DsData.Tables[1].Rows.Add(drDT22);
+                importDT22Row(drDT22, drDT);
+                drDT22.EndEdit();
             }
-            _dataMt32.CheckRules(DataAction.Insert);
-            if (_dataMt32.DsData.HasErrors)
+            //Thêm dòng thuế VAT vào hóa đơn đầu vào
+            if (_dataMt22.DsData.Tables.Count > 2)
             {
-                foreach (DataColumn col in _dataMt32.DsData.Tables[0].Columns)
+                DataRow drVat = _dataMt22.DsData.Tables[2].NewRow();
+                if (drVat.RowState == DataRowState.Detached)
+                    _dataMt22.DsData.Tables[2].Rows.Add(drVat);
+                importVatInRowMT22(drVat, drv.Row);
+                drVat.EndEdit();
+            }
+            _dataMt22.CheckRules(DataAction.Insert);
+            if (_dataMt22.DsData.HasErrors)
+            {
+                foreach (DataColumn col in _dataMt22.DsData.Tables[0].Columns)
                 {
-                    string err = _dataMt32.DrCurrentMaster.GetColumnError(col.ColumnName);
+                    string err = _dataMt22.DrCurrentMaster.GetColumnError(col);
                     if (err != string.Empty)
                     {
                         MessageBox.Show("Cột " + col.ColumnName + " Có lỗi: " + err);
-                        _dataMt32.CancelUpdate();
+                        _dataMt22.CancelUpdate();
                         return false;
+
                     }
                 }
-                foreach (DataColumn col in _dataMt32.DsData.Tables[1].Columns)
+                foreach (DataColumn col in _dataMt22.DsData.Tables[1].Columns)
                 {
-                    foreach (DataRow drCurrentDT in _dataMt32.LstDrCurrentDetails)
+                    foreach (DataRow drCurrentDT in _dataMt22.LstDrCurrentDetails)
                     {
                         string err = drCurrentDT.GetColumnError(col.ColumnName);
                         if (err != string.Empty)
                         {
-                            MessageBox.Show("Cột " + col.ColumnName + " có lỗi: " + err);
-                            _dataMt32.CancelUpdate();
+                            MessageBox.Show("Cột " + col.ColumnName + " Có lỗi");
+                            _dataMt22.CancelUpdate();
                             return false;
+
                         }
                     }
 
                 }
-                _dataMt32.CancelUpdate();
+                _dataMt22.CancelUpdate();
                 return false;
-
             }
             else
             {
-                if (_dataMt32.UpdateData(DataAction.Insert))
+
+                if (_dataMt22.UpdateData(DataAction.Insert))
                 {
                     return true;
                 }
                 else
                 {
-                    MessageBox.Show("Thêm vào hóa đơn bị lỗi. Hóa đơn số :" + _dataMt32.DrCurrentMaster["SoHoaDon"].ToString());
+                    MessageBox.Show("Thêm vào hóa đơn bị lỗi. Hóa đơn số :" + drv["SoHoaDon"].ToString());
                     return false;
                 }
             }
-        }
-        private bool InsertMT31(DataRowView drv)
-        {
-            _dataMt31.LstDrCurrentDetails.Clear();
 
-            DataRow[] lstDT = tbDT.Select("MTID='" + drv["MTID"].ToString() + "'");
-            if (_dataMt31.DsData.Tables[0].Select("MT31ID='" + drv["MTID"].ToString() + "'").Length > 0)
+            return true;
+        }
+        
+        private bool InsertMT12(DataRowView drv)
+        {
+            _dataMt12.LstDrCurrentDetails.Clear();
+            _dataMt12._lstCurRowDetail.Clear();
+
+            if (_dataMt12.DsData.Tables[0].Select("MT12ID='" + drv["MTID"].ToString() + "'").Length > 0)
             {
                 return true;
             }
-            string sql = "select count(*) from mt31 where mccqt='" + drv["MCCQT"].ToString() + "'";
-            object i = _dataMt31.DbData.GetValue(sql);
+            string sql = "select count(*) from mt12 where mccqt='" + drv["MCCQT"].ToString() + "'";
+            object i = _dataMt12.DbData.GetValue(sql);
             if (i != null && int.Parse(i.ToString()) > 0)
             {
-                
                 return true;
             }
-
-            bsMT31.AddNew();
-            bsMT31.EndEdit();
-            bsMT31.MoveLast();
-
-
-            DataRowView drMT = (bsMT31.Current as DataRowView);
-
+            bsMT12.AddNew();
+            bsMT12.EndEdit();
+            bsMT12.MoveLast();
+            DataRowView drMT = (bsMT12.Current as DataRowView);
+            DataRow[] lstDT = tbDT.Select("MTID='" + drv["MTID"].ToString() + "'");
             if (drMT != null)
-                _dataMt31.DrCurrentMaster = drMT.Row;
-            importMT31Row(_dataMt31.DrCurrentMaster, drv.Row);
-            foreach (DataRow drDT in lstDT)
-            {
-                DataRow drDT31 = _dataMt31.DsData.Tables[1].NewRow();
+                _dataMt12.DrCurrentMaster = drMT.Row;
+            importMT12Row(_dataMt12.DrCurrentMaster, drv.Row);
+            DataRow drDT12 = _dataMt12.DsData.Tables[1].NewRow();
+            if (drDT12.RowState == DataRowState.Detached)
+                _dataMt12.DsData.Tables[1].Rows.Add(drDT12);
+            importDT12Row(drDT12, drv);
+            drDT12.EndEdit();
 
-                if (drDT31.RowState == DataRowState.Detached)
-                    _dataMt31.DsData.Tables[1].Rows.Add(drDT31);
-                importDT31Row(drDT31, drDT);
-                drDT31.EndEdit();
-            }
-            _dataMt31.CheckRules(DataAction.Insert);
-            if (_dataMt31.DsData.HasErrors)
+            //Thêm dòng thuế VAT vào hóa đơn đầu vào
+            if (_dataMt12.DsData.Tables.Count > 2)
             {
-                foreach (DataColumn col in _dataMt31.DsData.Tables[0].Columns)
+                DataRow drVat = _dataMt12.DsData.Tables[2].NewRow();
+                if (drVat.RowState == DataRowState.Detached)
+                    _dataMt12.DsData.Tables[2].Rows.Add(drVat);
+                importVatInRowMT12(drVat, drv.Row);
+                drVat.EndEdit();
+            }
+            _dataMt12.CheckRules(DataAction.Insert);
+            if (_dataMt12.DsData.HasErrors)
+            {
+                foreach (DataColumn col in _dataMt12.DsData.Tables[0].Columns)
                 {
-                    string err = _dataMt31.DrCurrentMaster.GetColumnError(col.ColumnName);
+                    string err = _dataMt12.DrCurrentMaster.GetColumnError(col);
                     if (err != string.Empty)
                     {
                         MessageBox.Show("Cột " + col.ColumnName + " Có lỗi: " + err);
-                        _dataMt31.CancelUpdate();
+                        _dataMt12.CancelUpdate();
                         return false;
+
                     }
                 }
-                foreach (DataColumn col in _dataMt31.DsData.Tables[1].Columns)
+                foreach (DataColumn col in _dataMt12.DsData.Tables[1].Columns)
                 {
-                    foreach (DataRow drCurrentDT in _dataMt31.LstDrCurrentDetails)
+                    foreach (DataRow drCurrentDT in _dataMt12.LstDrCurrentDetails)
                     {
                         string err = drCurrentDT.GetColumnError(col.ColumnName);
                         if (err != string.Empty)
                         {
-                            MessageBox.Show("Cột " + col.ColumnName + " có lỗi: " + err);
-                            _dataMt31.CancelUpdate();
+                            MessageBox.Show("Cột " + col.ColumnName + " Có lỗi");
+                            _dataMt12.CancelUpdate();
                             return false;
+
                         }
                     }
 
                 }
-                _dataMt31.CancelUpdate();
+                _dataMt12.CancelUpdate();
                 return false;
             }
             else
             {
-                if (_dataMt31.UpdateData(DataAction.Insert))
+
+                if (_dataMt12.UpdateData(DataAction.Insert))
                 {
                     return true;
                 }
                 else
                 {
-                    MessageBox.Show("Thêm vào hóa đơn bị lỗi. Hóa đơn số :" + _dataMt31.DrCurrentMaster["SoHoaDon"].ToString());
+                    MessageBox.Show("Thêm vào hóa đơn bị lỗi. Hóa đơn số :" + drv["SoHoaDon"].ToString());
                     return false;
                 }
             }
+
+            return false;
         }
+       
+
         private async void InserttoData()
         {
             bs.MoveFirst();
+            progressBar1.Minimum = 0;
+            progressBar1.Maximum = bs.Count;
+            progressBar1.Step = 1;
+            progressBar1.Value = 0;
+            bsMT22.DataSource = _dataMt22.DsData;
+            bsMT22.DataMember = _dataMt22.DsData.Tables[0].TableName;
+            //bsMT21.DataSource = _dataMt21.DsData;
+            //bsMT21.DataMember = _dataMt21.DsData.Tables[0].TableName;
 
-            //_dataMt32.ConditionMaster = "1=0";
-            //_dataMt32.GetData();
-            //bsMT32.DataSource = _dataMt32.DsData;
-            //bsMT32.DataMember = _dataMt32.DsData.Tables[0].TableName;
-            //_dataMt32.LstDrCurrentDetails.Clear();
+            bsMT12.DataSource = _dataMt12.DsData;
+            bsMT12.DataMember = _dataMt12.DsData.Tables[0].TableName;
+            //bsMT16.DataSource = _dataMt16.DsData;
+            //bsMT16.DataMember = _dataMt16.DsData.Tables[0].TableName;
 
             bool HasErr = false;
             for (int idx = 0; idx < bs.Count; idx++)
             {
-                if (HasErr) break;                
+                if (HasErr) break;
+                
+
                 DateTime t1 = DateTime.Now;
-                 UpdateProgressBar(bs.Position + 1);
+                UpdateProgressBar(bs.Position + 1);
                 await Task.Delay(1);
+                
 
                 DataRowView drv = (bs.Current as DataRowView);
+               
+                if (drv["KieuHD"] == DBNull.Value) break;
+
                 switch (drv["KieuHD"].ToString())
                 {
-                    case "0":// Hóa đơn bán hàng
-                        HasErr = !InsertMT32(drv);
+                    case "0":// Mua hàng
+                        HasErr = !InsertMT22(drv);
                         if (HasErr)
                         {
-                            _dataMt32.DsData.RejectChanges();
-                            bsMT32.DataSource = _dataMt32.DsData;
+                            _dataMt22.DsData.RejectChanges();
+                            bsMT22.DataSource = _dataMt22.DsData;
                         }
                         break;
-                    case "1": // Hóa đơn dịch vụ
-                        HasErr = !InsertMT31(drv);
+                    //case "1": // Mua dịch vụ
+                    //    HasErr = !InsertMT21(drv);
+                    //    if (HasErr)
+                    //    {
+                    //        _dataMt21.DsData.RejectChanges();
+                    //        bsMT21.DataSource = _dataMt21.DsData;
+                    //    }
+                    //    break;
+                    case "2":// Phiếu Chi
+                        HasErr = !InsertMT12(drv);
                         if (HasErr)
                         {
-                            _dataMt31.DsData.RejectChanges();
-                            bsMT31.DataSource = _dataMt31.DsData;
+                            _dataMt12.DsData.RejectChanges();
+                            bsMT12.DataSource = _dataMt12.DsData;
                         }
                         break;
+                    //case "3": // Hóa đơn dịch vụ
+                    //    HasErr = !InsertMT16(drv);
+                    //    if (HasErr)
+                    //    {
+                    //        _dataMt16.DsData.RejectChanges();
+                    //        bsMT16.DataSource = _dataMt16.DsData;
+                    //    }
+                    //    break;
                 }
-
                 bs.MoveNext();
                 DateTime t2 = DateTime.Now;
                 double tPro = (t2 - t1).TotalSeconds;
@@ -1450,11 +1491,20 @@ namespace CusAccounting
             }
             if (!HasErr) MessageBox.Show("Đã hoàn thành import dữ liệu");
         }
-        private  void UpdateProgressBar(int value)
+        private void btThemHoaDon_Click(object sender, EventArgs e)
+        {
+            
+            progressBar1.Minimum = 0;
+            progressBar1.Maximum = bs.Count;
+            progressBar1.Step = 1;
+            progressBar1.Value = 0;
+            InserttoData();
+        }
+        private void UpdateProgressBar(int value)
         {
             bool reInv = progressBar1.InvokeRequired;
             if (reInv)
-            {                
+            {
                 progressBar1.Invoke(new Action<int>(UpdateProgressBar), value);
             }
             else
@@ -1462,219 +1512,305 @@ namespace CusAccounting
                 progressBar1.Value = value;
             }
         }
-        private void btThemHoaDon_Click(object sender, EventArgs e)
+        private void importDT22Row(DataRow drDT22, DataRow drDT)
         {
-            progressBar1.Minimum = 0;
-            progressBar1.Maximum = bs.Count;
-            progressBar1.Step = 1;
-            progressBar1.Value = 0;
-            InserttoData();
-        }
-
-        private void importDT32Row(DataRow drDT32, DataRow drDT)
-        {
-            drDT32["MT32ID"] = drDT["MTID"];
-            drDT32["DT32ID"] = drDT["MTIDDT"];
-            drDT32["MaKho"] = drDT["MaKho"];
-            drDT32["MaVT"] = drDT["MaVT"];
-            drDT32["Soluong"] = drDT["Soluong"];
-            drDT32["MaThueCT"] = drDT["MaThueCT"];
-            double thuesuat = 0;
-            if (double.TryParse(drDT["Thuesuat"].ToString().Replace("%", ""), out thuesuat))
-                drDT32["Thuesuat"] = thuesuat;
-            else drDT32["Thuesuat"] = 0;
-
-            drDT32["GiaNT"] = drDT["DonGia"];
-            drDT32["PsNT"] = drDT["TTien"];
-            if (drDT["TileCK"] != DBNull.Value)
-                drDT32["TileCK"] = drDT["TileCK"].ToString().Replace("%", "");
-            double ck = 0;
-            if (double.TryParse(drDT["CK"].ToString().Replace("%", ""), out ck))
-                drDT32["CK"] = ck;
-            else drDT32["CK"] = 0;
+            drDT22["MT22ID"] = drDT["MTID"];
+            drDT22["DT22ID"] = drDT["MTIDDT"];
+           // drDT22["MaKho"] = drDT["MaKho"];
+            drDT22["MaVT"] = drDT["MaVT"];
+            drDT22["Soluong"] = drDT["Soluong"];
+            //drDT22["MaThueCT"] = drDT["MaThueCT"];
+            //double thuesuat = 0;
+            //if (double.TryParse(drDT["Thuesuat"].ToString().Replace("%", ""), out thuesuat))
+            //    drDT22["Thuesuat"] = thuesuat;
+            //else drDT22["Thuesuat"] = 0;
+            decimal DonGia = drDT["DonGia"] == DBNull.Value ? 0 : decimal.Parse(drDT["DonGia"].ToString());
+            decimal soluong = drDT["soluong"] == DBNull.Value ? 0 : decimal.Parse(drDT["soluong"].ToString());
+            decimal TienThue = drDT["TienThue"]==DBNull.Value?0: decimal.Parse(drDT["TienThue"].ToString());
+            decimal TTien = drDT["TTien"] == DBNull.Value ? 0 : decimal.Parse(drDT["TTien"].ToString());
+            TTien = TTien + TienThue;
+            if (soluong != 0) DonGia = TTien / soluong;
             
-            
-            //drDT["TienThue"] = Math.Round((hh.ThTien - hh.STCKhau) * double.Parse(hh.TSuat.Replace("%", "")) / 100, 0);
-            drDT32["TkDt"] = geTkdthu.EditValue.ToString();
-            drDT32["Tkgv"] = geTkgv.EditValue.ToString();
-            drDT32["Tkkho"] = geTkkho.EditValue.ToString();
-            if(drDT["Soluong"]==DBNull.Value || drDT["Soluong"].ToString() == "0")
-            {
-                drDT32["isDV"] = 1;
-            }
-            else
-                drDT32["isDV"] = 0;
-            drDT32.EndEdit();
-        }
-
-        private void importMT32Row(DataRow drCurrentMaster, DataRow row)
-        {
-            drCurrentMaster["MCCQT"] = row["MCCQT"];
-            drCurrentMaster["MT32ID"] = row["MTID"];
-            drCurrentMaster["MaCT"] = "HDB";
-            drCurrentMaster["NgayCT"]=row["Ngayhd"];
-            drCurrentMaster["NgayHD"] = row["Ngayhd"];
-            drCurrentMaster["SoHoadon"] = row["SoHoadon"];
-            drCurrentMaster["Soseri"] = row["kyhieu"];
-            drCurrentMaster["MaHTTT"] = row["MaHTTT"];
-            drCurrentMaster["MaKH"] = row["MaKH"];
-            drCurrentMaster["MST"] = row["MST"];
-            drCurrentMaster["Ongba"] = row["Ongba"];
-            drCurrentMaster["DiaChi"] = row["DiaChi"];
-            drCurrentMaster["MaNT"] = "VND";
-            drCurrentMaster["TyGia"] = 1;
-            drCurrentMaster["DienGiai"] = "Xuất bán hàng";
-            drCurrentMaster["TkNo"] = row["TkNo"];
-            drCurrentMaster["MaThue"] = "10";
-            drCurrentMaster["MaThue"] = row["MaThue"];
-           
-            drCurrentMaster["PrintIndex"] =0;
-            drCurrentMaster.EndEdit();
-
-        }
-        private void importDT31Row(DataRow drDT31, DataRow drDT)
-        {
-            drDT31["MT31ID"] = drDT["MTID"];
-            drDT31["DT31ID"] = drDT["MTIDDT"];
-            //drDT31["MaKho"] = drDT["MaKho"];
-            drDT31["MaKHCt"] = _dataMt31.DrCurrentMaster["MaKH"];
-            drDT31["DienGiaiCt"] = drDT["TenVT"];
-            if (drDT31.Table.Columns.Contains("Soluong"))
-                drDT31["Soluong"] = drDT["Soluong"] == DBNull.Value ? 0 : drDT["Soluong"]; ;
-            drDT31["MaThueCT"] = drDT["MaThueCT"];
-            double thuesuat = 0;
-            if (double.TryParse(drDT["Thuesuat"].ToString().Replace("%", ""), out thuesuat))
-                drDT31["Thuesuat"] = thuesuat;
-            else drDT31["Thuesuat"] = 0;
-            if (drDT31.Table.Columns.Contains("GiaNT"))
-                drDT31["GiaNT"] = drDT["DonGia"] == DBNull.Value ? 0 : drDT["DonGia"];
-            drDT31["PsNT"] = drDT["TTien"] == DBNull.Value ? 0 : drDT["TTien"];
+            drDT22["DonGia"] = DonGia;
+            drDT22["Tien"] = TTien;
+            drDT22["Tien1"] = TTien;
             //if (drDT["TileCK"] != DBNull.Value)
-            //    drDT31["TileCK"] = drDT["TileCK"].ToString().Replace("%", "");
+            //    drDT22["TileCK"] = drDT["TileCK"].ToString().Replace("%", "");
             //double ck = 0;
             //if (double.TryParse(drDT["CK"].ToString().Replace("%", ""), out ck))
-            //    drDT31["CK"] = ck;
-            //else drDT31["CK"] = 0;
+            //    drDT22["CK"] = ck;
+            //else drDT22["CK"] = 0;
 
 
             //drDT["TienThue"] = Math.Round((hh.ThTien - hh.STCKhau) * double.Parse(hh.TSuat.Replace("%", "")) / 100, 0);
-            drDT31["TkCo"] = geTkdthuDV.EditValue.ToString();
-            //drDT31["Tkgv"] = geTkgv.EditValue.ToString();
-            // drDT31["Tkkho"] = geTkkho.EditValue.ToString();
-            //if (drDT["Soluong"] == DBNull.Value || drDT["Soluong"].ToString() == "0")
+
+            //drDT32["TkNo"] = geTkkho.EditValue.ToString();
+            //if(drDT["Soluong"]==DBNull.Value || drDT["Soluong"].ToString() == "0")
             //{
-            //    drDT31["isDV"] = 1;
+            //    drDT22["isDV"] = 1;
             //}
             //else
-            //    drDT31["isDV"] = 0;
-            if (drDT["MaCongtrinh"] != DBNull.Value) drDT31["MaCongtrinh"] = drDT["MaCongtrinh"];
-            drDT31.EndEdit();
+            //    drDT22["isDV"] = 0;
+            drDT22.EndEdit();
         }
 
-        private void importMT31Row(DataRow drCurrentMaster, DataRow row)
+        private void importMT22Row(DataRow drCurrentMaster, DataRow row)
         {
             drCurrentMaster["MCCQT"] = row["MCCQT"];
-            drCurrentMaster["MT31ID"] = row["MTID"];
-            drCurrentMaster["MaCT"] = "HDV";
+            drCurrentMaster["MT22ID"] = row["MTID"];
+            drCurrentMaster["MaCT"] = "PNM";
             drCurrentMaster["NgayCT"] = row["Ngayhd"];
             drCurrentMaster["NgayHD"] = row["Ngayhd"];
             drCurrentMaster["SoHoadon"] = row["SoHoadon"];
             drCurrentMaster["Soseri"] = row["kyhieu"];
             drCurrentMaster["MaHTTT"] = row["MaHTTT"];
+            drCurrentMaster["MaKH1"] = row["MaKH"];
+            drCurrentMaster["MaKH"] = "CONGTY";
+
+            //drCurrentMaster["MST"] = row["MST"];
+            // drCurrentMaster["Ongba"] = row["Ongba"];
+            drCurrentMaster["DiaChi"] = row["DiaChi"];
+            // drCurrentMaster["MaNT"] = "VND";
+            // drCurrentMaster["TyGia"] = 1;
+            drCurrentMaster["DienGiai"] = "Mua hàng nhập kho";
+            drCurrentMaster["TK"] = row["TkCo"];
+            // drCurrentMaster["MaThueMT"] = row["MaThue"];
+            // drCurrentMaster["TkCK"] = "711";
+
+            //drCurrentMaster["TkThue"] = "1331";
+            //drCurrentMaster["PrintIndex"] =0;
+            drCurrentMaster.EndEdit();
+
+        }
+        
+
+        private void importMT21Row(DataRow drCurrentMaster, DataRow row)
+        {
+            drCurrentMaster["MCCQT"] = row["MCCQT"];
+            drCurrentMaster["MT21ID"] = row["MTID"];
+            drCurrentMaster["MaCT"] = "MDV";
+            drCurrentMaster["NgayCT"] = row["Ngayhd"];
+            drCurrentMaster["NgayHD"] = row["Ngayhd"];
+            drCurrentMaster["SoHoadon"] = row["SoHoadon"];
+            drCurrentMaster["Soseri"] = row["kyhieu"];
+            //drCurrentMaster["MaHTTT"] = row["MaHTTT"];
             drCurrentMaster["MaKH"] = row["MaKH"];
-            drCurrentMaster["MST"] = row["MST"];
+            //drCurrentMaster["MST"] = row["MST"];
             drCurrentMaster["Ongba"] = row["Ongba"];
             drCurrentMaster["DiaChi"] = row["DiaChi"];
             drCurrentMaster["MaNT"] = "VND";
             drCurrentMaster["TyGia"] = 1;
             drCurrentMaster["DienGiai"] = row["DienGiai"];
-            drCurrentMaster["TkNo"] = row["TkNo"];
-            drCurrentMaster["MaThue"] = "10";
-            drCurrentMaster["TkCK"] = "5211";
+            drCurrentMaster["TkCo"] = row["TkCo"];
             drCurrentMaster["MaThue"] = row["MaThue"];
+            //drCurrentMaster["TkCK"] = "5211";
 
-           // drCurrentMaster["PrintIndex"] = 0;
+            drCurrentMaster["MaThue"] = "10";
+            drCurrentMaster["TkThue"] = "1331";
+            drCurrentMaster.EndEdit();
+        }
+
+        private void importMT12Row(DataRow drCurrentMaster, DataRow row)
+        {
+            drCurrentMaster["MCCQT"] = row["MCCQT"];
+            drCurrentMaster["MT12ID"] = row["MTID"];
+            drCurrentMaster["MaCT"] = "PC";
+            drCurrentMaster["NgayCT"] = row["Ngayhd"];
+            drCurrentMaster["MaKH"] = row["MaKH"];
+
+            drCurrentMaster["Ongba"] = row["Ongba"];
+            drCurrentMaster["DiaChi"] = row["DiaChi"];
+            drCurrentMaster["MaNT"] = "VND";
+            drCurrentMaster["TyGia"] = 1;
+            drCurrentMaster["DienGiai"] = row["DienGiai"];
+            drCurrentMaster["TkCo"] = row["TkCo"];
+            drCurrentMaster["MaThueMT"] = row["MaThue"];
+           // drCurrentMaster["TkCK"] = "711";
+
+            drCurrentMaster["TkThue"] = "1331";
+            drCurrentMaster["PrintIndex"] = 0;
             drCurrentMaster.EndEdit();
 
         }
+        private void importDT12Row(DataRow drDT12, DataRowView row)
+        {
+            drDT12["MT12ID"] = row["MTID"];
+            drDT12["DT12ID"] = Guid.NewGuid();
+
+            drDT12["DiengiaiCt"] = row["DienGiai"];
+            //drDT12["MaNT"] = "VND";
+            //drDT12["TyGia"] = 1;
+            drDT12["PsNT"] = row["TTienH"];
+
+            drDT12["TkNo"] = row["TkNo"];
+            drDT12["MaThue"] = row["MaThue"];
+            drDT12["TienThue"] = row["TThue"];
+            drDT12.EndEdit();
+
+        }
+        private void importMT16Row(DataRow drCurrentMaster, DataRow row)
+        {
+            drCurrentMaster["MCCQT"] = row["MCCQT"];
+            drCurrentMaster["MT16ID"] = row["MTID"];
+            drCurrentMaster["MaCT"] = "PBN";
+            drCurrentMaster["NgayCT"] = row["Ngayhd"];
+            drCurrentMaster["MaKH"] = row["MaKH"];
+
+            drCurrentMaster["Ongba"] = row["Ongba"];
+            drCurrentMaster["DiaChi"] = row["DiaChi"];
+            drCurrentMaster["MaNT"] = "VND";
+            drCurrentMaster["TyGia"] = 1;
+            drCurrentMaster["DienGiai"] = row["DienGiai"];
+            drCurrentMaster["TkCo"] = row["TkCo"];
+            drCurrentMaster["MaThueMT"] = row["MaThue"];
+            // drCurrentMaster["TkCK"] = "711";
+
+            drCurrentMaster["TkThue"] = "1331";
+            //drCurrentMaster["PrintIndex"] = 0;
+            drCurrentMaster.EndEdit();
+
+        }
+        private void importDT16Row(DataRow drDT16, DataRowView row)
+        {
+            drDT16["MT16ID"] = row["MTID"];
+            drDT16["DT16ID"] = Guid.NewGuid();
+
+            drDT16["DiengiaiCt"] = row["DienGiai"];
+            
+            drDT16["PsNT"] = row["TTienH"];            
+            drDT16["TkNo"] = geTkNo.EditValue.ToString();
+            //drDT16["MaThue"] = row["MaThue"];
+            //drDT16["TienThue"] = row["TThue"];
+            drDT16.EndEdit();
+
+        }
+        private void importVatInRowMT22(DataRow drVatin, DataRow row)
+        {
+            drVatin["MTID"] = row["MTID"];
+            drVatin["NgayHD"] = row["NgayHD"];
+            drVatin["NgayCt"] = row["NgayHD"];
+            drVatin["Soseries"] = row["kyhieu"];
+            drVatin["TTien"] = row["TTienH"];
+            drVatin["MaThue"] = row["MaThue"];
+            drVatin["TThue"] = row["TThue"];
+            
+        }
+        private void importVatInRowMT12(DataRow drVatin, DataRow row)
+        {
+            drVatin["MTID"] = row["MTID"];
+            drVatin["NgayHD"] = row["NgayHD"];
+            drVatin["sohoadon"] = row["Sohoadon"];
+            drVatin["NgayCt"] = row["NgayHD"];
+            drVatin["Soseries"] = row["Kyhieu"];
+            drVatin["TTien"] = row["TTienH"];
+            drVatin["MaThue"] = row["MaThue"];
+            drVatin["TThue"] = row["TThue"];
+            
+        }
+        private void importVatInRowMT16(DataRow drVatin, DataRow row)
+        {
+            drVatin["MTID"] = row["MTID"];
+            drVatin["NgayHD"] = row["NgayHD"];
+            drVatin["sohoadon"] = row["Sohoadon"];
+            drVatin["NgayCt"] = row["NgayHD"];
+            drVatin["Soseries"] = row["Kyhieu"];
+            drVatin["TTien"] = row["TTienH"];
+            drVatin["MaThue"] = row["MaThue"];
+            drVatin["TThue"] = row["TThue"];
+
+        }
+        private void labelControl5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void geTkCK_EditValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void btXoaHD_Click(object sender, EventArgs e)
         {
-            string condition = "MCCQT in ('";
-            
+            string condition = " in ('";
+
             foreach (DataRow dr in tbMT.Rows)
             {
-                condition += dr["MCCQT"].ToString() + "','";
+                condition += dr["MTID"].ToString() + "','";
 
             }
             if (tbMT.Rows.Count > 0) condition = condition.Substring(0, condition.Length - 2) + ")";
             else condition = "1=0";
-            _dataMt32.ConditionMaster = condition;
-            _dataMt32.GetData();
-            bsMT32.DataSource = _dataMt32.DsData;
-            bsMT32.DataMember = _dataMt32.DsData.Tables[0].TableName;
+            _dataMt22.ConditionMaster = "MT22ID " + condition;
+            _dataMt22.GetData();
+            bsMT22.DataSource = _dataMt22.DsData;
+            bsMT22.DataMember = _dataMt22.DsData.Tables[0].TableName;
+            
+           
+             
 
-            _dataMt31.ConditionMaster = condition;
-            _dataMt31.GetData();
-            bsMT31.DataSource = _dataMt31.DsData;
-            bsMT31.DataMember = _dataMt31.DsData.Tables[0].TableName;
-            bs.MoveLast();
+            
+            
+            _dataMt12.ConditionMaster = "MT12ID " + condition;
+            _dataMt12.GetData();
+            bsMT12.DataSource = _dataMt12.DsData;
+            bsMT12.DataMember = _dataMt12.DsData.Tables[0].TableName;
+            
+
             progressBar1.Minimum = 0;
-            progressBar1.Maximum = bsMT32.Count + bsMT31.Count;
+            progressBar1.Maximum = bsMT22.Count + bsMT12.Count  ;
             progressBar1.Step = 1;
             progressBar1.Value = 0;
             DeleteHD();
             
+            DeletePC();
+           
         }
-        private  async void DeleteHD()
+        private async void DeleteHD()
         {
 
-            while (bsMT32.Count > 0)
-            {               
-                bsMT32.MoveLast();
-                DataRowView drMT = (bsMT32.Current as DataRowView);
+            while (bsMT22.Count > 0)
+            {
+                bsMT22.MoveLast();
+                DataRowView drMT = (bsMT22.Current as DataRowView);
 
                 if (drMT != null)
-                    _dataMt32.DrCurrentMaster = drMT.Row;
-                _dataMt32.LstDrCurrentDetails.Clear();
-                _dataMt32._formulaCaculator.Active = false;
+                    _dataMt22.DrCurrentMaster = drMT.Row;
+                _dataMt22.LstDrCurrentDetails.Clear();
+                _dataMt22._formulaCaculator.Active = false;
 
-                bsMT32.RemoveCurrent();
-                bool isError = !_dataMt32.UpdateData(DataAction.Delete);
-               UpdateProgressBar(bsMT32.Count + bsMT31.Count);
+                bsMT22.RemoveCurrent();
+                bool isError = !_dataMt22.UpdateData(DataAction.Delete);
+                UpdateProgressBar(bsMT22.Count + bsMT12.Count);
                 await Task.Delay(1);
                 if (isError) break;
                 // bs.MovePrevious();
             }
-            while (bsMT31.Count > 0)
+
+
+        }
+       
+        private async void DeletePC()
+        {
+
+            while (bsMT12.Count > 0)
             {
-                bsMT31.MoveLast();
-                DataRowView drMT = (bsMT31.Current as DataRowView);
+                bsMT12.MoveLast();
+                DataRowView drMT = (bsMT12.Current as DataRowView);
 
                 if (drMT != null)
-                    _dataMt31.DrCurrentMaster = drMT.Row;
-                _dataMt31.LstDrCurrentDetails.Clear();
-                _dataMt31._formulaCaculator.Active = false;
+                    _dataMt12.DrCurrentMaster = drMT.Row;
+                _dataMt12.LstDrCurrentDetails.Clear();
+                _dataMt12._formulaCaculator.Active = false;
 
-                bsMT31.RemoveCurrent();
-                bool isError = !_dataMt31.UpdateData(DataAction.Delete);
-                UpdateProgressBar(bsMT31.Count);
-                
+                bsMT12.RemoveCurrent();
+                bool isError = !_dataMt12.UpdateData(DataAction.Delete);
+                UpdateProgressBar(bsMT22.Count + bsMT12.Count);
+                await Task.Delay(1);
                 if (isError) break;
                 // bs.MovePrevious();
             }
-
         }
-
-        private void btPhanloai_Click(object sender, EventArgs e)
-        {
-            foreach (DataRow drMt in tbMT.Rows)
-            {
-                DataRow[] lstRowHH = tbDT.Select("isDV=0 and MTID='" + drMt["MTID"].ToString() + "'");
-                if (lstRowHH.Length == 0)// Không có dòng hàng hóa nào chắc chắn phải vào hóa đơn dịch vụ
-                    drMt["KieuHD"] = 1;
-                else drMt["KieuHD"] = 0;
-            }
-        }
+       
 
 
     }

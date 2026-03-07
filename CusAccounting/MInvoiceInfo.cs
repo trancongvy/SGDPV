@@ -172,6 +172,8 @@ namespace CusAccounting
         public string ma_thue { get; [CompilerGenerated] set; }
         public string soLo { get; [CompilerGenerated] set; }
         public string hanDung { get; [CompilerGenerated] set; }
+        public double inv_vatRateDeduction { get; [CompilerGenerated] set; }
+        public double inv_vatAmountDeduction { get; [CompilerGenerated] set; }
     }
     public class Details
     {

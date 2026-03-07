@@ -7,6 +7,8 @@ using System.Runtime.Remoting;
 using System.Xml;
 using CDTLib;
 using System.Windows.Forms;
+using System.Reflection;
+
 namespace CDTControl
 {
     public class PluginManager
@@ -65,22 +67,31 @@ namespace CDTControl
                 return;
             string[] dllFiles = Directory.GetFiles(PluginPath, "*.dll");
             foreach (string str in dllFiles)
-            {
+            {try
+                {
                 FileInfo f = new FileInfo(str);
                 string t = f.Name.Split(".".ToCharArray())[0];
                 string pluginName = t + "." + t;
-                ObjectHandle oh = Activator.CreateComInstanceFrom(str, pluginName);
-                ICustom pluginClass = oh.Unwrap() as ICustom;
-                if (pluginClass != null)
-                {
-                    if (!_lstICustom.Contains(pluginClass))
+               // ObjectHandle oh = Activator.CreateComInstanceFrom(str, pluginName);
+                //ICustom pluginClass = oh.Unwrap() as ICustom;
+
+                    Assembly asm = Assembly.LoadFrom(str);
+                    Type ty = asm.GetType(pluginName, true);
+                    ICustom pluginClass = (ICustom)Activator.CreateInstance(ty);
+                    if (pluginClass != null)
                     {
-                        string xmlString = PluginPath + t + ".xml";
-                        pluginClass.ListStructInfo = GetStructInfo(xmlString, pluginName);
-                        if (pluginClass.ListStructInfo == null) continue;
-                        _lstICustom.Add(pluginClass);
-                        _lstStructInfo.AddRange(pluginClass.ListStructInfo);
+                        if (!_lstICustom.Contains(pluginClass))
+                        {
+                            string xmlString = PluginPath + t + ".xml";
+                            pluginClass.ListStructInfo = GetStructInfo(xmlString, pluginName);
+                            if (pluginClass.ListStructInfo == null) continue;
+                            _lstICustom.Add(pluginClass);
+                            _lstStructInfo.AddRange(pluginClass.ListStructInfo);
+                        }
                     }
+                }catch(Exception ex)
+                {
+                    //MessageBox.Show(ex.Message);
                 }
             }
         }
@@ -92,15 +103,25 @@ namespace CDTControl
             string[] dllFiles = Directory.GetFiles(PluginPath, "*.dll");
             foreach (string str in dllFiles)
             {
-                FileInfo f = new FileInfo(str);
-                string t = f.Name.Split(".".ToCharArray())[0];
-                string pluginName = t + "." + t;
-                ObjectHandle oh = Activator.CreateComInstanceFrom(str, pluginName);
-                ICustomData pluginClass1 = oh.Unwrap() as ICustomData;
-                if (pluginClass1 != null)
+
+                try
                 {
-                    if (!_lstICustomData.Contains(pluginClass1))
-                        _lstICustomData.Add(pluginClass1);
+                    FileInfo f = new FileInfo(str);
+                    string t = f.Name.Split(".".ToCharArray())[0];
+                    string pluginName = t + "." + t;
+                    // ObjectHandle oh = Activator.CreateComInstanceFrom(str, pluginName);
+                    // ICustomData pluginClass1 = oh.Unwrap() as ICustomData;
+                    Assembly asm = Assembly.LoadFrom(str);
+                    Type ty = asm.GetType(pluginName, true);
+                    ICustomData pluginClass1 = (ICustomData)Activator.CreateInstance(ty);
+                    if (pluginClass1 != null)
+                    {
+                        if (!_lstICustomData.Contains(pluginClass1))
+                            _lstICustomData.Add(pluginClass1);
+                    }
+                }catch(Exception ex)
+                {
+
                 }
             }
         }

@@ -50,11 +50,12 @@ namespace CusAccounting
             this.gridColumn27 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn28 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gCTkDT = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gCTkGV = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gCTkCP = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gCTkKho = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn32 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.rEisDV = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.gridColumn42 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gcCongtrinh = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemGridLookUpEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit();
             this.gridView4 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.repositoryItemComboBox1 = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
@@ -85,6 +86,8 @@ namespace CusAccounting
             this.gCTkCo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gCTkNo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gcMaThue = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn43 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repositoryItemCheckEdit3 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.Rep1 = new DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit();
             this.repositoryItemGridLookUpEdit1View = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.RiCom = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
@@ -177,6 +180,7 @@ namespace CusAccounting
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Rep1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemGridLookUpEdit1View)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RiCom)).BeginInit();
@@ -240,15 +244,18 @@ namespace CusAccounting
             this.panelControl1.Controls.Add(this.panel1);
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl1.Location = new System.Drawing.Point(0, 55);
+            this.panelControl1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(1649, 637);
+            this.panelControl1.Size = new System.Drawing.Size(1753, 637);
             this.panelControl1.TabIndex = 0;
             // 
             // gridControl2
             // 
             this.gridControl2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridControl2.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.gridControl2.Location = new System.Drawing.Point(2, 299);
             this.gridControl2.MainView = this.gridView2;
+            this.gridControl2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.gridControl2.Name = "gridControl2";
             this.gridControl2.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemGridLookUpEdit1,
@@ -256,7 +263,7 @@ namespace CusAccounting
             this.repositoryItemLookUpEdit1,
             this.repositoryItemCheckEdit2,
             this.rEisDV});
-            this.gridControl2.Size = new System.Drawing.Size(1403, 336);
+            this.gridControl2.Size = new System.Drawing.Size(1508, 336);
             this.gridControl2.TabIndex = 8;
             this.gridControl2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView2});
@@ -279,10 +286,11 @@ namespace CusAccounting
             this.gridColumn27,
             this.gridColumn28,
             this.gCTkDT,
-            this.gCTkGV,
+            this.gCTkCP,
             this.gCTkKho,
             this.gridColumn32,
-            this.gridColumn42});
+            this.gridColumn42,
+            this.gcCongtrinh});
             this.gridView2.CustomizationFormBounds = new System.Drawing.Rectangle(1497, 648, 216, 183);
             this.gridView2.GridControl = this.gridControl2;
             this.gridView2.Name = "gridView2";
@@ -435,14 +443,14 @@ namespace CusAccounting
             this.gCTkDT.VisibleIndex = 16;
             this.gCTkDT.Width = 65;
             // 
-            // gCTkGV
+            // gCTkCP
             // 
-            this.gCTkGV.Caption = "Tk GV";
-            this.gCTkGV.FieldName = "Tkgv";
-            this.gCTkGV.Name = "gCTkGV";
-            this.gCTkGV.Visible = true;
-            this.gCTkGV.VisibleIndex = 17;
-            this.gCTkGV.Width = 65;
+            this.gCTkCP.Caption = "Tk CP";
+            this.gCTkCP.FieldName = "TkCP";
+            this.gCTkCP.Name = "gCTkCP";
+            this.gCTkCP.Visible = true;
+            this.gCTkCP.VisibleIndex = 19;
+            this.gCTkCP.Width = 65;
             // 
             // gCTkKho
             // 
@@ -450,8 +458,8 @@ namespace CusAccounting
             this.gCTkKho.FieldName = "Tkkho";
             this.gCTkKho.Name = "gCTkKho";
             this.gCTkKho.Visible = true;
-            this.gCTkKho.VisibleIndex = 18;
-            this.gCTkKho.Width = 50;
+            this.gCTkKho.VisibleIndex = 17;
+            this.gCTkKho.Width = 61;
             // 
             // gridColumn32
             // 
@@ -475,6 +483,14 @@ namespace CusAccounting
             this.gridColumn42.Name = "gridColumn42";
             this.gridColumn42.Visible = true;
             this.gridColumn42.VisibleIndex = 4;
+            // 
+            // gcCongtrinh
+            // 
+            this.gcCongtrinh.Caption = "Công trình";
+            this.gcCongtrinh.FieldName = "MaCongtrinh";
+            this.gcCongtrinh.Name = "gcCongtrinh";
+            this.gcCongtrinh.Visible = true;
+            this.gcCongtrinh.VisibleIndex = 18;
             // 
             // repositoryItemGridLookUpEdit1
             // 
@@ -520,23 +536,27 @@ namespace CusAccounting
             // 
             this.splitter1.Dock = System.Windows.Forms.DockStyle.Top;
             this.splitter1.Location = new System.Drawing.Point(2, 296);
+            this.splitter1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(1403, 3);
+            this.splitter1.Size = new System.Drawing.Size(1508, 3);
             this.splitter1.TabIndex = 7;
             this.splitter1.TabStop = false;
             // 
             // gridControl1
             // 
             this.gridControl1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gridControl1.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.gridControl1.Location = new System.Drawing.Point(2, 2);
             this.gridControl1.MainView = this.gridView1;
+            this.gridControl1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.Rep1,
             this.RiCom,
             this.RiType,
-            this.repositoryItemCheckEdit1});
-            this.gridControl1.Size = new System.Drawing.Size(1403, 294);
+            this.repositoryItemCheckEdit1,
+            this.repositoryItemCheckEdit3});
+            this.gridControl1.Size = new System.Drawing.Size(1508, 294);
             this.gridControl1.TabIndex = 6;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -565,7 +585,8 @@ namespace CusAccounting
             this.gridColumn21,
             this.gCTkCo,
             this.gCTkNo,
-            this.gcMaThue});
+            this.gcMaThue,
+            this.gridColumn43});
             this.gridView1.CustomizationFormBounds = new System.Drawing.Rectangle(1226, 648, 216, 183);
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
@@ -580,7 +601,8 @@ namespace CusAccounting
             this.gridColumn5.Caption = "Kiểu hóa đơn";
             this.gridColumn5.FieldName = "KieuHD";
             this.gridColumn5.Name = "gridColumn5";
-            this.gridColumn5.ToolTip = "0: Hóa đơn nhập hàng, 1: Hóa đơn dịch vụ ghi công nợ, 2: Hóa đơn chi trực tiếp";
+            this.gridColumn5.ToolTip = "0: Hóa đơn nhập hàng, 1: Hóa đơn dịch vụ ghi công nợ, 2: Hóa đơn chi trực tiếp, 3" +
+    ": Ủy nhiệm chi";
             this.gridColumn5.Visible = true;
             this.gridColumn5.VisibleIndex = 0;
             this.gridColumn5.Width = 54;
@@ -772,6 +794,20 @@ namespace CusAccounting
             this.gcMaThue.VisibleIndex = 13;
             this.gcMaThue.Width = 61;
             // 
+            // gridColumn43
+            // 
+            this.gridColumn43.Caption = "NXT";
+            this.gridColumn43.ColumnEdit = this.repositoryItemCheckEdit3;
+            this.gridColumn43.FieldName = "NXT";
+            this.gridColumn43.Name = "gridColumn43";
+            this.gridColumn43.Visible = true;
+            this.gridColumn43.VisibleIndex = 22;
+            // 
+            // repositoryItemCheckEdit3
+            // 
+            this.repositoryItemCheckEdit3.AutoHeight = false;
+            this.repositoryItemCheckEdit3.Name = "repositoryItemCheckEdit3";
+            // 
             // Rep1
             // 
             this.Rep1.AutoHeight = false;
@@ -815,9 +851,10 @@ namespace CusAccounting
             // splitter2
             // 
             this.splitter2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.splitter2.Location = new System.Drawing.Point(1405, 2);
+            this.splitter2.Location = new System.Drawing.Point(1510, 2);
+            this.splitter2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.splitter2.Name = "splitter2";
-            this.splitter2.Size = new System.Drawing.Size(3, 633);
+            this.splitter2.Size = new System.Drawing.Size(2, 633);
             this.splitter2.TabIndex = 9;
             this.splitter2.TabStop = false;
             // 
@@ -825,7 +862,8 @@ namespace CusAccounting
             // 
             this.panel1.Controls.Add(this.layoutControl1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(1408, 2);
+            this.panel1.Location = new System.Drawing.Point(1512, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(239, 633);
             this.panel1.TabIndex = 4;
@@ -853,6 +891,7 @@ namespace CusAccounting
             this.layoutControl1.Controls.Add(this.geMaKho);
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
+            this.layoutControl1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
             this.layoutControl1.Size = new System.Drawing.Size(239, 633);
@@ -862,13 +901,15 @@ namespace CusAccounting
             // progressBar1
             // 
             this.progressBar1.Location = new System.Drawing.Point(2, 433);
+            this.progressBar1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(235, 36);
+            this.progressBar1.Size = new System.Drawing.Size(235, 34);
             this.progressBar1.TabIndex = 24;
             // 
             // btPhanloai
             // 
             this.btPhanloai.Location = new System.Drawing.Point(2, 381);
+            this.btPhanloai.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btPhanloai.Name = "btPhanloai";
             this.btPhanloai.Size = new System.Drawing.Size(235, 22);
             this.btPhanloai.StyleController = this.layoutControl1;
@@ -881,6 +922,7 @@ namespace CusAccounting
             this.btThemHoaDon.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.btThemHoaDon.Appearance.Options.UseFont = true;
             this.btThemHoaDon.Location = new System.Drawing.Point(2, 407);
+            this.btThemHoaDon.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btThemHoaDon.Name = "btThemHoaDon";
             this.btThemHoaDon.Size = new System.Drawing.Size(235, 22);
             this.btThemHoaDon.StyleController = this.layoutControl1;
@@ -898,6 +940,7 @@ namespace CusAccounting
             this.geTkNo.EditValue = "131";
             this.geTkNo.EnterMoveNextControl = true;
             this.geTkNo.Location = new System.Drawing.Point(75, 359);
+            this.geTkNo.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.geTkNo.Name = "geTkNo";
             this.geTkNo.Properties.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(236)))), ((int)(((byte)(239)))));
             this.geTkNo.Properties.Appearance.Options.UseBackColor = true;
@@ -950,6 +993,7 @@ namespace CusAccounting
             this.geTkNH.EditValue = "131";
             this.geTkNH.EnterMoveNextControl = true;
             this.geTkNH.Location = new System.Drawing.Point(75, 337);
+            this.geTkNH.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.geTkNH.Name = "geTkNH";
             this.geTkNH.Properties.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(236)))), ((int)(((byte)(239)))));
             this.geTkNH.Properties.Appearance.Options.UseBackColor = true;
@@ -995,6 +1039,7 @@ namespace CusAccounting
             // btReload
             // 
             this.btReload.Location = new System.Drawing.Point(2, 184);
+            this.btReload.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btReload.Name = "btReload";
             this.btReload.Size = new System.Drawing.Size(235, 22);
             this.btReload.StyleController = this.layoutControl1;
@@ -1005,6 +1050,7 @@ namespace CusAccounting
             // simpleButton4
             // 
             this.simpleButton4.Location = new System.Drawing.Point(2, 28);
+            this.simpleButton4.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.simpleButton4.Name = "simpleButton4";
             this.simpleButton4.Size = new System.Drawing.Size(235, 22);
             this.simpleButton4.StyleController = this.layoutControl1;
@@ -1022,6 +1068,7 @@ namespace CusAccounting
             this.geTkTM.EditValue = "131";
             this.geTkTM.EnterMoveNextControl = true;
             this.geTkTM.Location = new System.Drawing.Point(75, 315);
+            this.geTkTM.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.geTkTM.Name = "geTkTM";
             this.geTkTM.Properties.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(236)))), ((int)(((byte)(239)))));
             this.geTkTM.Properties.Appearance.Options.UseBackColor = true;
@@ -1067,6 +1114,7 @@ namespace CusAccounting
             // btAddMaKH
             // 
             this.btAddMaKH.Location = new System.Drawing.Point(2, 54);
+            this.btAddMaKH.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btAddMaKH.Name = "btAddMaKH";
             this.btAddMaKH.Size = new System.Drawing.Size(235, 22);
             this.btAddMaKH.StyleController = this.layoutControl1;
@@ -1077,6 +1125,7 @@ namespace CusAccounting
             // btCheckVT
             // 
             this.btCheckVT.Location = new System.Drawing.Point(2, 132);
+            this.btCheckVT.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btCheckVT.Name = "btCheckVT";
             this.btCheckVT.Size = new System.Drawing.Size(235, 22);
             this.btCheckVT.StyleController = this.layoutControl1;
@@ -1087,6 +1136,7 @@ namespace CusAccounting
             // btThemVT
             // 
             this.btThemVT.Location = new System.Drawing.Point(2, 158);
+            this.btThemVT.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btThemVT.Name = "btThemVT";
             this.btThemVT.Size = new System.Drawing.Size(235, 22);
             this.btThemVT.StyleController = this.layoutControl1;
@@ -1097,6 +1147,7 @@ namespace CusAccounting
             // btKiemTraHTTT
             // 
             this.btKiemTraHTTT.Location = new System.Drawing.Point(2, 2);
+            this.btKiemTraHTTT.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btKiemTraHTTT.Name = "btKiemTraHTTT";
             this.btKiemTraHTTT.Size = new System.Drawing.Size(235, 22);
             this.btKiemTraHTTT.StyleController = this.layoutControl1;
@@ -1107,6 +1158,7 @@ namespace CusAccounting
             // btThemDVT
             // 
             this.btThemDVT.Location = new System.Drawing.Point(2, 106);
+            this.btThemDVT.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btThemDVT.Name = "btThemDVT";
             this.btThemDVT.Size = new System.Drawing.Size(235, 22);
             this.btThemDVT.StyleController = this.layoutControl1;
@@ -1123,6 +1175,7 @@ namespace CusAccounting
             this.geTkkho.DymicCondition = null;
             this.geTkkho.EnterMoveNextControl = true;
             this.geTkkho.Location = new System.Drawing.Point(75, 293);
+            this.geTkkho.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.geTkkho.Name = "geTkkho";
             this.geTkkho.Properties.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(236)))), ((int)(((byte)(239)))));
             this.geTkkho.Properties.Appearance.Options.UseBackColor = true;
@@ -1168,6 +1221,7 @@ namespace CusAccounting
             // btCheckDVT
             // 
             this.btCheckDVT.Location = new System.Drawing.Point(2, 80);
+            this.btCheckDVT.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btCheckDVT.Name = "btCheckDVT";
             this.btCheckDVT.Size = new System.Drawing.Size(235, 22);
             this.btCheckDVT.StyleController = this.layoutControl1;
@@ -1184,6 +1238,7 @@ namespace CusAccounting
             this.geTkCK.DymicCondition = null;
             this.geTkCK.EnterMoveNextControl = true;
             this.geTkCK.Location = new System.Drawing.Point(75, 271);
+            this.geTkCK.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.geTkCK.Name = "geTkCK";
             this.geTkCK.Properties.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(236)))), ((int)(((byte)(239)))));
             this.geTkCK.Properties.Appearance.Options.UseBackColor = true;
@@ -1230,6 +1285,7 @@ namespace CusAccounting
             // labelControl1
             // 
             this.labelControl1.Location = new System.Drawing.Point(2, 210);
+            this.labelControl1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.labelControl1.Name = "labelControl1";
             this.labelControl1.Size = new System.Drawing.Size(73, 13);
             this.labelControl1.StyleController = this.layoutControl1;
@@ -1246,6 +1302,7 @@ namespace CusAccounting
             this.geTkCo.EditValue = "131";
             this.geTkCo.EnterMoveNextControl = true;
             this.geTkCo.Location = new System.Drawing.Point(75, 249);
+            this.geTkCo.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.geTkCo.Name = "geTkCo";
             this.geTkCo.Properties.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(236)))), ((int)(((byte)(239)))));
             this.geTkCo.Properties.Appearance.Options.UseBackColor = true;
@@ -1297,6 +1354,7 @@ namespace CusAccounting
             this.geMaKho.DymicCondition = null;
             this.geMaKho.EnterMoveNextControl = true;
             this.geMaKho.Location = new System.Drawing.Point(75, 227);
+            this.geMaKho.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.geMaKho.Name = "geMaKho";
             this.geMaKho.Properties.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(236)))), ((int)(((byte)(239)))));
             this.geMaKho.Properties.Appearance.Options.UseBackColor = true;
@@ -1522,7 +1580,7 @@ namespace CusAccounting
             this.layoutControlItem26.CustomizationFormText = "layoutControlItem26";
             this.layoutControlItem26.Location = new System.Drawing.Point(0, 431);
             this.layoutControlItem26.Name = "layoutControlItem26";
-            this.layoutControlItem26.Size = new System.Drawing.Size(239, 40);
+            this.layoutControlItem26.Size = new System.Drawing.Size(239, 38);
             this.layoutControlItem26.Text = "layoutControlItem26";
             this.layoutControlItem26.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem26.TextToControlDistance = 0;
@@ -1542,9 +1600,9 @@ namespace CusAccounting
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
             this.emptySpaceItem1.CustomizationFormText = "emptySpaceItem1";
-            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 471);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 469);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(239, 162);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(239, 164);
             this.emptySpaceItem1.Text = "emptySpaceItem1";
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
@@ -1614,13 +1672,15 @@ namespace CusAccounting
             this.panel2.Controls.Add(this.btLoadData);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1649, 55);
+            this.panel2.Size = new System.Drawing.Size(1753, 55);
             this.panel2.TabIndex = 5;
             // 
             // labelControl8
             // 
-            this.labelControl8.Location = new System.Drawing.Point(273, 25);
+            this.labelControl8.Location = new System.Drawing.Point(272, 25);
+            this.labelControl8.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.labelControl8.Name = "labelControl8";
             this.labelControl8.Size = new System.Drawing.Size(49, 13);
             this.labelControl8.TabIndex = 14;
@@ -1628,7 +1688,8 @@ namespace CusAccounting
             // 
             // labelControl2
             // 
-            this.labelControl2.Location = new System.Drawing.Point(63, 25);
+            this.labelControl2.Location = new System.Drawing.Point(62, 25);
+            this.labelControl2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.labelControl2.Name = "labelControl2";
             this.labelControl2.Size = new System.Drawing.Size(44, 13);
             this.labelControl2.TabIndex = 13;
@@ -1638,7 +1699,8 @@ namespace CusAccounting
             // 
             this.dDenngay.EditValue = null;
             this.dDenngay.EnterMoveNextControl = true;
-            this.dDenngay.Location = new System.Drawing.Point(351, 19);
+            this.dDenngay.Location = new System.Drawing.Point(350, 19);
+            this.dDenngay.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.dDenngay.Name = "dDenngay";
             this.dDenngay.Properties.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(236)))), ((int)(((byte)(239)))));
             this.dDenngay.Properties.Appearance.Options.UseBackColor = true;
@@ -1658,6 +1720,7 @@ namespace CusAccounting
             this.dTungay.EditValue = null;
             this.dTungay.EnterMoveNextControl = true;
             this.dTungay.Location = new System.Drawing.Point(142, 20);
+            this.dTungay.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.dTungay.Name = "dTungay";
             this.dTungay.Properties.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(236)))), ((int)(((byte)(239)))));
             this.dTungay.Properties.Appearance.Options.UseBackColor = true;
@@ -1674,9 +1737,10 @@ namespace CusAccounting
             // 
             // btXoaHD
             // 
-            this.btXoaHD.Location = new System.Drawing.Point(607, 15);
+            this.btXoaHD.Location = new System.Drawing.Point(606, 15);
+            this.btXoaHD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btXoaHD.Name = "btXoaHD";
-            this.btXoaHD.Size = new System.Drawing.Size(279, 23);
+            this.btXoaHD.Size = new System.Drawing.Size(278, 23);
             this.btXoaHD.TabIndex = 5;
             this.btXoaHD.Text = "Xóa hóa đơn trên phần mềm nếu trùng Mã CQT";
             this.btXoaHD.Click += new System.EventHandler(this.btXoaHD_Click);
@@ -1684,8 +1748,9 @@ namespace CusAccounting
             // btLoadData
             // 
             this.btLoadData.Location = new System.Drawing.Point(490, 15);
+            this.btLoadData.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btLoadData.Name = "btLoadData";
-            this.btLoadData.Size = new System.Drawing.Size(96, 23);
+            this.btLoadData.Size = new System.Drawing.Size(95, 23);
             this.btLoadData.TabIndex = 2;
             this.btLoadData.Text = "Load dữ liệu";
             this.btLoadData.Click += new System.EventHandler(this.btLoadData_Click);
@@ -1702,9 +1767,10 @@ namespace CusAccounting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1649, 692);
+            this.ClientSize = new System.Drawing.Size(1753, 692);
             this.Controls.Add(this.panelControl1);
             this.Controls.Add(this.panel2);
+            this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Name = "fImportHDDauvao_Minv";
             this.Text = "Import hóa đơn đầu vào";
             this.Load += new System.EventHandler(this.fImportHDDauVao_Load);
@@ -1720,6 +1786,7 @@ namespace CusAccounting
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Rep1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemGridLookUpEdit1View)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RiCom)).EndInit();
@@ -1832,7 +1899,7 @@ namespace CusAccounting
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn27;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn28;
         private DevExpress.XtraGrid.Columns.GridColumn gCTkDT;
-        private DevExpress.XtraGrid.Columns.GridColumn gCTkGV;
+        private DevExpress.XtraGrid.Columns.GridColumn gCTkCP;
         private DevExpress.XtraGrid.Columns.GridColumn gCTkKho;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn32;
         private DevExpress.XtraGrid.Columns.GridColumn gCTkCo;
@@ -1914,5 +1981,8 @@ namespace CusAccounting
         private DevExpress.XtraGrid.Columns.GridColumn gcMaThue;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn33;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn42;
+        private DevExpress.XtraGrid.Columns.GridColumn gcCongtrinh;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn43;
+        private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit3;
     }
 }

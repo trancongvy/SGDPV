@@ -147,23 +147,29 @@
   <ItemGroup>
     <Compile Include="BangkeBanra.cs" />
     <Compile Include="BangkeMuavao.cs" />
-    <Compile Include="fBanhangDNDuoc.cs">
+    <Compile Include="fBanhangDNDuoc_MInv.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fBanhangDNDuoc.designer.cs">
-      <DependentUpon>fBanhangDNDuoc.cs</DependentUpon>
+    <Compile Include="fBanhangDNDuoc_MInv.designer.cs">
+      <DependentUpon>fBanhangDNDuoc_MInv.cs</DependentUpon>
     </Compile>
-    <Compile Include="fBanhangDN.cs">
+    <Compile Include="fBanhangDN_MInv.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fBanhangDN.designer.cs">
-      <DependentUpon>fBanhangDN.cs</DependentUpon>
+    <Compile Include="fBanhangDN_MInv.designer.cs">
+      <DependentUpon>fBanhangDN_MInv.cs</DependentUpon>
     </Compile>
     <Compile Include="fImportHDDaura_excel.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="fImportHDDaura_excel.Designer.cs">
       <DependentUpon>fImportHDDaura_excel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fImportHDDauraHCT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fImportHDDauraHCT.Designer.cs">
+      <DependentUpon>fImportHDDauraHCT.cs</DependentUpon>
     </Compile>
     <Compile Include="fImportHDDaura_Minv.cs">
       <SubType>Form</SubType>
@@ -176,6 +182,12 @@
     </Compile>
     <Compile Include="fImportHDDauvao_excel.Designer.cs">
       <DependentUpon>fImportHDDauvao_excel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fImportHDDauvaoHKD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fImportHDDauvaoHKD.Designer.cs">
+      <DependentUpon>fImportHDDauvaoHKD.cs</DependentUpon>
     </Compile>
     <Compile Include="fImportHDDauvao_Minv.cs">
       <SubType>Form</SubType>
@@ -196,11 +208,11 @@
     <Compile Include="CoPhanBoCtrinh.designer.cs">
       <DependentUpon>CoPhanBoCtrinh.cs</DependentUpon>
     </Compile>
-    <Compile Include="fBanhangHKD.cs">
+    <Compile Include="fBanhangHKD_MInv.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fBanhangHKD.designer.cs">
-      <DependentUpon>fBanhangHKD.cs</DependentUpon>
+    <Compile Include="fBanhangHKD_MInv.designer.cs">
+      <DependentUpon>fBanhangHKD_MInv.cs</DependentUpon>
     </Compile>
     <Compile Include="fCoKHSX.cs">
       <SubType>Form</SubType>
@@ -293,14 +305,14 @@
       <DependentUpon>CoPhanBoCtrinh.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="fBanhangDNDuoc.resx">
-      <DependentUpon>fBanhangDNDuoc.cs</DependentUpon>
+    <EmbeddedResource Include="fBanhangDNDuoc_MInv.resx">
+      <DependentUpon>fBanhangDNDuoc_MInv.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="fBanhangDN.resx">
-      <DependentUpon>fBanhangDN.cs</DependentUpon>
+    <EmbeddedResource Include="fBanhangDN_MInv.resx">
+      <DependentUpon>fBanhangDN_MInv.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="fBanhangHKD.resx">
-      <DependentUpon>fBanhangHKD.cs</DependentUpon>
+    <EmbeddedResource Include="fBanhangHKD_MInv.resx">
+      <DependentUpon>fBanhangHKD_MInv.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fCoKHSX.resx">
       <SubType>Designer</SubType>
@@ -332,11 +344,17 @@
     <EmbeddedResource Include="fImportHDDaura_excel.resx">
       <DependentUpon>fImportHDDaura_excel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="fImportHDDauraHCT.resx">
+      <DependentUpon>fImportHDDauraHCT.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="fImportHDDaura_Minv.resx">
       <DependentUpon>fImportHDDaura_Minv.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fImportHDDauvao_excel.resx">
       <DependentUpon>fImportHDDauvao_excel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fImportHDDauvaoHKD.resx">
+      <DependentUpon>fImportHDDauvaoHKD.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fImportHDDauvao_Minv.resx">
       <DependentUpon>fImportHDDauvao_Minv.cs</DependentUpon>

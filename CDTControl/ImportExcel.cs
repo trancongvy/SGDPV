@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using CDTDatabase;
@@ -6,13 +6,14 @@ using Microsoft.Office.Interop.Excel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.OleDb;
+using System.Runtime.InteropServices;
 namespace CDTControl
 {
     public class ImportExcel
     {
         string fileName;
         Workbook workbook;
-        public Application application = new ApplicationClass();
+      
         public System.Data.DataTable Db;
         public ImportExcel(string FileName)
         {
@@ -22,28 +23,52 @@ namespace CDTControl
 
         public List<string> GetSheets()
         {
+            Application application = new Application();
             List<string> list = new List<string>();
+            Worksheet worksheet = null;
+            Sheets sheets = null;
             try
             {
                 workbook = application.Workbooks.Open(fileName, ReadOnly: true);
-                foreach (Worksheet worksheet in workbook.Sheets)
+                sheets = workbook.Sheets;
+                for (int i = 1; i <= sheets.Count; i++)
                 {
+                    worksheet = (Worksheet)sheets[i];
                     list.Add(worksheet.Name);
 
+                    // Giải phóng ngay đối tượng worksheet sau khi sử dụng xong trong vòng lặp
+                    Marshal.ReleaseComObject(worksheet);
+                    worksheet = null; // Đặt về null để kiểm tra trong finally
                 }
-                workbook.Close(false, false, false);
-                //application.Quit();
+               
                 return list;
             }catch
             {
                 list.Add("FileOpening");
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(application);
+                //System.Runtime.InteropServices.Marshal.ReleaseComObject(application);
                 return list;
             }
             finally
             {
-                application.Quit();
-                //System.Runtime.InteropServices.Marshal.ReleaseComObject(application);
+                if (sheets != null) Marshal.ReleaseComObject(sheets);
+
+                // Đóng workbook
+                if (workbook != null)
+                {
+                    workbook.Close(false); // false = không lưu
+                    Marshal.ReleaseComObject(workbook);
+                }
+
+                // Thoát ứng dụng Excel
+                if (application != null)
+                {
+                    application.Quit();
+                    Marshal.ReleaseComObject(application);
+                }
+
+                // Ép GC dọn dẹp các RCW còn lại (Tùy chọn, nhưng nên dùng)
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
             }
 
         }
@@ -52,14 +77,18 @@ namespace CDTControl
 
         public List<string> GetCol(string p)
         {
+            Application application = new Application();
             List<string> Collist = new List<string>();
+            Worksheet worksheet = null;
+            Sheets sheets = null;
             try
             {
                 workbook = application.Workbooks.Open(fileName, Type.Missing, false, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
 
-
-                foreach (Worksheet worksheet in workbook.Sheets)
+                sheets = workbook.Sheets;
+                for (int sh = 1; sh <= sheets.Count; sh++)
                 {
+                    worksheet = (Worksheet)sheets[sh];
 
                     if (worksheet.Name == p)
                     {
@@ -149,13 +178,31 @@ namespace CDTControl
             }
             catch (Exception ex)
             {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(application);
+                //System.Runtime.InteropServices.Marshal.ReleaseComObject(application);
 
             }
             finally
             {
-                application.Quit();
-                //
+
+                if (sheets != null) Marshal.ReleaseComObject(sheets);
+
+                // Đóng workbook
+                if (workbook != null)
+                {
+                    //workbook.Close(false); // false = không lưu
+                    Marshal.ReleaseComObject(workbook);
+                }
+
+                // Thoát ứng dụng Excel
+                if (application != null)
+                {
+                    application.Quit();
+                    Marshal.ReleaseComObject(application);
+                }
+
+                // Ép GC dọn dẹp các RCW còn lại (Tùy chọn, nhưng nên dùng)
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
             }
 
             //OleDbDataAdapter ole = new OleDbDataAdapter(); ;

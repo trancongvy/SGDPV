@@ -22,6 +22,7 @@ using CBSControls;
 using FormFactory;
 using DevControls;
 using System.Net;
+using DevExpress.XtraGrid.Views.Grid;
 
 namespace CusAccounting
 {
@@ -72,6 +73,7 @@ namespace CusAccounting
         DevControls.CDTRepGridLookup reDMVT1;
         DevControls.CDTRepGridLookup reDMKHO;
         DevControls.CDTRepGridLookup reDMDVT;
+        DevControls.CDTRepGridLookup reDMCongtrinh;
         DataMasterDetail _dataMt22;
         DataMasterDetail _dataMt21;
         BindingSource bsMT22 = new BindingSource();
@@ -378,6 +380,9 @@ namespace CusAccounting
                     case "madvt":
                         reDMDVT = _frmDesign.GenRIGridLookupEdit(drCol);
                         break;
+                    case "macongtrinh":
+                        reDMCongtrinh = _frmDesign.GenRIGridLookupEdit(drCol);
+                        break;
                 }
             }
             dbdmKH = publicCDTData.findCDTData("DMKH", "", "");
@@ -411,7 +416,7 @@ namespace CusAccounting
             //reDMKH.DataSource = dbdmKH.DsData.Tables[0]; reDMKH.ValueMember = "MaKH"; reDMKH.DisplayMember = "MaKH";
             gCMaKH.ColumnEdit = reDMKH;gCTenKH.ColumnEdit = reDMKH1;
             //reDMTK.DataSource = dbdmTk.DsData.Tables[0]; reDMTK.ValueMember = "TK"; reDMKH.DisplayMember = "TK";
-            gCTkCo.ColumnEdit = reDMTK; gCTkDT.ColumnEdit = reDMTK; gCTkGV.ColumnEdit = reDMTK; gCTkKho.ColumnEdit = reDMTK; gCTkNo.ColumnEdit = reDMTK;
+            gCTkCo.ColumnEdit = reDMTK; gCTkDT.ColumnEdit = reDMTK; gCTkCP.ColumnEdit = reDMTK; gCTkKho.ColumnEdit = reDMTK; gCTkNo.ColumnEdit = reDMTK;
  
             //reDMVT.DataSource = dbdmVT.DsData.Tables[0]; reDMVT.ValueMember = "TK"; reDMVT.DisplayMember = "MaVT";
             gCMaVT.ColumnEdit = reDMVT; gCTenVT.ColumnEdit = reDMVT1;
@@ -420,7 +425,8 @@ namespace CusAccounting
             //reDMDVT.DataSource = dbdmDVT.DsData.Tables[0]; reDMDVT.ValueMember = "MaDVT"; reDMDVT.DisplayMember = "MaDVT";
             gCMaDVT.ColumnEdit = reDMDVT;
             gcMaThue.ColumnEdit = reMaThue;
-            
+            gcCongtrinh.ColumnEdit = reDMCongtrinh;
+
             geMaKho.Properties.DataSource = dbdmKho.DsData.Tables[0]; geMaKho.Properties.ValueMember = "MaKho"; geMaKho.Properties.DisplayMember = "TenKho"; geMaKho.EditValue = "HH";
             geTkCo.Properties.DataSource = dbdmTk.DsData.Tables[0]; geTkCo.Properties.ValueMember = "TK"; geTkCo.Properties.DisplayMember = "TK"; geTkCo.EditValue = "331";
             geTkTM.Properties.DataSource = dbdmTk.DsData.Tables[0]; geTkTM.Properties.ValueMember = "TK"; geTkTM.Properties.DisplayMember = "TK"; geTkTM.EditValue = "1111";
@@ -543,9 +549,15 @@ namespace CusAccounting
                     e.Row["MaDVT"] = lstMaVT[0]["MaDVT"];
                     e.Row["TkKho"] = lstMaVT[0]["TkKho"];
                     e.Row["TkDthu"] = lstMaVT[0]["TkDT"];
-                    e.Row["TkGV"] = lstMaVT[0]["TkGV"];
+                    //e.Row["TkGV"] = lstMaVT[0]["TkGV"];
                     e.Row["isDV"] = lstMaVT[0]["isDV"];
+                    e.Row.EndEdit();
                 }
+            }
+            else if(e.Column.ColumnName.ToLower() == "macongtrinh" && e.Row["MaCongtrinh"] != DBNull.Value)
+            {
+                e.Row["TkCP"] = "154";
+                e.Row.EndEdit();
             }
         }
 
@@ -641,6 +653,11 @@ namespace CusAccounting
                     gridControl2.DataSource = bs;
                     gridControl2.DataMember = tbDT.TableName;
                 }
+            }
+            else if (e.KeyCode==Keys.F4)
+            {
+                
+                (gridControl2.MainView as GridView).DeleteSelectedRows();
             }
         }
         private void ReDMVT_KeyUp(object sender, KeyEventArgs e)
@@ -791,35 +808,55 @@ namespace CusAccounting
 
             foreach (DataRow drMT in tbMT.Rows)
             {
-                DataRow[] lstRows = dbdmKH.DsData.Tables[0].Select("TenKH='" + drMT["TenKH"].ToString() + "'");
+                DataRow[] lstRows = dbdmKH.DsData.Tables[0].Select("TenKH='" + drMT["TenKH"].ToString().Trim() + "'");
                 if (lstRows.Length > 0)
                 {
                     drMT["MaKH"] = lstRows[0]["MaKH"];
                     drMT.EndEdit();
                     if (drMT["MaKH"] != DBNull.Value)
                     {
-                        DataRow[] ldr = dbdmKH.DsData.Tables[0].Select("MaKH='" + drMT["MaKH"].ToString() + "'");
+                        DataRow[] ldr = dbdmKH.DsData.Tables[0].Select("MaKH='" + drMT["MaKH"].ToString().Trim() + "'");
                         if (ldr.Length == 0) drMT["MaKH"] = DBNull.Value;
                         drMT.EndEdit();
                     }
                     continue;
-                }
+                }//Kiểm trâ thêm MST
                 else
                 {
-                    lstRows = DictionaryName.DsData.Tables[0].Select("Name='" + drMT["TenKH"].ToString() + "' and TableName='DMKH'");
-                    if (lstRows.Length > 0)
+                    DataRow[] lstRowsMST = dbdmKH.DsData.Tables[0].Select("MST='" + drMT["MST"].ToString().Trim() + "'");
+                    if (lstRowsMST.Length > 0)
                     {
-                        drMT["MaKH"] = lstRows[0]["Code"];
+                        drMT["MaKH"] = lstRowsMST[0]["MaKH"];
                         drMT.EndEdit();
                         if (drMT["MaKH"] != DBNull.Value)
                         {
-                            DataRow[] ldr = dbdmKH.DsData.Tables[0].Select("MaKH='" + drMT["MaKH"].ToString() + "'");
+                            DataRow[] ldr = dbdmKH.DsData.Tables[0].Select("MaKH='" + drMT["MaKH"].ToString().Trim() + "'");
                             if (ldr.Length == 0) drMT["MaKH"] = DBNull.Value;
                             drMT.EndEdit();
                         }
                         continue;
                     }
+                    else
+                    {
+                        lstRows = DictionaryName.DsData.Tables[0].Select("Name='" + drMT["TenKH"].ToString() + "' and TableName='DMKH'");
+                        if (lstRows.Length > 0)
+                        {
+                            drMT["MaKH"] = lstRows[0]["Code"];
+                            drMT.EndEdit();
+                            if (drMT["MaKH"] != DBNull.Value)
+                            {
+                                DataRow[] ldr = dbdmKH.DsData.Tables[0].Select("MaKH='" + drMT["MaKH"].ToString() + "'");
+                                if (ldr.Length == 0) drMT["MaKH"] = DBNull.Value;
+                                drMT.EndEdit();
+                            }
+                            continue;
+                        }
+                    }    
                 }
+                
+                
+                    
+                
                 int j = ThietKedulieu.LevantEdit(arrHTTT, drMT["TenKH"].ToString());
                 if (j >= 0 && j < arrHTTT.Length)
                 {
@@ -945,7 +982,7 @@ namespace CusAccounting
 
                     drDT["MaVT"] = lstRowsDic[j2]["Code"];
                     drDT["dictance"] = dic2;
-                    // drDT["isDV"] = lstRowsDic[j2]["isDV"];
+                    drDT["isDV"] = lstRowsDic[j2]["isDV"];
                     drDT.EndEdit();
                     return;
                 }
@@ -1676,7 +1713,11 @@ namespace CusAccounting
             if (double.TryParse(drDT["CK"].ToString().Replace("%", ""), out ck))
                 drDT22["CK"] = ck;
             else drDT22["CK"] = 0;
-            
+            if (drDT["MaCongtrinh"] != DBNull.Value)
+            {
+                drDT22["MaCongtrinh"] = drDT["MaCongtrinh"];
+                drDT22["TkCP"] = drDT["TkCP"];
+            }
             
             //drDT["TienThue"] = Math.Round((hh.ThTien - hh.STCKhau) * double.Parse(hh.TSuat.Replace("%", "")) / 100, 0);
 
@@ -1713,6 +1754,10 @@ namespace CusAccounting
             
             drCurrentMaster["TkThue"] = "1331";
             drCurrentMaster["PrintIndex"] =0;
+            if (row["NXT"] != DBNull.Value)
+            {
+                drCurrentMaster["NXT"] = row["NXT"];
+            }
             drCurrentMaster.EndEdit();
 
         }
@@ -1737,7 +1782,10 @@ namespace CusAccounting
             }
             else
                 drDT21["TkNo"] = drDT["TkKho"];
-
+            if (drDT["MaCongtrinh"] != DBNull.Value)
+            {
+                drDT21["MaCongtrinh"] = drDT["MaCongtrinh"];
+            }
             drDT21.EndEdit();
         }
 
@@ -1802,6 +1850,10 @@ namespace CusAccounting
             drDT12["TkNo"] = row["TkNo"];
             drDT12["MaThue"] = row["MaThue"];
             drDT12["TienThue"] = row["TThue"];
+            //if (row["MaCongtrinh"] != DBNull.Value)
+            //{
+            //    drDT12["MaCongtrinh"] = row["MaCongtrinh"];
+            //}
             drDT12.EndEdit();
 
         }
@@ -1823,9 +1875,10 @@ namespace CusAccounting
             // drCurrentMaster["TkCK"] = "711";
 
             drCurrentMaster["TkThue"] = "1331";
+           
             //drCurrentMaster["PrintIndex"] = 0;
             drCurrentMaster.EndEdit();
-
+            
         }
         private void importDT16Row(DataRow drDT16, DataRowView row)
         {
@@ -1838,6 +1891,10 @@ namespace CusAccounting
             drDT16["TkNo"] = geTkNo.EditValue.ToString();
             //drDT16["MaThue"] = row["MaThue"];
             //drDT16["TienThue"] = row["TThue"];
+            //if (row["MaCongtrinh"] != DBNull.Value)
+            //{
+            //    drDT16["MaCongtrinh"] = row["MaCongtrinh"];
+            //}
             drDT16.EndEdit();
 
         }
@@ -2015,7 +2072,6 @@ namespace CusAccounting
                 // bs.MovePrevious();
             }
         }
-
 
     }
 

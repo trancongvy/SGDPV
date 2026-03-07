@@ -3,7 +3,7 @@
 
 namespace CusAccounting
 {
-    public partial class fImportHDDaura_Minv
+    public partial class fImportHDDauraHCT
     {
         /// <summary>
         /// Required designer variable.
@@ -1272,7 +1272,7 @@ namespace CusAccounting
             this.geTkNo.Condition = null;
             this.geTkNo.Data = null;
             this.geTkNo.DymicCondition = null;
-            this.geTkNo.EditValue = "1111";
+            this.geTkNo.EditValue = "CNTHU";
             this.geTkNo.EnterMoveNextControl = true;
             this.geTkNo.Location = new System.Drawing.Point(59, 259);
             this.geTkNo.Name = "geTkNo";
@@ -1669,14 +1669,14 @@ namespace CusAccounting
             // 
             this.dxErrorVT.ContainerControl = this;
             // 
-            // fImportHDDaura_Minv
+            // fImportHDDauraHCT
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1758, 816);
             this.Controls.Add(this.panelControl1);
             this.Controls.Add(this.panel2);
-            this.Name = "fImportHDDaura_Minv";
+            this.Name = "fImportHDDauraHCT";
             this.Text = "Import hóa đơn đầu ra";
             this.Load += new System.EventHandler(this.fImportHDDauRa_Load);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();

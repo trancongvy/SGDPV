@@ -8,6 +8,8 @@ using System.IO;
 using System.Runtime.Remoting;
 using System.Xml;
 using CDTLib;
+using System.Reflection;
+
 namespace FormFactory
 {
     public enum FormType { Single, Detail, MasterDetail };
@@ -104,19 +106,30 @@ namespace FormFactory
             string[] dllFiles = Directory.GetFiles(_pluginPath, "*.dll");
             foreach (string str in dllFiles)
             {
-                FileInfo f = new FileInfo(str);
-                string t = f.Name.Split(".".ToCharArray())[0];
-                string pluginName = t + "." + t;
-                ObjectHandle oh = Activator.CreateComInstanceFrom(str, pluginName);
-                ICDTData pluginClass = oh.Unwrap() as ICDTData;
-                if (pluginClass != null)
+                try
                 {
-                    if (!_lstICDTData.Contains(pluginClass))
+                    FileInfo f = new FileInfo(str);
+                    string t = f.Name.Split(".".ToCharArray())[0];
+                    string pluginName = t + "." + t;
+                    //ObjectHandle oh = Activator.CreateComInstanceFrom(str, pluginName);
+                    //ICDTData pluginClass = oh.Unwrap() as ICDTData;
+
+                    //ICDTData pluginClass = oh.Unwrap() as ICDTData;
+                    Assembly asm = Assembly.LoadFrom(str);
+                    Type ty = asm.GetType(pluginName, true);
+                    ICDTData pluginClass = (ICDTData)Activator.CreateInstance(ty);
+                    if (pluginClass != null)
                     {
-                        _lstICDTData.Add(pluginClass);
-                        pluginClass.data = Data;
-                        pluginClass.AddEvent();
+                        if (!_lstICDTData.Contains(pluginClass))
+                        {
+                            _lstICDTData.Add(pluginClass);
+                            pluginClass.data = Data;
+                            pluginClass.AddEvent();
+                        }
                     }
+                }catch(Exception ex)
+                {
+
                 }
             }
         }
