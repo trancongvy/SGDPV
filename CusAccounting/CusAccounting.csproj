@@ -399,6 +399,10 @@
       <Project>{CF282973-8899-4C28-8286-71155CBE9C3A}</Project>
       <Name>CDTLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CusCDTData\CusCDTData.csproj">
+      <Project>{6eafce2a-4df1-40b3-be77-0195539c8a92}</Project>
+      <Name>CusCDTData</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataFactory\DataFactory.csproj">
       <Project>{91C9EBB2-ABAA-4ABE-A659-69E2208BF10E}</Project>
       <Name>DataFactory</Name>

@@ -1206,7 +1206,7 @@ namespace CusAccounting
             foreach (DataRow drMt in tbMT.Rows)
             {
                 if (drMt["MaHTTT"] == DBNull.Value) continue;
-                DataRow[] lstRowHH = tbDT.Select("isDV=0 and MTID='" + drMt["MTID"].ToString() +"'");
+                DataRow[] lstRowHH = tbDT.Select("MaVT is not null and isDV=0 and MTID='" + drMt["MTID"].ToString() +"'");
                 if (lstRowHH.Length == 0)// Không có dòng hàng hóa nào chắc chắn phải vào hóa đơn dịch vụ
                 {
                     if (drMt["MaHTTT"].ToString() == "TM")//Chắc chắn là phiếu chi
@@ -1618,17 +1618,17 @@ namespace CusAccounting
             drCurrentMaster["NgayCT"] = row["Ngayhd"];
             drCurrentMaster["MaKH"] = row["MaKH"];
 
-            drCurrentMaster["Ongba"] = row["Ongba"];
-            drCurrentMaster["DiaChi"] = row["DiaChi"];
-            drCurrentMaster["MaNT"] = "VND";
-            drCurrentMaster["TyGia"] = 1;
+            //drCurrentMaster["Ongba"] = row["Ongba"];
+            //drCurrentMaster["DiaChi"] = row["DiaChi"];
+           // drCurrentMaster["MaNT"] = "VND";
+            //drCurrentMaster["TyGia"] = 1;
             drCurrentMaster["DienGiai"] = row["DienGiai"];
-            drCurrentMaster["TkCo"] = row["TkCo"];
-            drCurrentMaster["MaThueMT"] = row["MaThue"];
+            drCurrentMaster["Tk"] = row["TkCo"];
+            //drCurrentMaster["MaThueMT"] = row["MaThue"];
            // drCurrentMaster["TkCK"] = "711";
 
-            drCurrentMaster["TkThue"] = "1331";
-            drCurrentMaster["PrintIndex"] = 0;
+            //drCurrentMaster["TkThue"] = "1331";
+            //drCurrentMaster["PrintIndex"] = 0;
             drCurrentMaster.EndEdit();
 
         }
@@ -1637,14 +1637,13 @@ namespace CusAccounting
             drDT12["MT12ID"] = row["MTID"];
             drDT12["DT12ID"] = Guid.NewGuid();
 
-            drDT12["DiengiaiCt"] = row["DienGiai"];
+           //drDT12["DiengiaiCt"] = row["DienGiai"];
             //drDT12["MaNT"] = "VND";
             //drDT12["TyGia"] = 1;
-            drDT12["PsNT"] = row["TTienH"];
+            drDT12["Ps"] = double.Parse(row["TThue"].ToString()) + double.Parse(row["TTienH"].ToString());
 
-            drDT12["TkNo"] = row["TkNo"];
-            drDT12["MaThue"] = row["MaThue"];
-            drDT12["TienThue"] = row["TThue"];
+            drDT12["TkCo"] = row["TkNo"];
+            
             drDT12.EndEdit();
 
         }

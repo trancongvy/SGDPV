@@ -168,6 +168,8 @@ namespace CusAccounting
             this.btLoadData = new DevExpress.XtraEditors.SimpleButton();
             this.dxErrorProviderMain = new DevExpress.XtraEditors.DXErrorProvider.DXErrorProvider(this.components);
             this.dxErrorVT = new DevExpress.XtraEditors.DXErrorProvider.DXErrorProvider(this.components);
+            this.gridColumn44 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn45 = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).BeginInit();
@@ -586,7 +588,9 @@ namespace CusAccounting
             this.gCTkCo,
             this.gCTkNo,
             this.gcMaThue,
-            this.gridColumn43});
+            this.gridColumn43,
+            this.gridColumn44,
+            this.gridColumn45});
             this.gridView1.CustomizationFormBounds = new System.Drawing.Rectangle(1226, 648, 216, 183);
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
@@ -1763,6 +1767,24 @@ namespace CusAccounting
             // 
             this.dxErrorVT.ContainerControl = this;
             // 
+            // gridColumn44
+            // 
+            this.gridColumn44.Caption = "Tiền tệ";
+            this.gridColumn44.FieldName = "MaNT";
+            this.gridColumn44.Name = "gridColumn44";
+            this.gridColumn44.Visible = true;
+            this.gridColumn44.VisibleIndex = 23;
+            // 
+            // gridColumn45
+            // 
+            this.gridColumn45.Caption = "Tỷ giá";
+            this.gridColumn45.DisplayFormat.FormatString = "### ### ##0.##";
+            this.gridColumn45.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.gridColumn45.FieldName = "TyGia";
+            this.gridColumn45.Name = "gridColumn45";
+            this.gridColumn45.Visible = true;
+            this.gridColumn45.VisibleIndex = 24;
+            // 
             // fImportHDDauvao_Minv
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1984,5 +2006,7 @@ namespace CusAccounting
         private DevExpress.XtraGrid.Columns.GridColumn gcCongtrinh;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn43;
         private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit3;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn44;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn45;
     }
 }

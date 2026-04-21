@@ -8,6 +8,7 @@ using System.Xml;
 using CDTLib;
 using System.Windows.Forms;
 using System.Reflection;
+using ErrorManager;
 
 namespace CDTControl
 {
@@ -67,10 +68,12 @@ namespace CDTControl
                 return;
             string[] dllFiles = Directory.GetFiles(PluginPath, "*.dll");
             foreach (string str in dllFiles)
-            {try
-                {
+            {
                 FileInfo f = new FileInfo(str);
                 string t = f.Name.Split(".".ToCharArray())[0];
+                try
+                {
+                
                 string pluginName = t + "." + t;
                // ObjectHandle oh = Activator.CreateComInstanceFrom(str, pluginName);
                 //ICustom pluginClass = oh.Unwrap() as ICustom;
@@ -91,7 +94,7 @@ namespace CDTControl
                     }
                 }catch(Exception ex)
                 {
-                    //MessageBox.Show(ex.Message);
+                    
                 }
             }
         }

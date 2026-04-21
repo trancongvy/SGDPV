@@ -135,8 +135,10 @@ namespace CusAccounting
             DataColumn tb23 = new DataColumn("TkThue", typeof(string));
             DataColumn tb24 = new DataColumn("DienGiai", typeof(string));
             DataColumn tb25 = new DataColumn("NXT", typeof(bool));
+            DataColumn tb26 = new DataColumn("MaNT", typeof(string));
+            DataColumn tb27 = new DataColumn("TyGia", typeof(double));
             tb25.DefaultValue = false;
-            tb.Columns.AddRange(new DataColumn[] { tb1, tb2, tb3, tb4, tb5, tb6, tb7, tb8, tb9, tb10, tb11, tb12, tb13, tb14, tb15, tb16,tb17, tb18, tb19,tb20,tb21,tb22, tb23,tb0, tb24, tb25 });
+            tb.Columns.AddRange(new DataColumn[] { tb1, tb2, tb3, tb4, tb5, tb6, tb7, tb8, tb9, tb10, tb11, tb12, tb13, tb14, tb15, tb16,tb17, tb18, tb19,tb20,tb21,tb22, tb23,tb0, tb24, tb25, tb26, tb27 });
             return tb;
         }
         public static DataTable CreateHHDV()

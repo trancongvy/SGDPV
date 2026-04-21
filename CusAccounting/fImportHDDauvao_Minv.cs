@@ -246,8 +246,11 @@ namespace CusAccounting
             drMT["HTTToan"] = hd.thtttoan;
             drMT["TenKH"] = hd.nbten;
             drMT["MST"] = hd.nbmst;
-          //  drMT["DiaChi"] = hd.nbdchi == null || hd.nbdchi == string.Empty ? "." : hd.nbdchi;
-
+            //  drMT["DiaChi"] = hd.nbdchi == null || hd.nbdchi == string.Empty ? "." : hd.nbdchi;
+            if (hd.dvtte == null) drMT["MaNT"] = "VND";
+            else drMT["MaNT"] = hd.dvtte;
+            if(hd.tgia==null) drMT["TyGia"] = "1";
+            else drMT["TyGia"] = double.Parse( hd.tgia.ToString());
             if (hd.nbdchi != null)
             {
                 drMT["DiaChi"] = hd.nbdchi;
@@ -1224,7 +1227,7 @@ namespace CusAccounting
             foreach (DataRow drMt in tbMT.Rows)
             {
                 if (drMt["MaHTTT"] == DBNull.Value) continue;
-                DataRow[] lstRowHH = tbDT.Select("isDV=0 and MTID='" + drMt["MTID"].ToString() +"'");
+                DataRow[] lstRowHH = tbDT.Select("MaVT is not null and isDV=0 and MTID='" + drMt["MTID"].ToString() +"'");
                 if (lstRowHH.Length == 0)// Không có dòng hàng hóa nào chắc chắn phải vào hóa đơn dịch vụ
                 {
                     if (drMt["MaHTTT"].ToString() == "TM")//Chắc chắn là phiếu chi
@@ -1745,8 +1748,8 @@ namespace CusAccounting
             //drCurrentMaster["MST"] = row["MST"];
             drCurrentMaster["Ongba"] = row["Ongba"];
             drCurrentMaster["DiaChi"] = row["DiaChi"];
-            drCurrentMaster["MaNT"] = "VND";
-            drCurrentMaster["TyGia"] = 1;
+            drCurrentMaster["MaNT"] = row["MaNT"];
+            drCurrentMaster["TyGia"] = row["TyGia"];
             drCurrentMaster["DienGiai"] = "Mua hàng nhập kho";
             drCurrentMaster["TkCo"] = row["TkCo"];
             drCurrentMaster["MaThueMT"] = row["MaThue"];
@@ -1803,13 +1806,13 @@ namespace CusAccounting
             //drCurrentMaster["MST"] = row["MST"];
             drCurrentMaster["Ongba"] = row["Ongba"];
             drCurrentMaster["DiaChi"] = row["DiaChi"];
-            drCurrentMaster["MaNT"] = "VND";
-            drCurrentMaster["TyGia"] = 1;
+            
             drCurrentMaster["DienGiai"] = row["DienGiai"];
             drCurrentMaster["TkCo"] = row["TkCo"];
             drCurrentMaster["MaThue"] = row["MaThue"];
             //drCurrentMaster["TkCK"] = "5211";
-
+            drCurrentMaster["MaNT"] = row["MaNT"];
+            drCurrentMaster["TyGia"] = row["TyGia"];
             drCurrentMaster["MaThue"] = "10";
             drCurrentMaster["TkThue"] = "1331";
             drCurrentMaster.EndEdit();
@@ -1825,13 +1828,13 @@ namespace CusAccounting
 
             drCurrentMaster["Ongba"] = row["Ongba"];
             drCurrentMaster["DiaChi"] = row["DiaChi"];
-            drCurrentMaster["MaNT"] = "VND";
-            drCurrentMaster["TyGia"] = 1;
+           
             drCurrentMaster["DienGiai"] = row["DienGiai"];
             drCurrentMaster["TkCo"] = row["TkCo"];
             drCurrentMaster["MaThueMT"] = row["MaThue"];
-           // drCurrentMaster["TkCK"] = "711";
-
+            // drCurrentMaster["TkCK"] = "711";
+            drCurrentMaster["MaNT"] = row["MaNT"];
+            drCurrentMaster["TyGia"] = row["TyGia"];
             drCurrentMaster["TkThue"] = "1331";
             drCurrentMaster["PrintIndex"] = 0;
             drCurrentMaster.EndEdit();
@@ -1867,8 +1870,8 @@ namespace CusAccounting
 
             drCurrentMaster["Ongba"] = row["Ongba"];
             drCurrentMaster["DiaChi"] = row["DiaChi"];
-            drCurrentMaster["MaNT"] = "VND";
-            drCurrentMaster["TyGia"] = 1;
+            drCurrentMaster["MaNT"] = row["MaNT"];
+            drCurrentMaster["TyGia"] = row["TyGia"];
             drCurrentMaster["DienGiai"] = row["DienGiai"];
             drCurrentMaster["TkCo"] = row["TkCo"];
             drCurrentMaster["MaThueMT"] = row["MaThue"];
@@ -1907,7 +1910,7 @@ namespace CusAccounting
             drVatin["TTien"] = row["TTienH"];
             drVatin["MaThue"] = row["MaThue"];
             drVatin["TThue"] = row["TThue"];
-            
+            drVatin["Diengiai"] = row["DienGiai"];
         }
         private void importVatInRowMT12(DataRow drVatin, DataRow row)
         {
@@ -1919,7 +1922,7 @@ namespace CusAccounting
             drVatin["TTien"] = row["TTienH"];
             drVatin["MaThue"] = row["MaThue"];
             drVatin["TThue"] = row["TThue"];
-            
+            drVatin["Diengiai"] = row["DienGiai"];
         }
         private void importVatInRowMT16(DataRow drVatin, DataRow row)
         {
@@ -1931,7 +1934,7 @@ namespace CusAccounting
             drVatin["TTien"] = row["TTienH"];
             drVatin["MaThue"] = row["MaThue"];
             drVatin["TThue"] = row["TThue"];
-
+            drVatin["Diengiai"] = row["DienGiai"];
         }
         private void labelControl5_Click(object sender, EventArgs e)
         {

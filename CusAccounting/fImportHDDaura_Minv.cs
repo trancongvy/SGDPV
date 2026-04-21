@@ -252,7 +252,10 @@ namespace CusAccounting
             drMT["HTTToan"] = hd.thtttoan==null?"TM/CK":hd.thtttoan;
             drMT["TenKH"] = hd.nmten;
             drMT["MST"] = hd.nmmst;
-            
+            if (hd.dvtte == null) drMT["MaNT"] = "VND";
+            else drMT["MaNT"] = hd.dvtte;
+            if (hd.tgia == null) drMT["TyGia"] = "1";
+            else drMT["TyGia"] = double.Parse(hd.tgia.ToString());
             if (hd.nmdchi != null)
             {
                 drMT["DiaChi"] = hd.nmdchi;
@@ -1521,8 +1524,8 @@ namespace CusAccounting
             drCurrentMaster["MST"] = row["MST"];
             drCurrentMaster["Ongba"] = row["Ongba"];
             drCurrentMaster["DiaChi"] = row["DiaChi"];
-            drCurrentMaster["MaNT"] = "VND";
-            drCurrentMaster["TyGia"] = 1;
+            drCurrentMaster["MaNT"] = row["MaNT"];
+            drCurrentMaster["TyGia"] = row["TyGia"];
             drCurrentMaster["DienGiai"] = "Xuất bán hàng";
             drCurrentMaster["TkNo"] = row["TkNo"];
             drCurrentMaster["MaThue"] = "10";
@@ -1585,11 +1588,11 @@ namespace CusAccounting
             drCurrentMaster["MST"] = row["MST"];
             drCurrentMaster["Ongba"] = row["Ongba"];
             drCurrentMaster["DiaChi"] = row["DiaChi"];
-            drCurrentMaster["MaNT"] = "VND";
-            drCurrentMaster["TyGia"] = 1;
+            drCurrentMaster["MaNT"] = row["MaNT"];
+            drCurrentMaster["TyGia"] = row["TyGia"];
             drCurrentMaster["DienGiai"] = row["DienGiai"];
             drCurrentMaster["TkNo"] = row["TkNo"];
-            drCurrentMaster["MaThue"] = "10";
+            
             drCurrentMaster["TkCK"] = "5211";
             drCurrentMaster["MaThue"] = row["MaThue"];
 
@@ -1669,7 +1672,7 @@ namespace CusAccounting
         {
             foreach (DataRow drMt in tbMT.Rows)
             {
-                DataRow[] lstRowHH = tbDT.Select("isDV=0 and MTID='" + drMt["MTID"].ToString() + "'");
+                DataRow[] lstRowHH = tbDT.Select("MaVT is not null and isDV=0 and MTID='" + drMt["MTID"].ToString() + "'");
                 if (lstRowHH.Length == 0)// Không có dòng hàng hóa nào chắc chắn phải vào hóa đơn dịch vụ
                     drMt["KieuHD"] = 1;
                 else drMt["KieuHD"] = 0;

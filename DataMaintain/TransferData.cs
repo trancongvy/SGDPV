@@ -61,7 +61,7 @@ namespace DataMaintain
             string dtPk = drConfig["dtPk"].ToString();
             string reTableName = drConfig["reTableName"].ToString();
 
-            string reKey = drConfig["Pk"].ToString();
+            string reKey = drConfig["reKey"].ToString();
             string dtPkRef = Pk;
             if (dtTableName != null && dtTableName != string.Empty)
             {

@@ -1505,7 +1505,7 @@ namespace CusAccounting
         {
             foreach (DataRow drMt in tbMT.Rows)
             {
-                DataRow[] lstRowHH = tbDT.Select("isDV=0 and MTID='" + drMt["MTID"].ToString() + "'");
+                DataRow[] lstRowHH = tbDT.Select("MaVT is not null and isDV=0 and MTID='" + drMt["MTID"].ToString() + "'");
                 if (lstRowHH.Length == 0)// Không có dòng hàng hóa nào chắc chắn phải vào hóa đơn dịch vụ
                     drMt["KieuHD"] = 1;
                 else drMt["KieuHD"] = 0;

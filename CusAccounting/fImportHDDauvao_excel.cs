@@ -95,83 +95,91 @@ namespace CusAccounting
             Guid ID = Guid.NewGuid();
             foreach (DataRow drSource in IEx.Db.Rows)
             {
-                if (drSource["Sohoadon"] == DBNull.Value || drSource["Sohoadon"].ToString() == string.Empty) continue;
-                if (Sohoadon != drSource["Sohoadon"].ToString())//Hóa đơn khác
+                try
                 {
-                    string[] date = drSource["Ngayhd"].ToString().Split("/".ToCharArray());
-                    if (date.Length != 3) break;
-                    ID = Guid.NewGuid();
-                    drMT = tbMT.NewRow();
-                    drMT["MTID"] = ID;
-                    drMT["Ngayhd"] = DateTime.Parse(date[1] + "/" + date[0] + "/" + date[2]);
-                    drMT["Sohoadon"] = drSource["Sohoadon"];
-                    drMT["Kyhieu"] = drSource["Kyhieu"];
-                    drMT["HTTToan"] = drSource["HTTToan"];
-                    drMT["TenKH"] = drSource["TenKH"];
-                    drMT["MST"] = drSource["MST"];
-                    drMT["MaThue"] = drSource["MaThue"];
-                    drMT["DiaChi"] = drSource["DiaChi"];
-                    drMT["Ongba"] = drSource["Ongba"];
-                    drMT["TkCo"] = geTkCo.EditValue.ToString();
-                    drMT["TkNo"] = geTkNo.EditValue.ToString();
-                    drMT["TTienH"] = decimal.Parse(drSource["TTienH"].ToString());
-                    drMT["TThue"] = decimal.Parse(drSource["TThue"].ToString());
-                    // drMT["TTien"] = decimal.Parse(drSource["TTien"].ToString());
-                    drMT.EndEdit();
-                    tbMT.Rows.Add(drMT);
-                    //Tạo dữ liệu DT luôn
-                    drDT = tbDT.NewRow();
-                    drDT["Sohoadon"] = drMT["Sohoadon"];
-                    drDT["MTID"] = drMT["MTID"];
-                    drDT["MTIDDT"] = Guid.NewGuid();
-                    drDT["MaKho"] = geMaKho.EditValue.ToString();
-                    drDT["TenVT"] = drSource["TenVT"];
-                    drDT["DVT"] = drSource["DVT"];
-                    drDT["Soluong"] = decimal.Parse(drSource["Soluong"].ToString());
-                    drDT["DonGia"] = decimal.Parse(drSource["DonGia"].ToString());
-                    drDT["TTien"] = decimal.Parse(drSource["TienH"].ToString());
-                    drDT["MaThueCT"] = drSource["MaThue"].ToString();
-                    double Thuesuat = 0;
-                    if (drSource["MaThue"] != DBNull.Value)
-                        Thuesuat = double.Parse(drSource["MaThue"].ToString());
-                    else
-                        Thuesuat = 0;
-                    drDT["Thuesuat"] = Thuesuat;
-                    drDT["TienThue"] = drSource["Thue"];
-                    //drDT["TkDthu"] = geTkdthu.EditValue.ToString();
-                    drDT["Tkgv"] = geTkCK.EditValue.ToString();
-                    drDT["Tkkho"] = geTkkho.EditValue.ToString();
-                    drDT["isDV"] = 0;
-                    drDT.EndEdit();
-                    tbDT.Rows.Add(drDT);
-                    Sohoadon = drSource["Sohoadon"].ToString();
+                    if (drSource["Sohoadon"] == DBNull.Value || drSource["Sohoadon"].ToString() == string.Empty) continue;
+                    if (Sohoadon != drSource["Sohoadon"].ToString())//Hóa đơn khác
+                    {
+                        string[] date = drSource["Ngayhd"].ToString().Split("/".ToCharArray());
+                        if (date.Length != 3) break;
+                        ID = Guid.NewGuid();
+                        drMT = tbMT.NewRow();
+                        drMT["MTID"] = ID;
+                        drMT["Ngayhd"] = DateTime.Parse(date[1] + "/" + date[0] + "/" + date[2]);
+                        drMT["Sohoadon"] = drSource["Sohoadon"];
+                        drMT["Kyhieu"] = drSource["Kyhieu"];
+                        drMT["HTTToan"] = drSource["HTTToan"];
+                        drMT["TenKH"] = drSource["TenKH"];
+                        drMT["MST"] = drSource["MST"];
+                        drMT["MaThue"] = drSource["MaThue"];
+                        drMT["DiaChi"] = drSource["DiaChi"];
+                        drMT["Ongba"] = drSource["Ongba"];
+                        drMT["TkCo"] = geTkCo.EditValue.ToString();
+                        drMT["TkNo"] = geTkNo.EditValue.ToString();
+                        drMT["TTienH"] = decimal.Parse(drSource["TTienH"].ToString());
+                        drMT["TThue"] = decimal.Parse(drSource["TThue"].ToString());
+                        // drMT["TTien"] = decimal.Parse(drSource["TTien"].ToString());
+                        drMT.EndEdit();
+                        tbMT.Rows.Add(drMT);
+                        //Tạo dữ liệu DT luôn
+                        drDT = tbDT.NewRow();
+                        drDT["Sohoadon"] = drMT["Sohoadon"];
+                        drDT["MTID"] = drMT["MTID"];
+                        drDT["MTIDDT"] = Guid.NewGuid();
+                        drDT["MaKho"] = geMaKho.EditValue.ToString();
+                        drDT["TenVT"] = drSource["TenVT"];
+                        drDT["DVT"] = drSource["DVT"];
+                        drDT["Soluong"] = decimal.Parse(drSource["Soluong"].ToString());
+                        drDT["DonGia"] = decimal.Parse(drSource["DonGia"].ToString());
+                        drDT["TTien"] = decimal.Parse(drSource["TienH"].ToString());
+                        drDT["MaThueCT"] = drSource["MaThue"].ToString();
+                        double Thuesuat = 0;
+                        if (drSource["MaThue"] != DBNull.Value)
+                            Thuesuat = double.Parse(drSource["Thuesuat"].ToString().Replace("%", ""));
+                        else
+                            Thuesuat = 0;
+                        drDT["Thuesuat"] = Thuesuat;
+                        drDT["TienThue"] = drSource["Thue"];
+                        //drDT["TkDthu"] = geTkdthu.EditValue.ToString();
+                        drDT["Tkgv"] = geTkCK.EditValue.ToString();
+                        drDT["Tkkho"] = geTkkho.EditValue.ToString();
+                        drDT["isDV"] = 0;
+                        drDT.EndEdit();
+                        tbDT.Rows.Add(drDT);
+                        Sohoadon = drSource["Sohoadon"].ToString();
+                    }
+                    else //Cùng hóa đơn, chỉ thêm DT
+                    {
+                        drDT = tbDT.NewRow();
+                        drDT["Sohoadon"] = Sohoadon;
+                        drDT["MTID"] = ID;
+                        drDT["MTIDDT"] = Guid.NewGuid();
+                        drDT["MaKho"] = geMaKho.EditValue.ToString();
+                        drDT["TenVT"] = drSource["TenVT"];
+                        drDT["DVT"] = drSource["DVT"];
+                        drDT["Soluong"] = decimal.Parse(drSource["Soluong"].ToString());
+                        drDT["DonGia"] = decimal.Parse(drSource["DonGia"].ToString());
+                        drDT["TTien"] = decimal.Parse(drSource["TTienH"].ToString());
+                        drDT["MaThueCT"] = drSource["MaThue"].ToString();
+                        double Thuesuat = 0;
+                        if (drSource["MaThue"] != DBNull.Value)
+                            Thuesuat = double.Parse(drSource["Thuesuat"].ToString().Replace("%",""));
+                        else
+                            Thuesuat = 0;
+                        drDT["Thuesuat"] = Thuesuat;
+                        drDT["TienThue"] = drSource["Thue"];
+                        //drDT["TkDthu"] = geTkdthu.EditValue.ToString();
+                        drDT["Tkgv"] = geTkCK.EditValue.ToString();
+                        drDT["Tkkho"] = geTkkho.EditValue.ToString();
+                        drDT["isDV"] = 0;
+                        drDT.EndEdit();
+                        tbDT.Rows.Add(drDT);
+                    }
                 }
-                else //Cùng hóa đơn, chỉ thêm DT
+                catch(Exception ex)
                 {
-                    drDT = tbDT.NewRow();
-                    drDT["Sohoadon"] = Sohoadon;
-                    drDT["MTID"] = ID;
-                    drDT["MTIDDT"] = Guid.NewGuid();
-                    drDT["MaKho"] = geMaKho.EditValue.ToString();
-                    drDT["TenVT"] = drSource["TenVT"];
-                    drDT["DVT"] = drSource["DVT"];
-                    drDT["Soluong"] = decimal.Parse(drSource["Soluong"].ToString());
-                    drDT["DonGia"] = decimal.Parse(drSource["DonGia"].ToString());
-                    drDT["TTien"] = decimal.Parse(drSource["TTienH"].ToString());
-                    drDT["MaThueCT"] = drSource["MaThue"].ToString();
-                    double Thuesuat = 0;
-                    if (drSource["MaThue"] != DBNull.Value)
-                        Thuesuat = double.Parse(drSource["MaThue"].ToString());
-                    else
-                        Thuesuat = 0;
-                    drDT["Thuesuat"] = Thuesuat;
-                    drDT["TienThue"] = drSource["Thue"];
-                    //drDT["TkDthu"] = geTkdthu.EditValue.ToString();
-                    drDT["Tkgv"] = geTkCK.EditValue.ToString();
-                    drDT["Tkkho"] = geTkkho.EditValue.ToString();
-                    drDT["isDV"] = 0;
-                    drDT.EndEdit();
-                    tbDT.Rows.Add(drDT);
+
+
                 }
 
             }
@@ -1221,7 +1229,7 @@ namespace CusAccounting
             foreach (DataRow drMt in tbMT.Rows)
             {
                 if (drMt["MaHTTT"] == DBNull.Value) continue;
-                DataRow[] lstRowHH = tbDT.Select("isDV=0 and MTID='" + drMt["MTID"].ToString() +"'");
+                DataRow[] lstRowHH = tbDT.Select("MaVT is not null and isDV=0 and MTID='" + drMt["MTID"].ToString() +"'");
                 if (lstRowHH.Length == 0)// Không có dòng hàng hóa nào chắc chắn phải vào hóa đơn dịch vụ
                 {
                     if (drMt["MaHTTT"].ToString() == "TM")//Chắc chắn là phiếu chi
